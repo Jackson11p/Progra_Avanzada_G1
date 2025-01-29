@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Registrar Persona";
+}
+
+<div class="container" style="max-width: 500px; margin-top: 50px;">
+    <h3 class="text-center" style="color: #28a745;">Registrar Persona</h3>
+    <form method="post" action="/Personas/RegistrarPersona" style="margin-top: 30px;">
+        <div class="form-group">
+            <label for="Identificacion">Identificación</label>
+            <input type="text" id="Identificacion" name="Identificacion" class="form-control" placeholder="Ingrese su identificación" required />
+        </div>
+        <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <input type="text" id="Nombre" name="Nombre" class="form-control" placeholder="Ingrese su nombre" required />
+        </div>
+        <button type="submit" class="btn btn-outline-success btn-block" style="padding: 10px;">Registrar</button>
+    </form>
+</div>
