@@ -239,3 +239,7 @@ D:\patri\source\repos\Progra_Avanzada_G1\PetLover\PetLover\PetLover\bin\Newtonso
 D:\patri\source\repos\Progra_Avanzada_G1\PetLover\PetLover\PetLover\bin\Antlr3.Runtime.pdb
 D:\patri\source\repos\Progra_Avanzada_G1\PetLover\PetLover\PetLover\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\patri\source\repos\Progra_Avanzada_G1\PetLover\PetLover\PetLover\obj\Debug\PetLover.csproj.Up2Date
+D:\patri\source\repos\Progra_Avanzada_G1\PetLover\PetLover\PetLover\bin\EntityFramework.dll
+D:\patri\source\repos\Progra_Avanzada_G1\PetLover\PetLover\PetLover\bin\EntityFramework.SqlServer.dll
+D:\patri\source\repos\Progra_Avanzada_G1\PetLover\PetLover\PetLover\bin\EntityFramework.xml
+D:\patri\source\repos\Progra_Avanzada_G1\PetLover\PetLover\PetLover\bin\EntityFramework.SqlServer.xml

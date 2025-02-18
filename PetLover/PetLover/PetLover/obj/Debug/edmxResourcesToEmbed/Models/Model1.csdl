@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PetLoverModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="PerfilID" />
+    </Key>
+    <Property Name="PerfilID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Perfil" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="UsuarioID" />
+    </Key>
+    <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Identificacion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Contrasenna" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <Property Name="IdPerfil" Type="Int32" />
+    <NavigationProperty Name="Perfil" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Usuarios" ToRole="Perfil" />
+  </EntityType>
+  <Association Name="FK__Usuarios__IdPerf__47DBAE45">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+    <End Role="Usuarios" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PerfilID" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdPerfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PetLoverEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Perfils" EntityType="Self.Perfil" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK__Usuarios__IdPerf__47DBAE45" Association="Self.FK__Usuarios__IdPerf__47DBAE45">
+      <End Role="Perfil" EntitySet="Perfils" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <FunctionImport Name="IniciarSesion" ReturnType="Collection(PetLoverModel.IniciarSesion_Result)">
+      <Parameter Name="Identificacion" Mode="In" Type="String" />
+      <Parameter Name="Contrasenna" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="RegistrarCuenta">
+      <Parameter Name="Identificacion" Mode="In" Type="String" />
+      <Parameter Name="Contrasenna" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Correo" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="IniciarSesion_Result">
+    <Property Type="Int32" Name="UsuarioID" Nullable="false" />
+    <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="Contrasenna" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Correo" Nullable="true" MaxLength="100" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="IdPerfil" Nullable="true" />
+  </ComplexType>
+</Schema>
