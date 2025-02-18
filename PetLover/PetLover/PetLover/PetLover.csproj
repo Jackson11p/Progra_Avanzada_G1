@@ -124,7 +124,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\UsersModel.cs" />
+    <Compile Include="Models\UsuariosModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +168,8 @@
     <Content Include="Templates\css\sb-admin-2.min.css" />
     <Content Include="Templates\css\style.css" />
     <Content Include="Templates\css\style.min.css" />
+    <Content Include="Templates\img\carousel-1.jpg" />
+    <Content Include="Templates\img\LoginImage.jfif" />
     <Content Include="Templates\js\bootstrap.bundle.min.js" />
     <Content Include="Templates\js\jquery.easing.min.js" />
     <Content Include="Templates\js\jquery.min.js" />
@@ -186,6 +188,8 @@
     <Content Include="Views\Shared\_LayoutExterno.cshtml" />
     <Content Include="Views\Principal\Login.cshtml" />
     <Content Include="Views\Principal\Index.cshtml" />
+    <Content Include="Views\Principal\Register.cshtml" />
+    <Content Include="Views\Principal\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

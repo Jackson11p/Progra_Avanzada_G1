@@ -5,11 +5,12 @@ using System.Web;
 
 namespace PetLover.Models
 {
-    public class UsersModel
+    public class UsuariosModel
     {
         public string Identificacion { get; set; }
         public string Contrasenna { get; set; }
         public string Nombre { get; set; }
         public string Correo { get; set; }
+        public string Telefono { get; set; }
     }
 }
