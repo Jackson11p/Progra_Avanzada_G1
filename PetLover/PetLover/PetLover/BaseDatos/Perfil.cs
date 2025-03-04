@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PetLover.Models
+namespace PetLover.BaseDatos
 {
     using System;
     using System.Collections.Generic;

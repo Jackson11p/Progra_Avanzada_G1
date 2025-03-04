@@ -7,18 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PetLover.Models
+namespace PetLover.BaseDatos
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class IniciarSesion_Result
+    public partial class Usuario
     {
         public int UsuarioID { get; set; }
         public string Identificacion { get; set; }
         public string Contrasenna { get; set; }
         public string Nombre { get; set; }
         public string Correo { get; set; }
+        public string Telefono { get; set; }
         public bool Estado { get; set; }
         public Nullable<int> IdPerfil { get; set; }
+    
+        public virtual Perfil Perfil { get; set; }
     }
 }

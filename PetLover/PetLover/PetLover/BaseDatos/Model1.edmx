@@ -118,10 +118,12 @@
           <Property Type="Int32" Name="UsuarioID" Nullable="false" />
           <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="15" />
           <Property Type="String" Name="Contrasenna" Nullable="false" MaxLength="15" />
-          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="NombreUsuario" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Correo" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="15" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
           <Property Type="Int32" Name="IdPerfil" Nullable="true" />
+          <Property Type="String" Name="NombrePerfil" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -157,10 +159,12 @@
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
                 <ScalarProperty Name="Contrasenna" ColumnName="Contrasenna" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="NombrePerfil" ColumnName="NombrePerfil" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PetLover.BaseDatos;
 using PetLover.Models;
 
 namespace PetLover.Controllers
@@ -53,7 +54,9 @@ namespace PetLover.Controllers
                 var info = context.IniciarSesion(model.Identificacion, model.Contrasenna).FirstOrDefault();
                 if (info != null)
                 {
-                    //Session["NombreUsuario"] = info.Nombre;
+                    Session["NombreUsuario"] = info.NombreUsuario;
+                    Session["NombrePerfilUsuario"] = info.NombrePerfil;
+                    Session["IdPerfilUsuario"] = info.IdPerfil;
                     return RedirectToAction("Index", "Principal");
                 }
                 else
@@ -63,8 +66,14 @@ namespace PetLover.Controllers
                 }
             }
         }
+        
 
-
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Principal");
+        }
 
         [HttpGet]
         public ActionResult ForgotPassword()
