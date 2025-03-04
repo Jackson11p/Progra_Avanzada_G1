@@ -24,7 +24,7 @@ CREATE TABLE Usuarios (
 	Identificacion NVARCHAR(15) NOT NULL,
 	Contrasenna varchar(15) NOT NULL, 
     Nombre NVARCHAR(100) NOT NULL,
-	Email NVARCHAR(100),
+	Correo NVARCHAR(100),
     Telefono NVARCHAR(15),
 	Estado BIT NOT NULL,
 	IdPerfil INT FOREIGN KEY REFERENCES Perfil(PerfilID)
@@ -122,17 +122,16 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE IniciarSesion
+CREATE OR ALTER PROCEDURE [dbo].[IniciarSesion]
 	@Identificacion varchar(15),
 	@Contrasenna varchar(15)
 AS
 BEGIN
-	
-	SELECT UsuarioID, Identificacion, Contrasenna, Nombre, Correo, Estado, IdPerfil
-	FROM dbo.Usuarios
+	SELECT	U.UsuarioID, Identificacion, Contrasenna, U.Nombre 'NombreUsuario', Correo, Telefono, Estado, IdPerfil, P.Nombre 'NombrePerfil'
+	FROM	dbo.Usuarios U
+	INNER	JOIN dbo.Perfil P ON U.IdPerfil = P.PerfilID
 	WHERE	Identificacion = @Identificacion
 		AND Contrasenna = @Contrasenna
 		AND Estado = 1
 END
 GO
-
