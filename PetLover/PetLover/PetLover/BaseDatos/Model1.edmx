@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PetLoverModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PetLover.dbo.Error' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="Mensaje" />
+            <PropertyRef Name="FechaHora" />
+            <PropertyRef Name="Origen" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="bigint" Nullable="false" />
+          <Property Name="Mensaje" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FechaHora" Type="datetime" Nullable="false" />
+          <Property Name="Origen" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
         <EntityType Name="Perfil">
           <Key>
             <PropertyRef Name="PerfilID" />
@@ -48,9 +64,23 @@
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Telefono" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="RegistrarError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="bigint" Mode="In" />
+          <Parameter Name="Mensaje" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Origen" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="PetLoverModelStoreContainer">
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Error" EntityType="Self.Error" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Error].[Id] AS [Id], 
+    [Error].[IdUsuario] AS [IdUsuario], 
+    [Error].[Mensaje] AS [Mensaje], 
+    [Error].[FechaHora] AS [FechaHora], 
+    [Error].[Origen] AS [Origen]
+    FROM [dbo].[Error] AS [Error]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Usuarios__IdPerf__47DBAE45" Association="Self.FK__Usuarios__IdPerf__47DBAE45">
             <End Role="Perfil" EntitySet="Perfil" />
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -83,6 +113,20 @@
           <Property Name="IdPerfil" Type="Int32" />
           <NavigationProperty Name="Perfil" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Usuarios" ToRole="Perfil" />
         </EntityType>
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="Mensaje" />
+            <PropertyRef Name="FechaHora" />
+            <PropertyRef Name="Origen" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int64" Nullable="false" />
+          <Property Name="Mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Origen" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Usuarios__IdPerf__47DBAE45">
           <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
           <End Role="Usuarios" Type="Self.Usuario" Multiplicity="*" />
@@ -98,6 +142,7 @@
         <EntityContainer Name="PetLoverEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Perfils" EntityType="Self.Perfil" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="Errors" EntityType="Self.Error" />
           <AssociationSet Name="FK__Usuarios__IdPerf__47DBAE45" Association="Self.FK__Usuarios__IdPerf__47DBAE45">
             <End Role="Perfil" EntitySet="Perfils" />
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -112,6 +157,11 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Correo" Mode="In" Type="String" />
             <Parameter Name="Telefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RegistrarError">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int64" />
+            <Parameter Name="Mensaje" Mode="In" Type="String" />
+            <Parameter Name="Origen" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="IniciarSesion_Result">
@@ -153,6 +203,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Errors">
+            <EntityTypeMapping TypeName="PetLoverModel.Error">
+              <MappingFragment StoreEntitySet="Error">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="Origen" ColumnName="Origen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="IniciarSesion" FunctionName="PetLoverModel.Store.IniciarSesion">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PetLoverModel.IniciarSesion_Result">
@@ -169,6 +230,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarCuenta" FunctionName="PetLoverModel.Store.RegistrarCuenta" />
+          <FunctionImportMapping FunctionImportName="RegistrarError" FunctionName="PetLoverModel.Store.RegistrarError" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -103,6 +103,15 @@ CREATE TABLE HistorialMedico (
 );
 GO
 
+--Tabla para almacenar los errores
+CREATE TABLE Error(
+	Id bigint IDENTITY(1,1) NOT NULL,
+	IdUsuario BIGINT NOT NULL,
+	Mensaje NVARCHAR(max) NOT NULL,
+	FechaHora DATETIME NOT NULL,
+	Origen varchar(500) NOT NULL
+);
+GO
 
 --Procedimientos almacenados
 
@@ -135,3 +144,14 @@ BEGIN
 		AND Estado = 1
 END
 GO
+
+CREATE PROCEDURE RegistrarError
+	@IdUsuario BIGINT,
+	@Mensaje   NVARCHAR(max),
+	@Origen	   NVARCHAR(500)
+AS
+BEGIN
+	
+	INSERT INTO dbo.Error (IdUsuario,Mensaje,FechaHora,Origen)
+    VALUES (@IdUsuario, @Mensaje, GETDATE(), @Origen)
+END

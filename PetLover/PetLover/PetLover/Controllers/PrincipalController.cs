@@ -10,76 +10,139 @@ namespace PetLover.Controllers
 {
     public class PrincipalController : Controller
     {
+        RegistroErrores error = new RegistroErrores();
+
         // GET: Principal
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get RegistrarCuenta");
+                return View("Error");
+            }
         }
-
+        #region RegistrarCuenta
         [HttpGet]
         public ActionResult Register()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get RegistrarCuenta");
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public ActionResult Register(UsuariosModel model)
         {
-            using (var context = new PetLoverEntities())
+            try
             {
- 
-                var result = context.RegistrarCuenta(model.Identificacion, model.Contrasenna, model.Nombre, model.Correo, model.Telefono);
-
-                if (result > 0)
-                    return RedirectToAction("Login", "Principal");
-                else
+                using (var context = new PetLoverEntities())
                 {
-                    ViewBag.Mensaje = "Su información no se ha podido registrar correctamente";
-                    return View();
+
+                    var result = context.RegistrarCuenta(model.Identificacion, model.Contrasenna, model.Nombre, model.Correo, model.Telefono);
+
+                    if (result > 0)
+                        return RedirectToAction("Login", "Principal");
+                    else
+                    {
+                        ViewBag.Mensaje = "Su información no se ha podido registrar correctamente";
+                        return View();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get RegistrarCuenta");
+                return View("Error");
+            }
+            
         }
-  
+        #endregion
+
+        #region Iniciar sesion
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get RegistrarCuenta");
+                return View("Error");
+            }
         }
 
         [HttpPost]
         public ActionResult Login(UsuariosModel model)
         {
-            using (var context = new PetLoverEntities())
+            try
             {
-                var info = context.IniciarSesion(model.Identificacion, model.Contrasenna).FirstOrDefault();
-                if (info != null)
+                using (var context = new PetLoverEntities())
                 {
-                    Session["NombreUsuario"] = info.NombreUsuario;
-                    Session["NombrePerfilUsuario"] = info.NombrePerfil;
-                    Session["IdPerfilUsuario"] = info.IdPerfil;
-                    return RedirectToAction("Index", "Principal");
-                }
-                else
-                {
-                    ViewBag.Mensaje = "Su información no se ha podido validar correctamente";
-                    return View();
+                    var info = context.IniciarSesion(model.Identificacion, model.Contrasenna).FirstOrDefault();
+                    if (info != null)
+                    {
+                        Session["IdUsuario"] = info.UsuarioID;
+                        Session["NombreUsuario"] = info.NombreUsuario;
+                        Session["NombrePerfilUsuario"] = info.NombrePerfil;
+                        Session["IdPerfilUsuario"] = info.IdPerfil;
+                        return RedirectToAction("Index", "Principal");
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "Su información no se ha podido validar correctamente";
+                        return View();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get RegistrarCuenta");
+                return View("Error");
+            }
+            
         }
-        
+        #endregion 
 
         [HttpGet]
         public ActionResult Logout()
         {
-            Session.Clear();
-            return RedirectToAction("Index", "Principal");
+            try
+            {
+                Session.Clear();
+                return RedirectToAction("Index", "Principal");
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get RegistrarCuenta");
+                return View("Error");
+            }
+           
         }
 
         [HttpGet]
         public ActionResult ForgotPassword()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get RegistrarCuenta");
+                return View("Error");
+            }
         }
-
     }
 }

@@ -29,6 +29,7 @@ namespace PetLover.BaseDatos
     
         public virtual DbSet<Perfil> Perfils { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Error> Errors { get; set; }
     
         public virtual ObjectResult<IniciarSesion_Result> IniciarSesion(string identificacion, string contrasenna)
         {
@@ -66,6 +67,23 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("Telefono", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarCuenta", identificacionParameter, contrasennaParameter, nombreParameter, correoParameter, telefonoParameter);
+        }
+    
+        public virtual int RegistrarError(Nullable<long> idUsuario, string mensaje, string origen)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(long));
+    
+            var mensajeParameter = mensaje != null ?
+                new ObjectParameter("Mensaje", mensaje) :
+                new ObjectParameter("Mensaje", typeof(string));
+    
+            var origenParameter = origen != null ?
+                new ObjectParameter("Origen", origen) :
+                new ObjectParameter("Origen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarError", idUsuarioParameter, mensajeParameter, origenParameter);
         }
     }
 }
