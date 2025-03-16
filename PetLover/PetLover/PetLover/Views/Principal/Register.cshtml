@@ -20,7 +20,12 @@
                             <div class="text-center">
                                 <h1 class="h4 text-dark mb-4">Crear Cuenta</h1>
                             </div>
-
+                            @if (ViewBag.Mensaje != null)
+                            {
+                                <div class="alert alert-warning msjCentrado">
+                                    @ViewBag.Mensaje
+                                </div>
+                            }
                             @using (Html.BeginForm("Register", "Principal"))
                             {
                                 <div class="form-group">
@@ -48,7 +53,7 @@
                                 <a class="small text-dark" href="@Url.Action("ForgotPassword","Principal")">Recuperar Contraseña?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small text-dark" href="@Url.Action("Register","Principal")">Crear una cuenta!</a>
+                                <a class="small text-dark" href="@Url.Action("Login","Principal")">Iniciar Sesión!</a>
                             </div>
                             <div class="text-center">
                                 <a class="small text-dark" href="@Url.Action("Index","Principal")">Pantalla Principal!</a>

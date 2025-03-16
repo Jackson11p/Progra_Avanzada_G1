@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PetLoverModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Error">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUsuario" Type="bigint" Nullable="false" />
+    <Property Name="Mensaje" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaHora" Type="datetime" Nullable="false" />
+    <Property Name="Origen" Type="varchar" MaxLength="500" Nullable="false" />
+  </EntityType>
   <EntityType Name="Perfil">
     <Key>
       <PropertyRef Name="PerfilID" />
@@ -32,8 +42,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="ActualizarContrasenna" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+    <Parameter Name="NuevaContrasenna" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="IniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="Identificacion" Type="varchar" Mode="In" />
+    <Parameter Name="Correo" Type="varchar" Mode="In" />
     <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
   </Function>
   <Function Name="RegistrarCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -43,7 +57,13 @@
     <Parameter Name="Correo" Type="varchar" Mode="In" />
     <Parameter Name="Telefono" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="RegistrarError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdUsuario" Type="bigint" Mode="In" />
+    <Parameter Name="Mensaje" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Origen" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="PetLoverModelStoreContainer">
+    <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Usuarios__IdPerf__47DBAE45" Association="Self.FK__Usuarios__IdPerf__47DBAE45">

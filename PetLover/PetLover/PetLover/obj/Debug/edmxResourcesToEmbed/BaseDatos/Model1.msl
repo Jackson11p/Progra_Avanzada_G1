@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="PetLoverModelStoreContainer" CdmEntityContainer="PetLoverEntities">
+    <EntitySetMapping Name="Errors">
+      <EntityTypeMapping TypeName="PetLoverModel.Error">
+        <MappingFragment StoreEntitySet="Error">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+          <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+          <ScalarProperty Name="Origen" ColumnName="Origen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Perfils">
       <EntityTypeMapping TypeName="PetLoverModel.Perfil">
         <MappingFragment StoreEntitySet="Perfil">
@@ -23,6 +34,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ActualizarContrasenna" FunctionName="PetLoverModel.Store.ActualizarContrasenna" />
     <FunctionImportMapping FunctionImportName="IniciarSesion" FunctionName="PetLoverModel.Store.IniciarSesion">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PetLoverModel.IniciarSesion_Result">
@@ -39,5 +51,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="RegistrarCuenta" FunctionName="PetLoverModel.Store.RegistrarCuenta" />
+    <FunctionImportMapping FunctionImportName="RegistrarError" FunctionName="PetLoverModel.Store.RegistrarError" />
   </EntityContainerMapping>
 </Mapping>

@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PetLoverModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Error">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int64" Nullable="false" />
+    <Property Name="Mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Origen" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
   <EntityType Name="Perfil">
     <Key>
       <PropertyRef Name="PerfilID" />
@@ -35,14 +45,19 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="PetLoverEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Errors" EntityType="Self.Error" />
     <EntitySet Name="Perfils" EntityType="Self.Perfil" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
     <AssociationSet Name="FK__Usuarios__IdPerf__47DBAE45" Association="Self.FK__Usuarios__IdPerf__47DBAE45">
       <End Role="Perfil" EntitySet="Perfils" />
       <End Role="Usuarios" EntitySet="Usuarios" />
     </AssociationSet>
+    <FunctionImport Name="ActualizarContrasenna">
+      <Parameter Name="Correo" Mode="In" Type="String" />
+      <Parameter Name="NuevaContrasenna" Mode="In" Type="String" />
+    </FunctionImport>
     <FunctionImport Name="IniciarSesion" ReturnType="Collection(PetLoverModel.IniciarSesion_Result)">
-      <Parameter Name="Identificacion" Mode="In" Type="String" />
+      <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="Contrasenna" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="RegistrarCuenta">
@@ -51,6 +66,11 @@
       <Parameter Name="Nombre" Mode="In" Type="String" />
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="Telefono" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="RegistrarError">
+      <Parameter Name="IdUsuario" Mode="In" Type="Int64" />
+      <Parameter Name="Mensaje" Mode="In" Type="String" />
+      <Parameter Name="Origen" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="IniciarSesion_Result">

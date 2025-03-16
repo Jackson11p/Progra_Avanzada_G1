@@ -27,21 +27,34 @@ namespace PetLover.BaseDatos
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<Perfil> Perfils { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
-        public virtual DbSet<Error> Errors { get; set; }
     
-        public virtual ObjectResult<IniciarSesion_Result> IniciarSesion(string identificacion, string contrasenna)
+        public virtual int ActualizarContrasenna(string correo, string nuevaContrasenna)
         {
-            var identificacionParameter = identificacion != null ?
-                new ObjectParameter("Identificacion", identificacion) :
-                new ObjectParameter("Identificacion", typeof(string));
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            var nuevaContrasennaParameter = nuevaContrasenna != null ?
+                new ObjectParameter("NuevaContrasenna", nuevaContrasenna) :
+                new ObjectParameter("NuevaContrasenna", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarContrasenna", correoParameter, nuevaContrasennaParameter);
+        }
+    
+        public virtual ObjectResult<IniciarSesion_Result> IniciarSesion(string correo, string contrasenna)
+        {
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
     
             var contrasennaParameter = contrasenna != null ?
                 new ObjectParameter("Contrasenna", contrasenna) :
                 new ObjectParameter("Contrasenna", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IniciarSesion_Result>("IniciarSesion", identificacionParameter, contrasennaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IniciarSesion_Result>("IniciarSesion", correoParameter, contrasennaParameter);
         }
     
         public virtual int RegistrarCuenta(string identificacion, string contrasenna, string nombre, string correo, string telefono)

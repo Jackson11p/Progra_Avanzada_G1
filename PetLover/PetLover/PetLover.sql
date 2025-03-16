@@ -105,7 +105,7 @@ GO
 
 --Tabla para almacenar los errores
 CREATE TABLE Error(
-	Id bigint IDENTITY(1,1) NOT NULL,
+	Id bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	IdUsuario BIGINT NOT NULL,
 	Mensaje NVARCHAR(max) NOT NULL,
 	FechaHora DATETIME NOT NULL,
@@ -132,14 +132,14 @@ END
 GO
 
 CREATE OR ALTER PROCEDURE [dbo].[IniciarSesion]
-	@Identificacion varchar(15),
+	@Correo varchar(100),
 	@Contrasenna varchar(15)
 AS
 BEGIN
 	SELECT	U.UsuarioID, Identificacion, Contrasenna, U.Nombre 'NombreUsuario', Correo, Telefono, Estado, IdPerfil, P.Nombre 'NombrePerfil'
 	FROM	dbo.Usuarios U
 	INNER	JOIN dbo.Perfil P ON U.IdPerfil = P.PerfilID
-	WHERE	Identificacion = @Identificacion
+	WHERE	Correo = @Correo
 		AND Contrasenna = @Contrasenna
 		AND Estado = 1
 END
@@ -155,3 +155,13 @@ BEGIN
 	INSERT INTO dbo.Error (IdUsuario,Mensaje,FechaHora,Origen)
     VALUES (@IdUsuario, @Mensaje, GETDATE(), @Origen)
 END
+
+CREATE OR ALTER PROCEDURE ActualizarContrasenna
+    @Correo NVARCHAR(100),
+    @NuevaContrasenna NVARCHAR(255)
+AS
+BEGIN
+    UPDATE Usuarios
+    SET Contrasenna = @NuevaContrasenna
+    WHERE Correo = @Correo AND Estado = 1;
+END;
