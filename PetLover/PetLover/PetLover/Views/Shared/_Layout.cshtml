@@ -8,15 +8,13 @@
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
 
-
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
+    <link href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/Templates/css/generales.css" rel="stylesheet" />
     <link href="~/Templates/css/style.css" rel="stylesheet" />
 </head>
+
 @{
     var nombreUsuario = "Invitad@";
 
@@ -26,34 +24,32 @@
     }
 }
 
-
-<body>
-    <div class="row py-3 px-lg-5">
-        <div class="col-lg-4">
-            <a href="" class="navbar-brand d-none d-lg-block">
-                <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">Pet</span>Lover</h1>
-            </a>
-        </div>
-        <div class="col-lg-8 text-center text-lg-right">
-            <div class="d-inline-flex align-items-center">
-                <div class="d-inline-flex flex-column text-center pr-3 border-right">
-                    <h6>Opening Hours</h6>
-                    <p class="m-0">8.00AM - 9.00PM</p>
-                </div>
-                <div class="d-inline-flex flex-column text-center px-3 border-right">
-                    <h6>Email Us</h6>
-                    <p class="m-0">petlover@gmail.com</p>
-                </div>
-                <div class="d-inline-flex flex-column text-center pl-3">
-                    <h6>Call Us</h6>
-                    <p class="m-0">+012 345 6789</p>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <div class="row py-3 px-lg-5">
+            <div class="col-lg-4">
+                <a href="" class="navbar-brand d-none d-lg-block">
+                    <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">Pet</span>Lover</h1>
+                </a>
+            </div>
+            <div class="col-lg-8 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <div class="d-inline-flex flex-column text-center pr-3 border-right">
+                        <h6>Opening Hours</h6>
+                        <p class="m-0">8.00AM - 9.00PM</p>
+                    </div>
+                    <div class="d-inline-flex flex-column text-center px-3 border-right">
+                        <h6>Email Us</h6>
+                        <p class="m-0">petlover@gmail.com</p>
+                    </div>
+                    <div class="d-inline-flex flex-column text-center pl-3">
+                        <h6>Call Us</h6>
+                        <p class="m-0">+012 345 6789</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
 
-    <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
             <a href="" class="navbar-brand d-block d-lg-none">
                 <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Safety</span>First</h1>
@@ -63,16 +59,22 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About us</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                            <a href="single.html" class="dropdown-item">Blog Detail</a>
+                    @if (Session["IdPerfilUsuario"] != null && Session["IdPerfilUsuario"].ToString() == "1")
+                    {
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mantenimientos</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="@Url.Action("ConsultarUsuarios","Usuario")" class="dropdown-item">Usuarios</a>
+                                <a href="single.html" class="dropdown-item">Blog Detail</a>
+                            </div>
                         </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                    }
+                    else
+                    {
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About us</a>
+                        <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                    }
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
@@ -114,53 +116,20 @@
                 </div>
             </div>
         </nav>
-    </div>
+    </header>
 
-
-    <div class="container-fluid pt-5">
-
-        @RenderBody()
-
-        <div class="d-flex flex-column text-center mb-5 pt-5">
-            <h4 class="text-secondary mb-3">Contact Us</h4>
-            <h1 class="display-4 m-0">Contact For <span class="text-primary">Any Query</span></h1>
+    <main class="flex-grow-1">
+        <div class="container-fluid pt-5">
+            @RenderBody()
         </div>
-        <div class="row justify-content-center">
-            <div class="col-12 col-sm-8 mb-5">
-                <div class="contact-form">
-                    <div id="success"></div>
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                        <div class="control-group">
-                            <input type="text" class="form-control p-4" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <input type="email" class="form-control p-4" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <input type="text" class="form-control p-4" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <textarea class="form-control p-4" rows="6" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary py-3 px-5" type="submit" id="sendMessageButton">Send Message</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div style="margin-bottom: 50px;"></div>
+    </main>
 
-        </div>
-    </div>
-
-    <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-md-5">
+    <footer class="bg-dark text-white py-5 px-sm-3 px-md-5 mt-auto">
         <div class="row pt-5">
             <div class="col-lg-4 col-md-12 mb-5">
                 <h1 class="mb-3 display-5 text-capitalize text-white"><span class="text-primary">Pet</span>Lover</h1>
-                <p class="m-0">Ipsum amet sed vero et lorem stet eos ut, labore sed sed stet sea est ipsum ut. Volup amet ea sanct ipsum, dolore vero lorem no duo eirmod. Eirmod amet ipsum no ipsum lorem clita ut. Ut sed sit lorem ea lorem sed, amet stet sit sea ea diam tempor kasd kasd. Diam nonumy etsit tempor ut sed diam sed et ea</p>
+                <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="row">
@@ -203,7 +172,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
+
+    <!-- Footer Bottom Section -->
     <div class="container-fluid text-white py-4 px-sm-3 px-md-5" style="background: #111111;">
         <div class="row">
             <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
@@ -233,18 +204,12 @@
 
     <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
+    <!-- JS Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-
-    <script src="js/main.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap4.js"></script>
+    <script src="~/Templates/js/jquery.min.js"></script>
 </body>
 
 </html>

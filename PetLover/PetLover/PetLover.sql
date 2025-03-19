@@ -17,7 +17,6 @@ INSERT Perfil (PerfilID, Nombre) VALUES (1, N'Administrador')
 GO
 INSERT Perfil (PerfilID, Nombre) VALUES (2, N'Cliente')
 GO
-
 -- Tabla para almacenar información de los usuarios
 CREATE TABLE Usuarios (
     UsuarioID INT PRIMARY KEY IDENTITY(1,1),
@@ -155,6 +154,7 @@ BEGIN
 	INSERT INTO dbo.Error (IdUsuario,Mensaje,FechaHora,Origen)
     VALUES (@IdUsuario, @Mensaje, GETDATE(), @Origen)
 END
+GO
 
 CREATE OR ALTER PROCEDURE ActualizarContrasenna
     @Correo NVARCHAR(100),
@@ -165,3 +165,44 @@ BEGIN
     SET Contrasenna = @NuevaContrasenna
     WHERE Correo = @Correo AND Estado = 1;
 END;
+
+
+CREATE OR ALTER PROCEDURE ConsultarUsuarios
+AS
+BEGIN
+    SELECT 
+        u.UsuarioID,u.Identificacion, u.Nombre, u.Correo, u.Telefono, u.Estado, p.Nombre AS NombrePerfil 
+    FROM Usuarios u
+    INNER JOIN Perfil p ON p.PerfilID = u.IdPerfil
+END;
+GO
+
+
+CREATE OR ALTER PROCEDURE ActualizarUsuario
+    @UsuarioID INT,
+    @Correo NVARCHAR(100) = NULL,
+    @Telefono NVARCHAR(15) = NULL,
+    @Estado BIT,
+    @IdPerfil INT
+AS
+BEGIN
+    UPDATE Usuarios
+    SET Correo = @Correo,
+		Telefono = @Telefono,
+		Estado = @Estado,
+        IdPerfil = @IdPerfil
+    WHERE UsuarioID = @UsuarioID;
+
+
+END;
+GO
+
+
+CREATE OR ALTER PROCEDURE ConsultarPerfiles
+AS
+BEGIN
+    SELECT PerfilID, Nombre
+    FROM Perfil;
+END;
+
+EXEC ConsultarUsuarios

@@ -44,6 +44,41 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarContrasenna", correoParameter, nuevaContrasennaParameter);
         }
     
+        public virtual int ActualizarUsuario(Nullable<int> usuarioID, string correo, string telefono, Nullable<bool> estado, Nullable<int> idPerfil)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            var telefonoParameter = telefono != null ?
+                new ObjectParameter("Telefono", telefono) :
+                new ObjectParameter("Telefono", typeof(string));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(bool));
+    
+            var idPerfilParameter = idPerfil.HasValue ?
+                new ObjectParameter("IdPerfil", idPerfil) :
+                new ObjectParameter("IdPerfil", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarUsuario", usuarioIDParameter, correoParameter, telefonoParameter, estadoParameter, idPerfilParameter);
+        }
+    
+        public virtual ObjectResult<ConsultarPerfiles_Result> ConsultarPerfiles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarPerfiles_Result>("ConsultarPerfiles");
+        }
+    
+        public virtual ObjectResult<ConsultarUsuarios_Result> ConsultarUsuarios()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarUsuarios_Result>("ConsultarUsuarios");
+        }
+    
         public virtual ObjectResult<IniciarSesion_Result> IniciarSesion(string correo, string contrasenna)
         {
             var correoParameter = correo != null ?

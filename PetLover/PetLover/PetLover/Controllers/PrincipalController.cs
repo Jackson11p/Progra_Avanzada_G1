@@ -29,6 +29,7 @@ namespace PetLover.Controllers
                 return View("Error");
             }
         }
+
         #region RegistrarCuenta
         [HttpGet]
         public ActionResult Register()
@@ -118,7 +119,7 @@ namespace PetLover.Controllers
             
         }
         #endregion
-
+                     
         #region Recuperar
 
         [HttpGet]

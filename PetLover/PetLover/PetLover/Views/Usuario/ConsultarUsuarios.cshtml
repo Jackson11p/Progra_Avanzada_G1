@@ -1,0 +1,66 @@
+﻿@model List<PetLover.BaseDatos.ConsultarUsuarios_Result>
+@{
+    ViewBag.Title = "ConsultarUsuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+
+    <h5 class="m-0 font-weight-bold text-primary">Mantenimiento de Usuarios</h5>
+
+    <div class="Margen">
+
+    </div>
+
+    <table id="example" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Identificacion</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+                <th>Estado</th>
+                <th>Perfil</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+
+                var disponible = item.Estado ? "Activo" : "Inactivo";
+
+                <tr>
+                    <td>@item.Identificacion</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Correo</td>
+                    <td>@item.Telefono</td>
+                    <td>@disponible</td>
+                    <td>@item.NombrePerfil</td>
+                    <td><a href="@Url.Action("ActualizarUsuario","Usuario", new { q = item.UsuarioID })"><i class="fa fa-edit"></i></a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>
+
+<script src="~/Templates/js/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        var table = new DataTable('#example', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json',
+            },
+            columnDefs: [
+                { "className": "dt-left", "targets": "_all" }
+            ]
+        });
+
+    });
+
+</script>
+

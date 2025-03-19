@@ -56,6 +56,15 @@
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="NuevaContrasenna" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="ActualizarUsuario">
+      <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
+      <Parameter Name="Correo" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="Estado" Mode="In" Type="Boolean" />
+      <Parameter Name="IdPerfil" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ConsultarPerfiles" ReturnType="Collection(PetLoverModel.ConsultarPerfiles_Result)" />
+    <FunctionImport Name="ConsultarUsuarios" ReturnType="Collection(PetLoverModel.ConsultarUsuarios_Result)" />
     <FunctionImport Name="IniciarSesion" ReturnType="Collection(PetLoverModel.IniciarSesion_Result)">
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="Contrasenna" Mode="In" Type="String" />
@@ -73,6 +82,19 @@
       <Parameter Name="Origen" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="ConsultarPerfiles_Result">
+    <Property Type="Int32" Name="PerfilID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ConsultarUsuarios_Result">
+    <Property Type="Int32" Name="UsuarioID" Nullable="false" />
+    <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Correo" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Telefono" Nullable="true" MaxLength="15" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="String" Name="NombrePerfil" Nullable="false" MaxLength="50" />
+  </ComplexType>
   <ComplexType Name="IniciarSesion_Result">
     <Property Type="Int32" Name="UsuarioID" Nullable="false" />
     <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="15" />

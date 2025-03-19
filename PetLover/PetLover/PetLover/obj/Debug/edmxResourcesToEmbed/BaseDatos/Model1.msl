@@ -35,6 +35,28 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ActualizarContrasenna" FunctionName="PetLoverModel.Store.ActualizarContrasenna" />
+    <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="PetLoverModel.Store.ActualizarUsuario" />
+    <FunctionImportMapping FunctionImportName="ConsultarPerfiles" FunctionName="PetLoverModel.Store.ConsultarPerfiles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarPerfiles_Result">
+          <ScalarProperty Name="PerfilID" ColumnName="PerfilID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ConsultarUsuarios" FunctionName="PetLoverModel.Store.ConsultarUsuarios">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarUsuarios_Result">
+          <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="NombrePerfil" ColumnName="NombrePerfil" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="IniciarSesion" FunctionName="PetLoverModel.Store.IniciarSesion">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PetLoverModel.IniciarSesion_Result">
