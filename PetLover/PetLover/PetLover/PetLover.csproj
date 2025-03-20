@@ -168,6 +168,7 @@
     </Compile>
     <Compile Include="Models\RegistrarErrores.cs" />
     <Compile Include="Models\UsuariosModel.cs" />
+    <Compile Include="Models\Utilitarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,12 +230,33 @@
     <Content Include="Templates\css\sb-admin-2.min.css" />
     <Content Include="Templates\css\style.css" />
     <Content Include="Templates\css\style.min.css" />
+    <Content Include="Templates\img\about-1.jpg" />
+    <Content Include="Templates\img\about-2.jpg" />
+    <Content Include="Templates\img\about-3.jpg" />
+    <Content Include="Templates\img\blog-1.jpg" />
+    <Content Include="Templates\img\blog-2.jpg" />
+    <Content Include="Templates\img\blog-3.jpg" />
     <Content Include="Templates\img\carousel-1.jpg" />
+    <Content Include="Templates\img\carousel-2.jpg" />
+    <Content Include="Templates\img\feature.jpg" />
     <Content Include="Templates\img\LoginImage.jfif" />
+    <Content Include="Templates\img\price-1.jpg" />
+    <Content Include="Templates\img\price-2.jpg" />
+    <Content Include="Templates\img\price-3.jpg" />
+    <Content Include="Templates\img\team-1.jpg" />
+    <Content Include="Templates\img\team-2.jpg" />
+    <Content Include="Templates\img\team-3.jpg" />
+    <Content Include="Templates\img\team-4.jpg" />
+    <Content Include="Templates\img\testimonial-1.jpg" />
+    <Content Include="Templates\img\testimonial-2.jpg" />
+    <Content Include="Templates\img\testimonial-3.jpg" />
+    <Content Include="Templates\img\testimonial-4.jpg" />
+    <Content Include="Templates\img\user.jpg" />
     <Content Include="Templates\js\bootstrap.bundle.min.js" />
     <Content Include="Templates\js\generals.js" />
     <Content Include="Templates\js\jquery.easing.min.js" />
     <Content Include="Templates\js\jquery.min.js" />
+    <Content Include="Templates\js\main.js" />
     <Content Include="Templates\js\sb-admin-2.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -254,6 +276,7 @@
     <Content Include="Views\Principal\ForgotPassword.cshtml" />
     <Content Include="Views\Usuario\ConsultarUsuarios.cshtml" />
     <Content Include="Views\Usuario\ActualizarUsuario.cshtml" />
+    <Content Include="Views\Principal\Nosotros.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

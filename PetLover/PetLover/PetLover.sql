@@ -18,6 +18,7 @@ GO
 INSERT Perfil (PerfilID, Nombre) VALUES (2, N'Cliente')
 GO
 -- Tabla para almacenar información de los usuarios
+SELECT * FROM Usuarios
 CREATE TABLE Usuarios (
     UsuarioID INT PRIMARY KEY IDENTITY(1,1),
 	Identificacion NVARCHAR(15) NOT NULL,
