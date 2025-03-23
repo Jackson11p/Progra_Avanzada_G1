@@ -277,6 +277,7 @@
     <Content Include="Views\Usuario\ConsultarUsuarios.cshtml" />
     <Content Include="Views\Usuario\ActualizarUsuario.cshtml" />
     <Content Include="Views\Principal\Nosotros.cshtml" />
+    <Content Include="Views\Usuario\CambiarAcceso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Razor.Parser.SyntaxTree;
 using PetLover.BaseDatos;
 using PetLover.Models;
 
@@ -11,6 +12,8 @@ namespace PetLover.Controllers
     public class UsuarioController : Controller
     {
         RegistroErrores error = new RegistroErrores();
+        Utilitarios util = new Utilitarios();
+
         #region Ver Usuario
         [HttpGet]
         public ActionResult ConsultarUsuarios()
@@ -31,6 +34,7 @@ namespace PetLover.Controllers
         }
         #endregion
 
+        //Actualizar usuario, del lado del administrador mayormente cambiarle el perfil
         #region Actualizar Usuario
         [HttpGet]
         public ActionResult ActualizarUsuario(long q)
@@ -86,6 +90,66 @@ namespace PetLover.Controllers
             }
         }
 
+        #endregion
+
+        #region Cambiar contraseña
+        [HttpGet]
+        public ActionResult CambiarAcceso()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get CambiarAcceso");
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CambiarAcceso(UsuariosModel model)
+        {
+            try
+            {
+                if (model.Contrasenna != model.ConfirmarContrasenna)
+                {
+                    ViewBag.Mensaje = "Las contraseñas no coinciden, asegurese que ambas sean Idénticas";
+                    return View();
+                }
+
+                using (var context = new PetLoverEntities())
+                {
+                    long idSesion = long.Parse(Session["IdUsuario"].ToString());
+                    var info = context.Usuarios.Where(x => x.UsuarioID == idSesion).FirstOrDefault();
+
+                    if (info != null)
+                    {
+                        if (model.ContrasennaAnterior != info.Contrasenna)
+                        {
+                            ViewBag.Mensaje = "Su contraseña actual es la misma que la anterior, por favor utiliza una nueva";
+                            return View();
+                        }
+
+                        context.ActualizarContrasenna(info.Correo, model.Contrasenna);
+
+                        string mensaje = util.MensajeCambioAcceso(info);
+                        bool notificacion = util.EnviarCorreo(info, mensaje, "Cambio de Contraseña - PetLover");
+
+                        if (notificacion)
+                            return RedirectToAction("Index", "Principal");
+                    }
+
+                    ViewBag.Mensaje = "Su contraseña no se ha podido actualizar correctamente";
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Post CambiarAcceso");
+                return View("Error");
+            }
+        }
         #endregion
 
         #region Cargar Perfil

@@ -17,6 +17,7 @@ INSERT Perfil (PerfilID, Nombre) VALUES (1, N'Administrador')
 GO
 INSERT Perfil (PerfilID, Nombre) VALUES (2, N'Cliente')
 GO
+
 -- Tabla para almacenar información de los usuarios
 SELECT * FROM Usuarios
 CREATE TABLE Usuarios (
@@ -58,10 +59,12 @@ GO
 CREATE TABLE Veterinarios (
     VeterinarioID INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
-    Apellido NVARCHAR(100) NOT NULL,
+	Email NVARCHAR(100),
+	Contrasenna varchar(15) NOT NULL, 
     Telefono NVARCHAR(15),
-    Email NVARCHAR(100),
-    Especialidad NVARCHAR(100)
+	Salario DECIMAL,
+    Especialidad NVARCHAR(100),
+	FechaContradado DATETIME NOT NULL
 );
 GO
 

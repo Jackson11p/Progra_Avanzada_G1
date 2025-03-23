@@ -61,8 +61,8 @@
                     @if (Session["IdPerfilUsuario"] != null && Session["IdPerfilUsuario"].ToString() == "1")
                     {
                         <a href="@Url.Action("Index","Principal")" class="nav-item nav-link">Inicio</a>
-                        <a href="about.html" class="nav-item nav-link">About us</a>
-                        <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                        <a href="@Url.Action("Nosotros","Principal")" class="nav-item nav-link">Nosotros</a>
+ 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mantenimientos</a>
                             <div class="dropdown-menu rounded-0 m-0">
@@ -75,7 +75,7 @@
                     {
                         <a href="@Url.Action("Index","Principal")" class="nav-item nav-link">Inicio</a>
                         <a href="@Url.Action("Nosotros","Principal")" class="nav-item nav-link">Nosotros</a>
-                        <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                        
                     }
                 </div>
                 <div class="navbar-nav ml-auto">
@@ -104,7 +104,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Actualizar Datos
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="@Url.Action("CambiarAcceso","Usuario")">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cambiar Contraseña
                                 </a>
