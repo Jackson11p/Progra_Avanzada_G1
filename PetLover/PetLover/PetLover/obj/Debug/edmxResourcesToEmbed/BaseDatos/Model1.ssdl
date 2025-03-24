@@ -48,6 +48,8 @@
   </Function>
   <Function Name="ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UsuarioID" Type="int" Mode="In" />
+    <Parameter Name="Identificacion" Type="nvarchar" Mode="In" />
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
     <Parameter Name="Correo" Type="nvarchar" Mode="In" />
     <Parameter Name="Telefono" Type="nvarchar" Mode="In" />
     <Parameter Name="Estado" Type="bit" Mode="In" />

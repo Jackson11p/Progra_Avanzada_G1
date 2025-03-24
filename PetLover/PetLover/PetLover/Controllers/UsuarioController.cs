@@ -63,7 +63,7 @@ namespace PetLover.Controllers
                 using (var context = new PetLoverEntities())
                 {
                     var info = context.Usuarios.Where(x => x.UsuarioID == model.UsuarioID).FirstOrDefault();
-                    var result = context.ActualizarUsuario(model.UsuarioID, model.Correo, model.Telefono, model.Estado, model.IdPerfil);
+                    var result = context.ActualizarUsuario(model.UsuarioID, model.Identificacion, model.Nombre, model.Correo, model.Telefono, model.Estado, model.IdPerfil);
 
                     if (result > 0)
                     {
@@ -90,6 +90,63 @@ namespace PetLover.Controllers
             }
         }
 
+        #endregion
+
+        #region Actualizar Datos
+        [HttpGet]
+        public ActionResult ActualizarDatos()
+        {
+            try
+            {
+                using (var context = new PetLoverEntities())
+                {
+                    long idSesion = long.Parse(Session["IdUsuario"].ToString());
+                    var info = context.Usuarios.Where(x => x.UsuarioID == idSesion).FirstOrDefault();
+
+                    return View(info);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get ActualizarDatos");
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ActualizarDatos(Usuario model)
+        {
+            try
+            {
+                using (var context = new PetLoverEntities())
+                {
+                    long idSesion = long.Parse(Session["IdUsuario"].ToString());
+                    var info = context.Usuarios.Where(x => x.UsuarioID == idSesion).FirstOrDefault();
+
+                    var infoCorreo = context.Usuarios.Where(x => x.Correo == model.Correo
+                                                             && x.UsuarioID != idSesion).FirstOrDefault();
+
+                    if (infoCorreo == null)
+                    {
+                        var result = context.ActualizarUsuario(model.UsuarioID, model.Identificacion, model.Nombre, model.Correo, model.Telefono, model.Estado, model.IdPerfil);
+
+                        if (result > 0)
+                        {
+                            Session["NombreUsuario"] = model.Nombre;
+                            return RedirectToAction("Index", "Principal");
+                        }
+                    }
+
+                    ViewBag.Mensaje = "Su información no se ha podido actualizar correctamente";
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Post ActualizarDatos");
+                return View("Error");
+            }
+        }
         #endregion
 
         #region Cambiar contraseña

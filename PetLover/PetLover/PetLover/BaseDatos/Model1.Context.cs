@@ -44,11 +44,19 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarContrasenna", correoParameter, nuevaContrasennaParameter);
         }
     
-        public virtual int ActualizarUsuario(Nullable<int> usuarioID, string correo, string telefono, Nullable<bool> estado, Nullable<int> idPerfil)
+        public virtual int ActualizarUsuario(Nullable<int> usuarioID, string identificacion, string nombre, string correo, string telefono, Nullable<bool> estado, Nullable<int> idPerfil)
         {
             var usuarioIDParameter = usuarioID.HasValue ?
                 new ObjectParameter("UsuarioID", usuarioID) :
                 new ObjectParameter("UsuarioID", typeof(int));
+    
+            var identificacionParameter = identificacion != null ?
+                new ObjectParameter("Identificacion", identificacion) :
+                new ObjectParameter("Identificacion", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
     
             var correoParameter = correo != null ?
                 new ObjectParameter("Correo", correo) :
@@ -66,7 +74,7 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("IdPerfil", idPerfil) :
                 new ObjectParameter("IdPerfil", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarUsuario", usuarioIDParameter, correoParameter, telefonoParameter, estadoParameter, idPerfilParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarUsuario", usuarioIDParameter, identificacionParameter, nombreParameter, correoParameter, telefonoParameter, estadoParameter, idPerfilParameter);
         }
     
         public virtual ObjectResult<ConsultarPerfiles_Result> ConsultarPerfiles()

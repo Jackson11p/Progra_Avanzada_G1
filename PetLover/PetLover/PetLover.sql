@@ -115,7 +115,7 @@ CREATE TABLE Error(
 	Origen varchar(500) NOT NULL
 );
 GO
-
+select *  from Error
 --Procedimientos almacenados
 
 --Registrar un usuario
@@ -181,17 +181,20 @@ BEGIN
 END;
 GO
 
-
 CREATE OR ALTER PROCEDURE ActualizarUsuario
     @UsuarioID INT,
-    @Correo NVARCHAR(100) = NULL,
-    @Telefono NVARCHAR(15) = NULL,
+	@Identificacion  NVARCHAR(15),
+	@Nombre NVARCHAR(100),
+    @Correo NVARCHAR(100),
+    @Telefono NVARCHAR(15),
     @Estado BIT,
     @IdPerfil INT
 AS
 BEGIN
     UPDATE Usuarios
-    SET Correo = @Correo,
+    SET Identificacion = @Identificacion,
+		Nombre = @Nombre,
+		Correo = @Correo,
 		Telefono = @Telefono,
 		Estado = @Estado,
         IdPerfil = @IdPerfil

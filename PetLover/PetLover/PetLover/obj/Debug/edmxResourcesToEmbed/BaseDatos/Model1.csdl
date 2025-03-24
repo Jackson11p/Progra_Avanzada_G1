@@ -58,6 +58,8 @@
     </FunctionImport>
     <FunctionImport Name="ActualizarUsuario">
       <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
+      <Parameter Name="Identificacion" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="Telefono" Mode="In" Type="String" />
       <Parameter Name="Estado" Mode="In" Type="Boolean" />
