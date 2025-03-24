@@ -4,11 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e60d152f57a34580ad6db90c95a79a02" Name="Diagram1">
+      <Diagram DiagramId="e60d152f57a34580ad6db90c95a79a02" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="PetLoverModel.Error" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PetLoverModel.Perfil" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PetLoverModel.Usuario" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="PetLoverModel.FK__Usuarios__IdPerf__47DBAE45" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PetLoverModel.Cita" Width="1.5" PointX="7.5" PointY="1.25" />
+        <EntityTypeShape EntityType="PetLoverModel.HistorialMedico" Width="1.5" PointX="10.5" PointY="1.25" />
+        <EntityTypeShape EntityType="PetLoverModel.Pet" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="PetLoverModel.Tratamiento" Width="1.5" PointX="9.75" PointY="5.5" />
+        <EntityTypeShape EntityType="PetLoverModel.Veterinario" Width="1.5" PointX="5.25" PointY="5" />
+        <AssociationConnector Association="PetLoverModel.FK__Citas__MascotaID__5AEE82B9" />
+        <AssociationConnector Association="PetLoverModel.FK__Citas__Veterinar__5BE2A6F2" />
+        <AssociationConnector Association="PetLoverModel.FK__Historial__Masco__628FA481" />
+        <AssociationConnector Association="PetLoverModel.FK__Historial__Veter__6383C8BA" />
+        <AssociationConnector Association="PetLoverModel.FK__Pets__ClienteID__5535A963" />
+        <AssociationConnector Association="PetLoverModel.CitaTratamientos" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

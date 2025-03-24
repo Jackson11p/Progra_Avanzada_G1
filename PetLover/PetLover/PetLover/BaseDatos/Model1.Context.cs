@@ -30,6 +30,11 @@ namespace PetLover.BaseDatos
         public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<Perfil> Perfils { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Cita> Citas { get; set; }
+        public virtual DbSet<HistorialMedico> HistorialMedicoes { get; set; }
+        public virtual DbSet<Pet> Pets { get; set; }
+        public virtual DbSet<Tratamiento> Tratamientos { get; set; }
+        public virtual DbSet<Veterinario> Veterinarios { get; set; }
     
         public virtual int ActualizarContrasenna(string correo, string nuevaContrasenna)
         {
