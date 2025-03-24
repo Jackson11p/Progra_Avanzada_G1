@@ -74,5 +74,72 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="RegistrarCuenta" FunctionName="PetLoverModel.Store.RegistrarCuenta" />
     <FunctionImportMapping FunctionImportName="RegistrarError" FunctionName="PetLoverModel.Store.RegistrarError" />
+    <EntitySetMapping Name="Citas">
+      <EntityTypeMapping TypeName="PetLoverModel.Cita">
+        <MappingFragment StoreEntitySet="Citas">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="VeterinarioID" ColumnName="VeterinarioID" />
+          <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+          <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+          <ScalarProperty Name="CitaID" ColumnName="CitaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistorialMedicoes">
+      <EntityTypeMapping TypeName="PetLoverModel.HistorialMedico">
+        <MappingFragment StoreEntitySet="HistorialMedico">
+          <ScalarProperty Name="VeterinarioID" ColumnName="VeterinarioID" />
+          <ScalarProperty Name="Tratamiento" ColumnName="Tratamiento" />
+          <ScalarProperty Name="Diagnostico" ColumnName="Diagnostico" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+          <ScalarProperty Name="HistorialID" ColumnName="HistorialID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pets">
+      <EntityTypeMapping TypeName="PetLoverModel.Pet">
+        <MappingFragment StoreEntitySet="Pets">
+          <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="Raza" ColumnName="Raza" />
+          <ScalarProperty Name="Especie" ColumnName="Especie" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tratamientos">
+      <EntityTypeMapping TypeName="PetLoverModel.Tratamiento">
+        <MappingFragment StoreEntitySet="Tratamientos">
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Veterinarios">
+      <EntityTypeMapping TypeName="PetLoverModel.Veterinario">
+        <MappingFragment StoreEntitySet="Veterinarios">
+          <ScalarProperty Name="FechaContradado" ColumnName="FechaContradado" />
+          <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+          <ScalarProperty Name="Salario" ColumnName="Salario" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Contrasenna" ColumnName="Contrasenna" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="VeterinarioID" ColumnName="VeterinarioID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CitaTratamientos" TypeName="PetLoverModel.CitaTratamientos" StoreEntitySet="CitaTratamientos">
+      <EndProperty Name="Tratamiento">
+        <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
+      </EndProperty>
+      <EndProperty Name="Cita">
+        <ScalarProperty Name="CitaID" ColumnName="CitaID" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

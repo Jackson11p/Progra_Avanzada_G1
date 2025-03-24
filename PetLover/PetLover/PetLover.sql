@@ -10,7 +10,7 @@ GO
 CREATE TABLE Perfil(
 	PerfilID INT PRIMARY KEY NOT NULL,
 	Nombre varchar(50) NOT NULL
-) 
+)
 GO
 --Insertamos los perfiles
 INSERT Perfil (PerfilID, Nombre) VALUES (1, N'Administrador')
@@ -72,7 +72,7 @@ GO
 CREATE TABLE Citas (
     CitaID INT PRIMARY KEY IDENTITY(1,1),
     FechaHora DATETIME NOT NULL,
-    MascotaID INT FOREIGN KEY REFERENCES Mascotas(MascotaID),
+    MascotaID INT FOREIGN KEY REFERENCES Pets(MascotaID),
     VeterinarioID INT FOREIGN KEY REFERENCES Veterinarios(VeterinarioID),
     Descripcion NVARCHAR(MAX)
 );
@@ -98,7 +98,7 @@ GO
 -- Tabla para almacenar historial médico de las mascotas
 CREATE TABLE HistorialMedico (
     HistorialID INT PRIMARY KEY IDENTITY(1,1),
-    MascotaID INT FOREIGN KEY REFERENCES Mascotas(MascotaID),
+    MascotaID INT FOREIGN KEY REFERENCES Pets(MascotaID),
     Fecha DATE NOT NULL,
     Diagnostico NVARCHAR(MAX),
     Tratamiento NVARCHAR(MAX),

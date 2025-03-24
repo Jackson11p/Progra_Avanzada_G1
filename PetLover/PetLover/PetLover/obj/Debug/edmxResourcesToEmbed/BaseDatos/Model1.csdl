@@ -31,6 +31,7 @@
     <Property Name="Estado" Type="Boolean" Nullable="false" />
     <Property Name="IdPerfil" Type="Int32" />
     <NavigationProperty Name="Perfil" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Usuarios" ToRole="Perfil" />
+    <NavigationProperty Name="Pets" Relationship="PetLoverModel.FK__Pets__ClienteID__5535A963" FromRole="Usuario" ToRole="Pet" />
   </EntityType>
   <Association Name="FK__Usuarios__IdPerf__47DBAE45">
     <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
@@ -83,6 +84,35 @@
       <Parameter Name="Mensaje" Mode="In" Type="String" />
       <Parameter Name="Origen" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="Citas" EntityType="PetLoverModel.Cita" />
+    <EntitySet Name="HistorialMedicoes" EntityType="PetLoverModel.HistorialMedico" />
+    <EntitySet Name="Pets" EntityType="PetLoverModel.Pet" />
+    <EntitySet Name="Tratamientos" EntityType="PetLoverModel.Tratamiento" />
+    <EntitySet Name="Veterinarios" EntityType="PetLoverModel.Veterinario" />
+    <AssociationSet Name="FK__Citas__MascotaID__5AEE82B9" Association="PetLoverModel.FK__Citas__MascotaID__5AEE82B9">
+      <End Role="Pet" EntitySet="Pets" />
+      <End Role="Cita" EntitySet="Citas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Citas__Veterinar__5BE2A6F2" Association="PetLoverModel.FK__Citas__Veterinar__5BE2A6F2">
+      <End Role="Veterinario" EntitySet="Veterinarios" />
+      <End Role="Cita" EntitySet="Citas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Historial__Masco__628FA481" Association="PetLoverModel.FK__Historial__Masco__628FA481">
+      <End Role="Pet" EntitySet="Pets" />
+      <End Role="HistorialMedico" EntitySet="HistorialMedicoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Historial__Veter__6383C8BA" Association="PetLoverModel.FK__Historial__Veter__6383C8BA">
+      <End Role="Veterinario" EntitySet="Veterinarios" />
+      <End Role="HistorialMedico" EntitySet="HistorialMedicoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pets__ClienteID__5535A963" Association="PetLoverModel.FK__Pets__ClienteID__5535A963">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Pet" EntitySet="Pets" />
+    </AssociationSet>
+    <AssociationSet Name="CitaTratamientos" Association="PetLoverModel.CitaTratamientos">
+      <End Role="Cita" EntitySet="Citas" />
+      <End Role="Tratamiento" EntitySet="Tratamientos" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="ConsultarPerfiles_Result">
     <Property Type="Int32" Name="PerfilID" Nullable="false" />
@@ -108,4 +138,133 @@
     <Property Type="Int32" Name="IdPerfil" Nullable="true" />
     <Property Type="String" Name="NombrePerfil" Nullable="false" MaxLength="50" />
   </ComplexType>
+  <EntityType Name="Cita">
+    <Key>
+      <PropertyRef Name="CitaID" />
+    </Key>
+    <Property Name="CitaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MascotaID" Type="Int32" />
+    <Property Name="VeterinarioID" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Pet" Relationship="PetLoverModel.FK__Citas__MascotaID__5AEE82B9" FromRole="Cita" ToRole="Pet" />
+    <NavigationProperty Name="Veterinario" Relationship="PetLoverModel.FK__Citas__Veterinar__5BE2A6F2" FromRole="Cita" ToRole="Veterinario" />
+    <NavigationProperty Name="Tratamientos" Relationship="PetLoverModel.CitaTratamientos" FromRole="Cita" ToRole="Tratamiento" />
+  </EntityType>
+  <EntityType Name="HistorialMedico">
+    <Key>
+      <PropertyRef Name="HistorialID" />
+    </Key>
+    <Property Name="HistorialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MascotaID" Type="Int32" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Diagnostico" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Tratamiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="VeterinarioID" Type="Int32" />
+    <NavigationProperty Name="Pet" Relationship="PetLoverModel.FK__Historial__Masco__628FA481" FromRole="HistorialMedico" ToRole="Pet" />
+    <NavigationProperty Name="Veterinario" Relationship="PetLoverModel.FK__Historial__Veter__6383C8BA" FromRole="HistorialMedico" ToRole="Veterinario" />
+  </EntityType>
+  <EntityType Name="Pet">
+    <Key>
+      <PropertyRef Name="MascotaID" />
+    </Key>
+    <Property Name="MascotaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Especie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Raza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="ClienteID" Type="Int32" />
+    <NavigationProperty Name="Citas" Relationship="PetLoverModel.FK__Citas__MascotaID__5AEE82B9" FromRole="Pet" ToRole="Cita" />
+    <NavigationProperty Name="HistorialMedicoes" Relationship="PetLoverModel.FK__Historial__Masco__628FA481" FromRole="Pet" ToRole="HistorialMedico" />
+    <NavigationProperty Name="Usuario" Relationship="PetLoverModel.FK__Pets__ClienteID__5535A963" FromRole="Pet" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Tratamiento">
+    <Key>
+      <PropertyRef Name="TratamientoID" />
+    </Key>
+    <Property Name="TratamientoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Costo" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="Citas" Relationship="PetLoverModel.CitaTratamientos" FromRole="Tratamiento" ToRole="Cita" />
+  </EntityType>
+  <EntityType Name="Veterinario">
+    <Key>
+      <PropertyRef Name="VeterinarioID" />
+    </Key>
+    <Property Name="VeterinarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Contrasenna" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Salario" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Especialidad" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FechaContradado" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Citas" Relationship="PetLoverModel.FK__Citas__Veterinar__5BE2A6F2" FromRole="Veterinario" ToRole="Cita" />
+    <NavigationProperty Name="HistorialMedicoes" Relationship="PetLoverModel.FK__Historial__Veter__6383C8BA" FromRole="Veterinario" ToRole="HistorialMedico" />
+  </EntityType>
+  <Association Name="FK__Citas__MascotaID__5AEE82B9">
+    <End Type="PetLoverModel.Pet" Role="Pet" Multiplicity="0..1" />
+    <End Type="PetLoverModel.Cita" Role="Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pet">
+        <PropertyRef Name="MascotaID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="MascotaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Citas__Veterinar__5BE2A6F2">
+    <End Type="PetLoverModel.Veterinario" Role="Veterinario" Multiplicity="0..1" />
+    <End Type="PetLoverModel.Cita" Role="Cita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Veterinario">
+        <PropertyRef Name="VeterinarioID" />
+      </Principal>
+      <Dependent Role="Cita">
+        <PropertyRef Name="VeterinarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Historial__Masco__628FA481">
+    <End Type="PetLoverModel.Pet" Role="Pet" Multiplicity="0..1" />
+    <End Type="PetLoverModel.HistorialMedico" Role="HistorialMedico" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pet">
+        <PropertyRef Name="MascotaID" />
+      </Principal>
+      <Dependent Role="HistorialMedico">
+        <PropertyRef Name="MascotaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Historial__Veter__6383C8BA">
+    <End Type="PetLoverModel.Veterinario" Role="Veterinario" Multiplicity="0..1" />
+    <End Type="PetLoverModel.HistorialMedico" Role="HistorialMedico" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Veterinario">
+        <PropertyRef Name="VeterinarioID" />
+      </Principal>
+      <Dependent Role="HistorialMedico">
+        <PropertyRef Name="VeterinarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pets__ClienteID__5535A963">
+    <End Type="PetLoverModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+    <End Type="PetLoverModel.Pet" Role="Pet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="Pet">
+        <PropertyRef Name="ClienteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CitaTratamientos">
+    <End Type="PetLoverModel.Cita" Role="Cita" Multiplicity="*" />
+    <End Type="PetLoverModel.Tratamiento" Role="Tratamiento" Multiplicity="*" />
+  </Association>
 </Schema>

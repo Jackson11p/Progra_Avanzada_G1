@@ -12,25 +12,26 @@ namespace PetLover.BaseDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class Pet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
+        public Pet()
         {
-            this.Pets = new HashSet<Pet>();
+            this.Citas = new HashSet<Cita>();
+            this.HistorialMedicoes = new HashSet<HistorialMedico>();
         }
     
-        public int UsuarioID { get; set; }
-        public string Identificacion { get; set; }
-        public string Contrasenna { get; set; }
+        public int MascotaID { get; set; }
         public string Nombre { get; set; }
-        public string Correo { get; set; }
-        public string Telefono { get; set; }
-        public bool Estado { get; set; }
-        public Nullable<int> IdPerfil { get; set; }
+        public string Especie { get; set; }
+        public string Raza { get; set; }
+        public Nullable<System.DateTime> FechaNacimiento { get; set; }
+        public Nullable<int> ClienteID { get; set; }
     
-        public virtual Perfil Perfil { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pet> Pets { get; set; }
+        public virtual ICollection<Cita> Citas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HistorialMedico> HistorialMedicoes { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
