@@ -10,7 +10,7 @@
         <div class="col-lg-7 pb-5 pb-lg-0 px-3 px-lg-5">
             <h4 class="text-secondary mb-3"> Gestión de Mascotas</h4>
 
-           @if (mascotas != null && mascotas.Any())
+            @if (mascotas != null && mascotas.Any())
             {
                 <h2>Listado de Mascotas</h2>
                 <table class="table">
@@ -25,31 +25,33 @@
                     </thead>
                     <tbody>
                         @foreach (var mascota in mascotas)
-                {
-                    <tr>
-                        <td>@mascota.Nombre</td>
-                        <td>@mascota.Especie</td>
-                        <td>@mascota.Raza</td>
-                        <td>@mascota.ClienteNombre</td>
-                        <td>
-                            <a href="@Url.Action("MascotasDashboard", "Mascotas", new { id = mascota.MascotaID})">Ver Detalles</a>
-                        </td>
-                    </tr>
-                }
+                        {
+                            <tr>
+                                <td>@mascota.Nombre</td>
+                                <td>@mascota.Especie</td>
+                                <td>@mascota.Raza</td>
+                                <td>@mascota.ClienteNombre</td>
+                                <td>
+                                    <a href="@Url.Action("MascotasDashboard", "Mascotas", new { id = mascota.MascotaID})">Ver Detalles.</a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
-               </table>
+                </table>
             }
             else if (Model != null)
             {
-               <h2>Detalles de @Model.Nombre</h2>
-               <p><strong>Especie:</strong>@Model.Especie</p>
-               <p><strong>Raza:</strong>@Model.Raza</p>
-               <p><strong>Fecha de Nacimiento:</strong>
-            @Model.FechaNacimiento.HasValue ?@Model.FechaNacimiento.Value.ToString("dd/MM/yyyy") : "Fecha no disponible"</p>
-               <p><strong>Propietario:</strong>@Model.ClienteNombre</p>
+                <h2>Detalles de @Model.Nombre</h2>
+                <p><strong>Especie:</strong>@Model.Especie</p>
+                <p><strong>Raza:</strong>@Model.Raza</p>
+                <p>
+                    <strong>Fecha de Nacimiento:</strong>
+                    @Model.FechaNacimiento.HasValue ?@Model.FechaNacimiento.Value.ToString("dd/MM/yyyy") : "Fecha no disponible."
+                </p>
+                <p><strong>Propietario:</strong>@Model.ClienteNombre</p>
 
-               <h3>Citas</h3>
-               if (Model.Citas.Any())
+                <h3>Citas</h3>
+                if (Model.Citas.Any())
                 {
                     <table class="table">
                         <thead>
@@ -61,22 +63,22 @@
                         </thead>
                         <tbody>
                             @foreach (var cita in Model.Citas)
-                    {
-                        <tr>
-                            <td>@cita.FechaCita.ToString("dd/MM/yyyy")</td>
-                            <td>@cita.VeterinarioNombre</td>
-                            <td>@cita.Descripcion</td>
-                        </tr>
-                    }
+                            {
+                                <tr>
+                                    <td>@cita.FechaCita.ToString("dd/MM/yyyy")</td>
+                                    <td>@cita.VeterinarioNombre</td>
+                                    <td>@cita.Descripcion</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
-               }
-               else
+                }
+                else
                 {
                     <p>No hay citas registradas</p>
                 }
-               <h3>Tratamientos</h3>
-               if (Model.Tratamientos.Any())
+                <h3>Tratamientos</h3>
+                if (Model.Tratamientos.Any())
                 {
                     <table class="table">
                         <thead>
@@ -88,21 +90,21 @@
                         </thead>
                         <tbody>
                             @foreach (var tratamiento in Model.Tratamientos)
-                    {
-                        <tr>
-                            <td>@tratamiento.NombreTratamiento</td>
-                            <td>@tratamiento.DescripcionTratamiento</td>
-                            <td>@tratamiento.Costo.ToString("C")</td>
-                        </tr>
-                    }
+                            {
+                                <tr>
+                                    <td>@tratamiento.NombreTratamiento</td>
+                                    <td>@tratamiento.DescripcionTratamiento</td>
+                                    <td>@tratamiento.Costo.ToString("C")</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
-               }
-               else
+                }
+                else
                 {
                     <p>No hay tratamientos registrados</p>
                 }
-               <a href="@Url.Action("MascotasDashboard", "Mascotas")" class="btn btn-primary">Volver al Listado</a>
+                <a href="@Url.Action("MascotasDashboard", "Mascotas")" class="btn btn-primary">Volver al Listado</a>
             }
         </div>
     </div>
