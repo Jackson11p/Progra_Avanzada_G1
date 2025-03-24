@@ -1,41 +1,41 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\",
+  "WorkspaceRootPath": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\models\\utilitarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|c:\\users\\alvar\\onedrive\\documentos\\proyecto progra avanzada\\progra_avanzada_g1\\petlover\\petlover\\petlover\\models\\utilitarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\models\\utilitarios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\views\\usuario\\cambiaracceso.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\views\\usuario\\cambiaracceso.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\views\\usuario\\cambiaracceso.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\controllers\\principalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\controllers\\principalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\controllers\\principalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\views\\usuario\\actualizarusuario.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\views\\usuario\\actualizarusuario.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\views\\usuario\\actualizarusuario.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\models\\usuariosmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\models\\usuariosmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\models\\usuariosmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\views\\principal\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\views\\principal\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\views\\principal\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -52,9 +52,9 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Web.config",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Web.config",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Web.config",
               "RelativeDocumentMoniker": "PetLover\\Web.config",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Web.config",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Web.config",
               "RelativeToolTip": "PetLover\\Web.config",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
@@ -65,22 +65,21 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "CambiarAcceso.cshtml",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Usuario\\CambiarAcceso.cshtml",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Usuario\\CambiarAcceso.cshtml",
               "RelativeDocumentMoniker": "PetLover\\Views\\Usuario\\CambiarAcceso.cshtml",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Usuario\\CambiarAcceso.cshtml",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Usuario\\CambiarAcceso.cshtml",
               "RelativeToolTip": "PetLover\\Views\\Usuario\\CambiarAcceso.cshtml",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAACkAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-23T17:15:17.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T17:15:17.099Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Utilitarios.cs",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\Utilitarios.cs",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\Utilitarios.cs",
               "RelativeDocumentMoniker": "PetLover\\Models\\Utilitarios.cs",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\Utilitarios.cs",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\Utilitarios.cs",
               "RelativeToolTip": "PetLover\\Models\\Utilitarios.cs",
               "ViewState": "AgIAADYAAAAAAAAAAAAuwFwAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -91,79 +90,73 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "UsuarioController.cs",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\UsuarioController.cs",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\UsuarioController.cs",
               "RelativeDocumentMoniker": "PetLover\\Controllers\\UsuarioController.cs",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\UsuarioController.cs",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\UsuarioController.cs",
               "RelativeToolTip": "PetLover\\Controllers\\UsuarioController.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAgwIoAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T16:39:04.447Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T16:39:04.447Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "ActualizarUsuario.cshtml",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Usuario\\ActualizarUsuario.cshtml",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Usuario\\ActualizarUsuario.cshtml",
               "RelativeDocumentMoniker": "PetLover\\Views\\Usuario\\ActualizarUsuario.cshtml",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Usuario\\ActualizarUsuario.cshtml",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Usuario\\ActualizarUsuario.cshtml",
               "RelativeToolTip": "PetLover\\Views\\Usuario\\ActualizarUsuario.cshtml",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-21T16:30:27.037Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T16:30:27.037Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Principal\\Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Principal\\Index.cshtml",
               "RelativeDocumentMoniker": "PetLover\\Views\\Principal\\Index.cshtml",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Principal\\Index.cshtml",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Principal\\Index.cshtml",
               "RelativeToolTip": "PetLover\\Views\\Principal\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-21T16:25:30.532Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T16:25:30.532Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "PrincipalController.cs",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\PrincipalController.cs",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\PrincipalController.cs",
               "RelativeDocumentMoniker": "PetLover\\Controllers\\PrincipalController.cs",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\PrincipalController.cs",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\PrincipalController.cs",
               "RelativeToolTip": "PetLover\\Controllers\\PrincipalController.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAIcAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T16:42:31.464Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T16:42:31.464Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "UsuariosModel.cs",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\UsuariosModel.cs",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\UsuariosModel.cs",
               "RelativeDocumentMoniker": "PetLover\\Models\\UsuariosModel.cs",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\UsuariosModel.cs",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\UsuariosModel.cs",
               "RelativeToolTip": "PetLover\\Models\\UsuariosModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-23T16:58:18.98Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-23T16:58:18.98Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "_Layout.cshtml",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Shared\\_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "PetLover\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "PetLover\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAFoAAAAAAAAAAAAAAGoAAABjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-21T16:22:50.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T16:22:50.328Z"
             }
           ]
         }
