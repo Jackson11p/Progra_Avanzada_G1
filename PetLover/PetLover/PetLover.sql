@@ -243,3 +243,30 @@ BEGIN
     END
 END;
 GO
+
+CREATE OR ALTER PROCEDURE ActualizarMascota
+    @MascotaID INT,
+    @Nombre NVARCHAR(100),
+    @Especie NVARCHAR(50),
+    @Raza NVARCHAR(50),
+    @FechaNacimiento DATE,
+    @ClienteID INT
+AS
+BEGIN
+
+    IF NOT EXISTS (SELECT 1 FROM Usuarios WHERE UsuarioID = @ClienteID)
+    BEGIN
+        RETURN -1;
+    END
+
+    UPDATE Pets
+    SET
+        Nombre = @Nombre,
+        Especie = @Especie,
+        Raza = @Raza,
+        FechaNacimiento = @FechaNacimiento,
+        ClienteID = @ClienteID
+    WHERE MascotaID = @MascotaID;
+    RETURN 1;
+END;
+GO
