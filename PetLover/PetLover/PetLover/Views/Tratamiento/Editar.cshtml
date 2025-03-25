@@ -1,0 +1,24 @@
+﻿@model PetLover.Models.TratamientoModel
+@{
+    ViewBag.Title = "Editar Tratamiento";
+}
+<h2>Editar Tratamiento</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.TratamientoID)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nombre)
+        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Descripcion)
+        @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Costo)
+        @Html.TextBoxFor(m => m.Costo, new { @class = "form-control", type = "number", step = "0.01" })
+    </div>
+    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+}
+

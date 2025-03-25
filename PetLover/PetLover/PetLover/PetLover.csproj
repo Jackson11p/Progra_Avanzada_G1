@@ -137,6 +137,9 @@
     <Compile Include="BaseDatos\ConsultarPerfiles_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\ConsultarTratamientos_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\ConsultarUsuarios_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -181,10 +184,12 @@
     </Compile>
     <Compile Include="Controllers\PetsController.cs" />
     <Compile Include="Controllers\PrincipalController.cs" />
+    <Compile Include="Controllers\TratamientoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\TratamientoModel.cs" />
     <Compile Include="Models\PetsModel.cs" />
     <Compile Include="Models\RegistrarErrores.cs" />
     <Compile Include="Models\UsuariosModel.cs" />
@@ -302,6 +307,10 @@
     <Content Include="Views\Pets\ConsultarMascotas.cshtml" />
     <Content Include="Views\Pets\AgregarMascota.cshtml" />
     <Content Include="Views\Pets\ActualizarMascota.cshtml" />
+    <Content Include="Views\Tratamiento\Index.cshtml" />
+    <Content Include="Views\Tratamiento\Crear.cshtml" />
+    <Content Include="Views\Tratamiento\Editar.cshtml" />
+    <Content Include="Views\Tratamiento\Eliminar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -225,8 +225,6 @@
     </FunctionImport>
     <FunctionImport Name="ActualizarUsuario">
       <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
-      <Parameter Name="Identificacion" Mode="In" Type="String" />
-      <Parameter Name="Nombre" Mode="In" Type="String" />
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="Telefono" Mode="In" Type="String" />
       <Parameter Name="Estado" Mode="In" Type="Boolean" />
@@ -257,6 +255,21 @@
       <Parameter Name="IdUsuario" Mode="In" Type="Int64" />
       <Parameter Name="Mensaje" Mode="In" Type="String" />
       <Parameter Name="Origen" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ActualizarTratamiento">
+      <Parameter Name="TratamientoID" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Costo" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="ConsultarTratamientos" ReturnType="Collection(PetLoverModel.ConsultarTratamientos_Result)" />
+    <FunctionImport Name="EliminarTratamiento">
+      <Parameter Name="TratamientoID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="RegistrarTratamiento">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Costo" Mode="In" Type="Decimal" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="ConsultarMascotas_Result">
@@ -290,5 +303,11 @@
     <Property Type="Boolean" Name="Estado" Nullable="false" />
     <Property Type="Int32" Name="IdPerfil" Nullable="true" />
     <Property Type="String" Name="NombrePerfil" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ConsultarTratamientos_Result">
+    <Property Type="Int32" Name="TratamientoID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Descripcion" Nullable="true" />
+    <Property Type="Decimal" Name="Costo" Nullable="false" Precision="10" Scale="2" />
   </ComplexType>
 </Schema>

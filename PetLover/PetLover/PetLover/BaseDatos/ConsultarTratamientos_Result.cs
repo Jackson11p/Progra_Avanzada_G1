@@ -11,16 +11,11 @@ namespace PetLover.BaseDatos
 {
     using System;
     
-    public partial class IniciarSesion_Result
+    public partial class ConsultarTratamientos_Result
     {
-        public int UsuarioID { get; set; }
-        public string Identificacion { get; set; }
-        public string Contrasenna { get; set; }
-        public string NombreUsuario { get; set; }
-        public string Correo { get; set; }
-        public string Telefono { get; set; }
-        public bool Estado { get; set; }
-        public Nullable<int> IdPerfil { get; set; }
-        public string NombrePerfil { get; set; }
+        public int TratamientoID { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public decimal Costo { get; set; }
     }
 }

@@ -1,0 +1,16 @@
+﻿@model PetLover.Models.TratamientoModel
+@{
+    ViewBag.Title = "Eliminar Tratamiento";
+}
+<h2>¿Estás seguro de que quieres eliminar este tratamiento?</h2>
+<p><strong>Nombre:</strong> @Model.Nombre</p>
+<p><strong>Descripción:</strong> @Model.Descripcion</p>
+<p><strong>Costo:</strong> @Model.Costo</p>
+
+@using (Html.BeginForm("ConfirmarEliminar", "Tratamiento", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.TratamientoID)
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+}
+

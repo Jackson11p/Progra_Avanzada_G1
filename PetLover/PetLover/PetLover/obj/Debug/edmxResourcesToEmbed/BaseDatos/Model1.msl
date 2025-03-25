@@ -101,22 +101,7 @@
         <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
       </EndProperty>
     </AssociationSetMapping>
-    <FunctionImportMapping FunctionImportName="ActualizarContrasenna" FunctionName="PetLoverModel.Store.ActualizarContrasenna" />
-    <FunctionImportMapping FunctionImportName="ActualizarMascota" FunctionName="PetLoverModel.Store.ActualizarMascota" />
     <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="PetLoverModel.Store.ActualizarUsuario" />
-    <FunctionImportMapping FunctionImportName="AgregarMascota" FunctionName="PetLoverModel.Store.AgregarMascota" />
-    <FunctionImportMapping FunctionImportName="ConsultarMascotas" FunctionName="PetLoverModel.Store.ConsultarMascotas">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarMascotas_Result">
-          <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Especie" ColumnName="Especie" />
-          <ScalarProperty Name="Raza" ColumnName="Raza" />
-          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-          <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="ConsultarPerfiles" FunctionName="PetLoverModel.Store.ConsultarPerfiles">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PetLoverModel.ConsultarPerfiles_Result">
@@ -155,5 +140,18 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="RegistrarCuenta" FunctionName="PetLoverModel.Store.RegistrarCuenta" />
     <FunctionImportMapping FunctionImportName="RegistrarError" FunctionName="PetLoverModel.Store.RegistrarError" />
+    <FunctionImportMapping FunctionImportName="ActualizarTratamiento" FunctionName="PetLoverModel.Store.ActualizarTratamiento" />
+    <FunctionImportMapping FunctionImportName="ConsultarTratamientos" FunctionName="PetLoverModel.Store.ConsultarTratamientos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarTratamientos_Result">
+          <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EliminarTratamiento" FunctionName="PetLoverModel.Store.EliminarTratamiento" />
+    <FunctionImportMapping FunctionImportName="RegistrarTratamiento" FunctionName="PetLoverModel.Store.RegistrarTratamiento" />
   </EntityContainerMapping>
 </Mapping>
