@@ -92,7 +92,7 @@
     <Property Name="Especialidad" Type="nvarchar" MaxLength="100" />
     <Property Name="FechaContradado" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="FK__Citas__MascotaID__5AEE82B9">
+  <Association Name="FK__Citas__MascotaID__440B1D61">
     <End Role="Pets" Type="Self.Pets" Multiplicity="0..1" />
     <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
     <ReferentialConstraint>
@@ -104,7 +104,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Citas__Veterinar__5BE2A6F2">
+  <Association Name="FK__Citas__Veterinar__44FF419A">
     <End Role="Veterinarios" Type="Self.Veterinarios" Multiplicity="0..1" />
     <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
     <ReferentialConstraint>
@@ -116,7 +116,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CitaTrata__CitaI__5EBF139D">
+  <Association Name="FK__CitaTrata__CitaI__49C3F6B7">
     <End Role="Citas" Type="Self.Citas" Multiplicity="1" />
     <End Role="CitaTratamientos" Type="Self.CitaTratamientos" Multiplicity="*" />
     <ReferentialConstraint>
@@ -128,7 +128,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CitaTrata__Trata__5FB337D6">
+  <Association Name="FK__CitaTrata__Trata__4AB81AF0">
     <End Role="Tratamientos" Type="Self.Tratamientos" Multiplicity="1" />
     <End Role="CitaTratamientos" Type="Self.CitaTratamientos" Multiplicity="*" />
     <ReferentialConstraint>
@@ -140,7 +140,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Historial__Masco__628FA481">
+  <Association Name="FK__Historial__Masco__4D94879B">
     <End Role="Pets" Type="Self.Pets" Multiplicity="0..1" />
     <End Role="HistorialMedico" Type="Self.HistorialMedico" Multiplicity="*" />
     <ReferentialConstraint>
@@ -152,7 +152,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Historial__Veter__6383C8BA">
+  <Association Name="FK__Historial__Veter__4E88ABD4">
     <End Role="Veterinarios" Type="Self.Veterinarios" Multiplicity="0..1" />
     <End Role="HistorialMedico" Type="Self.HistorialMedico" Multiplicity="*" />
     <ReferentialConstraint>
@@ -164,7 +164,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Pets__ClienteID__5535A963">
+  <Association Name="FK__Pets__ClienteID__3F466844">
     <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
     <End Role="Pets" Type="Self.Pets" Multiplicity="*" />
     <ReferentialConstraint>
@@ -176,7 +176,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Usuarios__IdPerf__4F7CD00D">
+  <Association Name="FK__Usuarios__IdPerf__398D8EEE">
     <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
     <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
     <ReferentialConstraint>
@@ -192,6 +192,14 @@
     <Parameter Name="Correo" Type="nvarchar" Mode="In" />
     <Parameter Name="NuevaContrasenna" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="ActualizarMascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MascotaID" Type="int" Mode="In" />
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="Especie" Type="nvarchar" Mode="In" />
+    <Parameter Name="Raza" Type="nvarchar" Mode="In" />
+    <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+  </Function>
   <Function Name="ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UsuarioID" Type="int" Mode="In" />
     <Parameter Name="Identificacion" Type="nvarchar" Mode="In" />
@@ -201,6 +209,14 @@
     <Parameter Name="Estado" Type="bit" Mode="In" />
     <Parameter Name="IdPerfil" Type="int" Mode="In" />
   </Function>
+  <Function Name="AgregarMascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="Especie" Type="nvarchar" Mode="In" />
+    <Parameter Name="Raza" Type="nvarchar" Mode="In" />
+    <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ConsultarMascotas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="ConsultarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="ConsultarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="IniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -229,35 +245,35 @@
     <EntitySet Name="Tratamientos" EntityType="Self.Tratamientos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Veterinarios" EntityType="Self.Veterinarios" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Citas__MascotaID__5AEE82B9" Association="Self.FK__Citas__MascotaID__5AEE82B9">
+    <AssociationSet Name="FK__Citas__MascotaID__440B1D61" Association="Self.FK__Citas__MascotaID__440B1D61">
       <End Role="Pets" EntitySet="Pets" />
       <End Role="Citas" EntitySet="Citas" />
     </AssociationSet>
-    <AssociationSet Name="FK__Citas__Veterinar__5BE2A6F2" Association="Self.FK__Citas__Veterinar__5BE2A6F2">
+    <AssociationSet Name="FK__Citas__Veterinar__44FF419A" Association="Self.FK__Citas__Veterinar__44FF419A">
       <End Role="Veterinarios" EntitySet="Veterinarios" />
       <End Role="Citas" EntitySet="Citas" />
     </AssociationSet>
-    <AssociationSet Name="FK__CitaTrata__CitaI__5EBF139D" Association="Self.FK__CitaTrata__CitaI__5EBF139D">
+    <AssociationSet Name="FK__CitaTrata__CitaI__49C3F6B7" Association="Self.FK__CitaTrata__CitaI__49C3F6B7">
       <End Role="Citas" EntitySet="Citas" />
       <End Role="CitaTratamientos" EntitySet="CitaTratamientos" />
     </AssociationSet>
-    <AssociationSet Name="FK__CitaTrata__Trata__5FB337D6" Association="Self.FK__CitaTrata__Trata__5FB337D6">
+    <AssociationSet Name="FK__CitaTrata__Trata__4AB81AF0" Association="Self.FK__CitaTrata__Trata__4AB81AF0">
       <End Role="Tratamientos" EntitySet="Tratamientos" />
       <End Role="CitaTratamientos" EntitySet="CitaTratamientos" />
     </AssociationSet>
-    <AssociationSet Name="FK__Historial__Masco__628FA481" Association="Self.FK__Historial__Masco__628FA481">
+    <AssociationSet Name="FK__Historial__Masco__4D94879B" Association="Self.FK__Historial__Masco__4D94879B">
       <End Role="Pets" EntitySet="Pets" />
       <End Role="HistorialMedico" EntitySet="HistorialMedico" />
     </AssociationSet>
-    <AssociationSet Name="FK__Historial__Veter__6383C8BA" Association="Self.FK__Historial__Veter__6383C8BA">
+    <AssociationSet Name="FK__Historial__Veter__4E88ABD4" Association="Self.FK__Historial__Veter__4E88ABD4">
       <End Role="Veterinarios" EntitySet="Veterinarios" />
       <End Role="HistorialMedico" EntitySet="HistorialMedico" />
     </AssociationSet>
-    <AssociationSet Name="FK__Pets__ClienteID__5535A963" Association="Self.FK__Pets__ClienteID__5535A963">
+    <AssociationSet Name="FK__Pets__ClienteID__3F466844" Association="Self.FK__Pets__ClienteID__3F466844">
       <End Role="Usuarios" EntitySet="Usuarios" />
       <End Role="Pets" EntitySet="Pets" />
     </AssociationSet>
-    <AssociationSet Name="FK__Usuarios__IdPerf__4F7CD00D" Association="Self.FK__Usuarios__IdPerf__4F7CD00D">
+    <AssociationSet Name="FK__Usuarios__IdPerf__398D8EEE" Association="Self.FK__Usuarios__IdPerf__398D8EEE">
       <End Role="Perfil" EntitySet="Perfil" />
       <End Role="Usuarios" EntitySet="Usuarios" />
     </AssociationSet>

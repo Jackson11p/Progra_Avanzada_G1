@@ -20,6 +20,7 @@ GO
 
 -- Tabla para almacenar información de los usuarios
 SELECT * FROM Usuarios
+
 CREATE TABLE Usuarios (
     UsuarioID INT PRIMARY KEY IDENTITY(1,1),
 	Identificacion NVARCHAR(15) NOT NULL,
@@ -169,7 +170,7 @@ BEGIN
     SET Contrasenna = @NuevaContrasenna
     WHERE Correo = @Correo AND Estado = 1;
 END;
-
+GO
 
 CREATE OR ALTER PROCEDURE ConsultarUsuarios
 AS
@@ -213,3 +214,32 @@ BEGIN
 END;
 
 EXEC ConsultarUsuarios
+
+
+
+
+CREATE OR ALTER PROCEDURE ConsultarMascotas
+AS
+BEGIN
+	SELECT  MascotaID, p.Nombre, Especie, Raza, FechaNacimiento, ClienteID
+	FROM	Pets p
+	INNER JOIN Usuarios u ON u.UsuarioID = p.ClienteID
+END;
+GO
+
+CREATE OR ALTER PROCEDURE AgregarMascota
+    @Nombre NVARCHAR(100),
+    @Especie NVARCHAR(50),
+    @Raza NVARCHAR(50),
+    @FechaNacimiento DATE,
+    @ClienteID INT
+AS
+BEGIN
+
+    IF EXISTS (SELECT 1 FROM Usuarios WHERE UsuarioID = @ClienteID)
+    BEGIN
+        INSERT INTO Pets (Nombre, Especie, Raza, FechaNacimiento, ClienteID)
+        VALUES (@Nombre, @Especie, @Raza, @FechaNacimiento, @ClienteID);
+    END
+END;
+GO

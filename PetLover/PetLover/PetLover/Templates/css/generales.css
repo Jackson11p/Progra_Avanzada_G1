@@ -6,3 +6,41 @@
     margin: 10px 10px 10px 10px;
     text-align: right;
 }
+
+.form-container {
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    max-width: 600px;
+    margin: 60px auto;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin: 20px 0;
+}
+
+.button-container.center {
+        justify-content: center;
+}
+
+.button-container.right {
+        justify-content: flex-end;
+}
+
+.button {
+    background-color: #ff6a00;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 150px;
+}
+
+.button:hover {
+        background-color: #e9a164;
+}

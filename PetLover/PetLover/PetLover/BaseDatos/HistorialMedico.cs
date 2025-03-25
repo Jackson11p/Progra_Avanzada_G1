@@ -21,7 +21,7 @@ namespace PetLover.BaseDatos
         public string Tratamiento { get; set; }
         public Nullable<int> VeterinarioID { get; set; }
     
-        public virtual Pet Pet { get; set; }
-        public virtual Veterinario Veterinario { get; set; }
+        public virtual Pets Pets { get; set; }
+        public virtual Veterinarios Veterinarios { get; set; }
     }
 }

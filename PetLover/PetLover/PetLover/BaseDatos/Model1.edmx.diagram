@@ -4,11 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e0a8e3c734bf4ddeb7592841852a4407" Name="Diagram1">
-        <EntityTypeShape EntityType="PetLoverModel.Error" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetLoverModel.Perfil" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetLoverModel.Usuario" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="PetLoverModel.FK__Usuarios__IdPerf__47DBAE45" ManuallyRouted="false" />
+      <Diagram DiagramId="9ba0a429b35b4cb09e66f04dfb308763" Name="Diagram1">
+        <EntityTypeShape EntityType="PetLoverModel.Citas" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetLoverModel.Error" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetLoverModel.HistorialMedico" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetLoverModel.Perfil" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetLoverModel.Pets" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetLoverModel.Tratamientos" Width="1.5" PointX="9.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetLoverModel.Usuarios" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetLoverModel.Veterinarios" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="PetLoverModel.FK__Citas__MascotaID__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="PetLoverModel.FK__Citas__Veterinar__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="PetLoverModel.FK__Historial__Masco__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="PetLoverModel.FK__Historial__Veter__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="PetLoverModel.FK__Usuarios__IdPerf__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="PetLoverModel.FK__Pets__ClienteID__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="PetLoverModel.CitaTratamientos" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
