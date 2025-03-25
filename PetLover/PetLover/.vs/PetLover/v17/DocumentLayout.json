@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|c:\\users\\alvar\\onedrive\\documentos\\proyecto progra avanzada\\progra_avanzada_g1\\petlover\\petlover\\petlover\\views\\principal\\nosotros.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\views\\principal\\nosotros.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Nosotros.cshtml",
+              "DocumentMoniker": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Principal\\Nosotros.cshtml",
+              "RelativeDocumentMoniker": "PetLover\\Views\\Principal\\Nosotros.cshtml",
+              "ToolTip": "C:\\Users\\alvar\\OneDrive\\Documentos\\Proyecto Progra Avanzada\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Principal\\Nosotros.cshtml",
+              "RelativeToolTip": "PetLover\\Views\\Principal\\Nosotros.cshtml",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAAAHkAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-25T11:04:45.642Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

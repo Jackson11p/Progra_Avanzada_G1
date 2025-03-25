@@ -215,8 +215,49 @@ END;
 
 EXEC ConsultarUsuarios
 
+CREATE PROCEDURE RegistrarTratamiento
+    @Nombre NVARCHAR(100),
+    @Descripcion NVARCHAR(MAX),
+    @Costo DECIMAL(10,2)
+AS
+BEGIN
+    INSERT INTO Tratamientos (Nombre, Descripcion, Costo)
+    VALUES (@Nombre, @Descripcion, @Costo)
+END;
+GO
 
+CREATE PROCEDURE ConsultarTratamientos
+AS
+BEGIN
+    SELECT TratamientoID, Nombre, Descripcion, Costo
+    FROM Tratamientos;
+END;
+GO
 
+CREATE PROCEDURE ActualizarTratamiento
+    @TratamientoID INT,
+    @Nombre NVARCHAR(100) = NULL,
+    @Descripcion NVARCHAR(MAX) = NULL,
+    @Costo DECIMAL(10,2) = NULL
+AS
+BEGIN
+    UPDATE Tratamientos
+    SET 
+        Nombre = @Nombre,
+        Descripcion = @Descripcion,
+        Costo = @Costo
+    WHERE TratamientoID = @TratamientoID;
+END;
+GO
+
+CREATE PROCEDURE EliminarTratamiento
+    @TratamientoID INT
+AS
+BEGIN
+    DELETE FROM Tratamientos
+    WHERE TratamientoID = @TratamientoID;
+END;
+GO
 
 CREATE OR ALTER PROCEDURE ConsultarMascotas
 AS
