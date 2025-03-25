@@ -28,6 +28,7 @@ namespace PetLover.BaseDatos
         }
     
         public virtual DbSet<Error> Errors { get; set; }
+        public virtual DbSet<Mascota> Mascotas { get; set; }
         public virtual DbSet<Perfil> Perfils { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
     
@@ -42,6 +43,35 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("NuevaContrasenna", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarContrasenna", correoParameter, nuevaContrasennaParameter);
+        }
+    
+        public virtual int ActualizarMascota(Nullable<int> mascotaID, string nombre, Nullable<System.DateTime> fechaNacimiento, string especie, string raza, Nullable<int> iDUsuario)
+        {
+            var mascotaIDParameter = mascotaID.HasValue ?
+                new ObjectParameter("MascotaID", mascotaID) :
+                new ObjectParameter("MascotaID", typeof(int));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
+    
+            var especieParameter = especie != null ?
+                new ObjectParameter("Especie", especie) :
+                new ObjectParameter("Especie", typeof(string));
+    
+            var razaParameter = raza != null ?
+                new ObjectParameter("Raza", raza) :
+                new ObjectParameter("Raza", typeof(string));
+    
+            var iDUsuarioParameter = iDUsuario.HasValue ?
+                new ObjectParameter("IDUsuario", iDUsuario) :
+                new ObjectParameter("IDUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarMascota", mascotaIDParameter, nombreParameter, fechaNacimientoParameter, especieParameter, razaParameter, iDUsuarioParameter);
         }
     
         public virtual int ActualizarUsuario(Nullable<int> usuarioID, string identificacion, string nombre, string correo, string telefono, Nullable<bool> estado, Nullable<int> idPerfil)
@@ -77,6 +107,26 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarUsuario", usuarioIDParameter, identificacionParameter, nombreParameter, correoParameter, telefonoParameter, estadoParameter, idPerfilParameter);
         }
     
+        public virtual ObjectResult<CargarPerfiles_Result> CargarPerfiles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarPerfiles_Result>("CargarPerfiles");
+        }
+    
+        public virtual ObjectResult<CargarUsuarios_Result> CargarUsuarios()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarUsuarios_Result>("CargarUsuarios");
+        }
+    
+        public virtual ObjectResult<ConsultarClientes_Result> ConsultarClientes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarClientes_Result>("ConsultarClientes");
+        }
+    
+        public virtual ObjectResult<ConsultarMascotas_Result> ConsultarMascotas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarMascotas_Result>("ConsultarMascotas");
+        }
+    
         public virtual ObjectResult<ConsultarPerfiles_Result> ConsultarPerfiles()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarPerfiles_Result>("ConsultarPerfiles");
@@ -98,6 +148,41 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("Contrasenna", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IniciarSesion_Result>("IniciarSesion", correoParameter, contrasennaParameter);
+        }
+    
+        public virtual int InsertarMascota(string nombre, string especie, string raza, Nullable<System.DateTime> fechaNacimiento, Nullable<int> clienteID)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var especieParameter = especie != null ?
+                new ObjectParameter("Especie", especie) :
+                new ObjectParameter("Especie", typeof(string));
+    
+            var razaParameter = raza != null ?
+                new ObjectParameter("Raza", raza) :
+                new ObjectParameter("Raza", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
+    
+            var clienteIDParameter = clienteID.HasValue ?
+                new ObjectParameter("ClienteID", clienteID) :
+                new ObjectParameter("ClienteID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertarMascota", nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, clienteIDParameter);
+        }
+    
+        public virtual ObjectResult<MostrarPerfiles_Result> MostrarPerfiles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrarPerfiles_Result>("MostrarPerfiles");
+        }
+    
+        public virtual ObjectResult<MostrasUsuarios_Result> MostrasUsuarios()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrasUsuarios_Result>("MostrasUsuarios");
         }
     
         public virtual int RegistrarCuenta(string identificacion, string contrasenna, string nombre, string correo, string telefono)
@@ -140,6 +225,31 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("Origen", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarError", idUsuarioParameter, mensajeParameter, origenParameter);
+        }
+    
+        public virtual int RegistrarMascota(string nombre, string especie, string raza, Nullable<System.DateTime> fechaNacimiento, Nullable<int> iDUsuario)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var especieParameter = especie != null ?
+                new ObjectParameter("Especie", especie) :
+                new ObjectParameter("Especie", typeof(string));
+    
+            var razaParameter = raza != null ?
+                new ObjectParameter("Raza", raza) :
+                new ObjectParameter("Raza", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
+    
+            var iDUsuarioParameter = iDUsuario.HasValue ?
+                new ObjectParameter("IDUsuario", iDUsuario) :
+                new ObjectParameter("IDUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarMascota", nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, iDUsuarioParameter);
         }
     }
 }

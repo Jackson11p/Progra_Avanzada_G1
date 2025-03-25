@@ -10,6 +10,17 @@
     <Property Name="FechaHora" Type="datetime" Nullable="false" />
     <Property Name="Origen" Type="varchar" MaxLength="500" Nullable="false" />
   </EntityType>
+  <EntityType Name="Mascotas">
+    <Key>
+      <PropertyRef Name="MascotaID" />
+    </Key>
+    <Property Name="MascotaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Especie" Type="nvarchar" MaxLength="50" />
+    <Property Name="Raza" Type="nvarchar" MaxLength="50" />
+    <Property Name="FechaNacimiento" Type="date" />
+    <Property Name="IDUsuario" Type="int" />
+  </EntityType>
   <EntityType Name="Perfil">
     <Key>
       <PropertyRef Name="PerfilID" />
@@ -30,6 +41,18 @@
     <Property Name="Estado" Type="bit" Nullable="false" />
     <Property Name="IdPerfil" Type="int" />
   </EntityType>
+  <Association Name="FK__Mascotas__IDUsua__76969D2E">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="Mascotas" Type="Self.Mascotas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="Mascotas">
+        <PropertyRef Name="IDUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Usuarios__IdPerf__47DBAE45">
     <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
     <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
@@ -46,6 +69,14 @@
     <Parameter Name="Correo" Type="nvarchar" Mode="In" />
     <Parameter Name="NuevaContrasenna" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="ActualizarMascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MascotaID" Type="int" Mode="In" />
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="Especie" Type="nvarchar" Mode="In" />
+    <Parameter Name="Raza" Type="nvarchar" Mode="In" />
+    <Parameter Name="IDUsuario" Type="int" Mode="In" />
+  </Function>
   <Function Name="ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="UsuarioID" Type="int" Mode="In" />
     <Parameter Name="Identificacion" Type="nvarchar" Mode="In" />
@@ -55,12 +86,25 @@
     <Parameter Name="Estado" Type="bit" Mode="In" />
     <Parameter Name="IdPerfil" Type="int" Mode="In" />
   </Function>
+  <Function Name="CargarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="CargarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ConsultarClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ConsultarMascotas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="ConsultarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="ConsultarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="IniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Correo" Type="varchar" Mode="In" />
     <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="InsertarMascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="Especie" Type="nvarchar" Mode="In" />
+    <Parameter Name="Raza" Type="nvarchar" Mode="In" />
+    <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="ClienteID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="MostrarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="MostrasUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="RegistrarCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Identificacion" Type="varchar" Mode="In" />
     <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -73,10 +117,22 @@
     <Parameter Name="Mensaje" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="Origen" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="RegistrarMascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="Especie" Type="nvarchar" Mode="In" />
+    <Parameter Name="Raza" Type="nvarchar" Mode="In" />
+    <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="IDUsuario" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="PetLoverModelStoreContainer">
     <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mascotas" EntityType="Self.Mascotas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Mascotas__IDUsua__76969D2E" Association="Self.FK__Mascotas__IDUsua__76969D2E">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Mascotas" EntitySet="Mascotas" />
+    </AssociationSet>
     <AssociationSet Name="FK__Usuarios__IdPerf__47DBAE45" Association="Self.FK__Usuarios__IdPerf__47DBAE45">
       <End Role="Perfil" EntitySet="Perfil" />
       <End Role="Usuarios" EntitySet="Usuarios" />

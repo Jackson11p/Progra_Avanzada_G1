@@ -45,16 +45,15 @@ ADD CONSTRAINT UQ_Usuarios_Telefono UNIQUE (Telefono);
 GO
 
 -- Tabla para almacenar información de las mascotas
-CREATE TABLE Pets (
+CREATE TABLE Mascotas (
     MascotaID INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     Especie NVARCHAR(50),
     Raza NVARCHAR(50),
     FechaNacimiento DATE,
-    ClienteID INT FOREIGN KEY REFERENCES Usuarios(UsuarioID)
+    IDUsuario INT FOREIGN KEY REFERENCES Usuarios(UsuarioID)
 );
 GO
-
 -- Tabla para almacenar información de los veterinarios
 CREATE TABLE Veterinarios (
     VeterinarioID INT PRIMARY KEY IDENTITY(1,1),
@@ -204,8 +203,57 @@ BEGIN
 END;
 GO
 
+CREATE OR ALTER PROCEDURE RegistrarMascota
+    @Nombre NVARCHAR(100),
+    @Especie NVARCHAR(50),
+    @Raza NVARCHAR(50),
+	@FechaNacimiento DATE,
+    @IDUsuario INT
+AS
+BEGIN
+    INSERT INTO Mascotas (Nombre, FechaNacimiento, Especie, Raza, IDUsuario)
+    VALUES (@Nombre, @FechaNacimiento, @Especie, @Raza, @IDUsuario);
+END;
+GO
 
-CREATE OR ALTER PROCEDURE ConsultarPerfiles
+CREATE OR ALTER PROCEDURE ActualizarMascota
+    @MascotaID INT,
+    @Nombre NVARCHAR(100),
+    @FechaNacimiento DATE,
+    @Especie NVARCHAR(50),
+    @Raza NVARCHAR(50),
+    @IDUsuario INT
+AS
+BEGIN
+    UPDATE Mascotas
+    SET Nombre = @Nombre,
+        FechaNacimiento = @FechaNacimiento,
+        Especie = @Especie,
+        Raza = @Raza,
+        IDUsuario = @IDUsuario
+    WHERE MascotaID = @MascotaID;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE ConsultarMascotas
+AS
+BEGIN
+    SELECT 
+        m.MascotaID, m.Nombre, m.Especie, m.Raza, m.FechaNacimiento, u.Nombre AS Propietario 
+    FROM Mascotas m
+    INNER JOIN Usuarios u ON u.UsuarioID = m.IDUsuario
+END;
+GO
+
+CREATE OR ALTER PROCEDURE CargarUsuarios
+AS
+BEGIN
+    SELECT UsuarioID, Nombre
+    FROM Usuarios;
+END;
+
+
+CREATE OR ALTER PROCEDURE CargarPerfiles
 AS
 BEGIN
     SELECT PerfilID, Nombre

@@ -214,7 +214,7 @@ namespace PetLover.Controllers
         {
             using (var context = new PetLoverEntities())
             {
-                var info = context.ConsultarPerfiles().ToList();
+                var info = context.CargarPerfiles().ToList();
 
                 var perfilCombo = new List<SelectListItem>
         {

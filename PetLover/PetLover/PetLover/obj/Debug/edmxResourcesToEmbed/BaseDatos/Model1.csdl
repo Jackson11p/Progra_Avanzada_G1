@@ -10,6 +10,18 @@
     <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Origen" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
+  <EntityType Name="Mascota">
+    <Key>
+      <PropertyRef Name="MascotaID" />
+    </Key>
+    <Property Name="MascotaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Especie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Raza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="IDUsuario" Type="Int32" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK__Mascotas__IDUsua__76969D2E" FromRole="Mascotas" ToRole="Usuarios" />
+  </EntityType>
   <EntityType Name="Perfil">
     <Key>
       <PropertyRef Name="PerfilID" />
@@ -30,8 +42,21 @@
     <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="Estado" Type="Boolean" Nullable="false" />
     <Property Name="IdPerfil" Type="Int32" />
+    <NavigationProperty Name="Mascotas" Relationship="Self.FK__Mascotas__IDUsua__76969D2E" FromRole="Usuarios" ToRole="Mascotas" />
     <NavigationProperty Name="Perfil" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Usuarios" ToRole="Perfil" />
   </EntityType>
+  <Association Name="FK__Mascotas__IDUsua__76969D2E">
+    <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Mascotas" Type="Self.Mascota" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="UsuarioID" />
+      </Principal>
+      <Dependent Role="Mascotas">
+        <PropertyRef Name="IDUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Usuarios__IdPerf__47DBAE45">
     <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
     <End Role="Usuarios" Type="Self.Usuario" Multiplicity="*" />
@@ -46,8 +71,13 @@
   </Association>
   <EntityContainer Name="PetLoverEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Errors" EntityType="Self.Error" />
+    <EntitySet Name="Mascotas" EntityType="Self.Mascota" />
     <EntitySet Name="Perfils" EntityType="Self.Perfil" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK__Mascotas__IDUsua__76969D2E" Association="Self.FK__Mascotas__IDUsua__76969D2E">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Mascotas" EntitySet="Mascotas" />
+    </AssociationSet>
     <AssociationSet Name="FK__Usuarios__IdPerf__47DBAE45" Association="Self.FK__Usuarios__IdPerf__47DBAE45">
       <End Role="Perfil" EntitySet="Perfils" />
       <End Role="Usuarios" EntitySet="Usuarios" />
@@ -55,6 +85,14 @@
     <FunctionImport Name="ActualizarContrasenna">
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="NuevaContrasenna" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ActualizarMascota">
+      <Parameter Name="MascotaID" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="Especie" Mode="In" Type="String" />
+      <Parameter Name="Raza" Mode="In" Type="String" />
+      <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="ActualizarUsuario">
       <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
@@ -65,12 +103,25 @@
       <Parameter Name="Estado" Mode="In" Type="Boolean" />
       <Parameter Name="IdPerfil" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="CargarPerfiles" ReturnType="Collection(PetLoverModel.CargarPerfiles_Result)" />
+    <FunctionImport Name="CargarUsuarios" ReturnType="Collection(PetLoverModel.CargarUsuarios_Result)" />
+    <FunctionImport Name="ConsultarClientes" ReturnType="Collection(PetLoverModel.ConsultarClientes_Result)" />
+    <FunctionImport Name="ConsultarMascotas" ReturnType="Collection(PetLoverModel.ConsultarMascotas_Result)" />
     <FunctionImport Name="ConsultarPerfiles" ReturnType="Collection(PetLoverModel.ConsultarPerfiles_Result)" />
     <FunctionImport Name="ConsultarUsuarios" ReturnType="Collection(PetLoverModel.ConsultarUsuarios_Result)" />
     <FunctionImport Name="IniciarSesion" ReturnType="Collection(PetLoverModel.IniciarSesion_Result)">
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="Contrasenna" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="InsertarMascota">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Especie" Mode="In" Type="String" />
+      <Parameter Name="Raza" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="ClienteID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="MostrarPerfiles" ReturnType="Collection(PetLoverModel.MostrarPerfiles_Result)" />
+    <FunctionImport Name="MostrasUsuarios" ReturnType="Collection(PetLoverModel.MostrasUsuarios_Result)" />
     <FunctionImport Name="RegistrarCuenta">
       <Parameter Name="Identificacion" Mode="In" Type="String" />
       <Parameter Name="Contrasenna" Mode="In" Type="String" />
@@ -83,7 +134,34 @@
       <Parameter Name="Mensaje" Mode="In" Type="String" />
       <Parameter Name="Origen" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="RegistrarMascota">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Especie" Mode="In" Type="String" />
+      <Parameter Name="Raza" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="CargarPerfiles_Result">
+    <Property Type="Int32" Name="PerfilID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="CargarUsuarios_Result">
+    <Property Type="Int32" Name="UsuarioID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="ConsultarClientes_Result">
+    <Property Type="Int32" Name="UsuarioID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="ConsultarMascotas_Result">
+    <Property Type="Int32" Name="MascotaID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Especie" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Raza" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+    <Property Type="String" Name="Propietario" Nullable="false" MaxLength="100" />
+  </ComplexType>
   <ComplexType Name="ConsultarPerfiles_Result">
     <Property Type="Int32" Name="PerfilID" Nullable="false" />
     <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
@@ -107,5 +185,13 @@
     <Property Type="Boolean" Name="Estado" Nullable="false" />
     <Property Type="Int32" Name="IdPerfil" Nullable="true" />
     <Property Type="String" Name="NombrePerfil" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="MostrarPerfiles_Result">
+    <Property Type="Int32" Name="PerfilID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="MostrasUsuarios_Result">
+    <Property Type="Int32" Name="UsuarioID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
   </ComplexType>
 </Schema>

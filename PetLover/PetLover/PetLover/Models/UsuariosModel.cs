@@ -14,5 +14,6 @@ namespace PetLover.Models
         public string Telefono { get; set; }
         public string ContrasennaAnterior { get; set; }
         public string ConfirmarContrasenna { get; set; }
+      
     }
 }
