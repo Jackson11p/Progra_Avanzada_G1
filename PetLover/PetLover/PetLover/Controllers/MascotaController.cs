@@ -76,6 +76,7 @@ namespace PetLover.Controllers
         }
         #endregion
 
+        #region Actualizar Mascota
         [HttpGet]
         public ActionResult ActualizarMascota(long q)
         {
@@ -121,6 +122,7 @@ namespace PetLover.Controllers
                 return View("Error");
             }
         }
+        #endregion
 
         #region Cargar Usuarios
         private void CargarUsuarios()

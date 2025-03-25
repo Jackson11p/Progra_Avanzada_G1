@@ -20,7 +20,6 @@ GO
 
 -- Tabla para almacenar información de los usuarios
 SELECT * FROM Usuarios
-
 CREATE TABLE Usuarios (
     UsuarioID INT PRIMARY KEY IDENTITY(1,1),
 	Identificacion NVARCHAR(15) NOT NULL,
@@ -46,6 +45,7 @@ ADD CONSTRAINT UQ_Usuarios_Telefono UNIQUE (Telefono);
 GO
 
 -- Tabla para almacenar información de las mascotas
+SELECT * FROM MASCOTAS
 CREATE TABLE Mascotas (
     MascotaID INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
@@ -264,7 +264,7 @@ END;
 
 EXEC ConsultarUsuarios
 
-CREATE PROCEDURE RegistrarTratamiento
+CREATE OR ALTER PROCEDURE RegistrarTratamiento
     @Nombre NVARCHAR(100),
     @Descripcion NVARCHAR(MAX),
     @Costo DECIMAL(10,2)
@@ -283,11 +283,11 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE ActualizarTratamiento
+CREATE OR ALTER PROCEDURE ActualizarTratamiento
     @TratamientoID INT,
-    @Nombre NVARCHAR(100) = NULL,
-    @Descripcion NVARCHAR(MAX) = NULL,
-    @Costo DECIMAL(10,2) = NULL
+    @Nombre NVARCHAR(100),
+    @Descripcion NVARCHAR(MAX),
+    @Costo DECIMAL(10,2)
 AS
 BEGIN
     UPDATE Tratamientos
@@ -296,67 +296,5 @@ BEGIN
         Descripcion = @Descripcion,
         Costo = @Costo
     WHERE TratamientoID = @TratamientoID;
-END;
-GO
-
-CREATE PROCEDURE EliminarTratamiento
-    @TratamientoID INT
-AS
-BEGIN
-    DELETE FROM Tratamientos
-    WHERE TratamientoID = @TratamientoID;
-END;
-GO
-
-CREATE OR ALTER PROCEDURE ConsultarMascotas
-AS
-BEGIN
-	SELECT  MascotaID, p.Nombre, Especie, Raza, FechaNacimiento, ClienteID
-	FROM	Pets p
-	INNER JOIN Usuarios u ON u.UsuarioID = p.ClienteID
-END;
-GO
-
-CREATE OR ALTER PROCEDURE AgregarMascota
-    @Nombre NVARCHAR(100),
-    @Especie NVARCHAR(50),
-    @Raza NVARCHAR(50),
-    @FechaNacimiento DATE,
-    @ClienteID INT
-AS
-BEGIN
-
-    IF EXISTS (SELECT 1 FROM Usuarios WHERE UsuarioID = @ClienteID)
-    BEGIN
-        INSERT INTO Pets (Nombre, Especie, Raza, FechaNacimiento, ClienteID)
-        VALUES (@Nombre, @Especie, @Raza, @FechaNacimiento, @ClienteID);
-    END
-END;
-GO
-
-CREATE OR ALTER PROCEDURE ActualizarMascota
-    @MascotaID INT,
-    @Nombre NVARCHAR(100),
-    @Especie NVARCHAR(50),
-    @Raza NVARCHAR(50),
-    @FechaNacimiento DATE,
-    @ClienteID INT
-AS
-BEGIN
-
-    IF NOT EXISTS (SELECT 1 FROM Usuarios WHERE UsuarioID = @ClienteID)
-    BEGIN
-        RETURN -1;
-    END
-
-    UPDATE Pets
-    SET
-        Nombre = @Nombre,
-        Especie = @Especie,
-        Raza = @Raza,
-        FechaNacimiento = @FechaNacimiento,
-        ClienteID = @ClienteID
-    WHERE MascotaID = @MascotaID;
-    RETURN 1;
 END;
 GO

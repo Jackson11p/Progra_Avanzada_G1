@@ -30,6 +30,7 @@ namespace PetLover.BaseDatos
         public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<Mascota> Mascotas { get; set; }
         public virtual DbSet<Perfil> Perfils { get; set; }
+        public virtual DbSet<Tratamiento> Tratamientos { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
     
         public virtual int ActualizarContrasenna(string correo, string nuevaContrasenna)
@@ -72,6 +73,27 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("IDUsuario", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarMascota", mascotaIDParameter, nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, iDUsuarioParameter);
+        }
+    
+        public virtual int ActualizarTratamiento(Nullable<int> tratamientoID, string nombre, string descripcion, Nullable<decimal> costo)
+        {
+            var tratamientoIDParameter = tratamientoID.HasValue ?
+                new ObjectParameter("TratamientoID", tratamientoID) :
+                new ObjectParameter("TratamientoID", typeof(int));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var costoParameter = costo.HasValue ?
+                new ObjectParameter("Costo", costo) :
+                new ObjectParameter("Costo", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarTratamiento", tratamientoIDParameter, nombreParameter, descripcionParameter, costoParameter);
         }
     
         public virtual int ActualizarUsuario(Nullable<int> usuarioID, string identificacion, string nombre, string correo, string telefono, Nullable<bool> estado, Nullable<int> idPerfil)
@@ -130,6 +152,11 @@ namespace PetLover.BaseDatos
         public virtual ObjectResult<ConsultarPerfiles_Result> ConsultarPerfiles()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarPerfiles_Result>("ConsultarPerfiles");
+        }
+    
+        public virtual ObjectResult<ConsultarTratamientos_Result> ConsultarTratamientos()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarTratamientos_Result>("ConsultarTratamientos");
         }
     
         public virtual ObjectResult<ConsultarUsuarios_Result> ConsultarUsuarios()
@@ -250,6 +277,23 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("IDUsuario", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarMascota", nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, iDUsuarioParameter);
+        }
+    
+        public virtual int RegistrarTratamiento(string nombre, string descripcion, Nullable<decimal> costo)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var costoParameter = costo.HasValue ?
+                new ObjectParameter("Costo", costo) :
+                new ObjectParameter("Costo", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarTratamiento", nombreParameter, descripcionParameter, costoParameter);
         }
     }
 }

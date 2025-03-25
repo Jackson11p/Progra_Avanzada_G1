@@ -12,134 +12,115 @@ namespace PetLover.Controllers
     {
         RegistroErrores error = new RegistroErrores();
 
-        // Consultar tratamientos
-        public ActionResult Index()
+        #region Ver tratamientos
+        [HttpGet]
+        public ActionResult ConsultarTratamientos()
         {
             try
             {
                 using (var context = new PetLoverEntities())
                 {
-                    var tratamientos = context.ConsultarTratamientos().ToList();
-                    return View(tratamientos);
+                    var info = context.ConsultarTratamientos().ToList();
+                    return View(info);
                 }
             }
             catch (Exception ex)
             {
-                error.RegistrarError(ex.Message, "Get Index Tratamiento");
+                error.RegistrarError(ex.Message, "Get ConsultarTratamientos");
+                return View("Error");
+            }
+        }
+        #endregion
+
+        #region Registrar Tratamientos
+        [HttpGet]
+        public ActionResult RegistrarTratamiento()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get RegistrarTratamiento");
                 return View("Error");
             }
         }
 
-        
-        public ActionResult Crear()
-        {
-            return View();
-        }
-
-        // Crear tratamienti
         [HttpPost]
-        public ActionResult Crear(Tratamientos model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    using (var context = new PetLoverEntities())
-                    {
-                        context.RegistrarTratamiento(model.Nombre, model.Descripcion, model.Costo);
-                    }
-                    return RedirectToAction("Index");
-                }
-                return View(model);
-            }
-            catch (Exception ex)
-            {
-                error.RegistrarError(ex.Message, "Post Crear Tratamiento");
-                return View("Error");
-            }
-        }
-
-        // Editar el tratamiento
-        public ActionResult Editar(int id)
+        public ActionResult RegistrarTratamiento(TratamientoModel model)
         {
             try
             {
                 using (var context = new PetLoverEntities())
                 {
-                    var tratamiento = context.Tratamientos.Find(id);
-                    if (tratamiento == null)
-                        return HttpNotFound();
-                    return View(tratamiento);
+
+                    var result = context.RegistrarTratamiento(model.Nombre, model.Descripcion, model.Costo);
+
+                    if (result > 0)
+                        return RedirectToAction("ConsultarTratamientos", "Tratamiento");
+                    else
+                    {
+                        ViewBag.Mensaje = "Su información no se ha podido registrar correctamente";
+                        return View();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                error.RegistrarError(ex.Message, "Get Editar Tratamiento");
+                error.RegistrarError(ex.Message, "Post RegistrarTratamiento");
+                return View("Error");
+            }
+
+        }
+        #endregion
+
+        #region Actualizar Tratamiento
+        [HttpGet]
+        public ActionResult ActualizarTratamiento(long q)
+        {
+            try
+            {
+                using (var context = new PetLoverEntities())
+                {
+                    var info = context.Tratamientos.Where(x => x.TratamientoID == q).FirstOrDefault();
+                    return View(info);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get ActualizarTratamiento");
                 return View("Error");
             }
         }
 
-        // Editar tratamiento 
         [HttpPost]
-        public ActionResult Editar(Tratamientos model)
+        public ActionResult ActualizarTratamiento(Tratamiento model)
         {
             try
             {
-                if (ModelState.IsValid)
+                using (var context = new PetLoverEntities())
                 {
-                    using (var context = new PetLoverEntities())
+                    var info = context.Tratamientos.Where(x => x.TratamientoID == model.TratamientoID).FirstOrDefault();
+                    var result = context.ActualizarTratamiento(model.TratamientoID, model.Nombre, model.Descripcion, model.Costo);
+                    if (result > 0)
                     {
-                        context.ActualizarTratamiento(model.TratamientoID, model.Nombre, model.Descripcion, model.Costo);
+                        return RedirectToAction("ConsultarTratamientos", "Tratamiento");
                     }
-                    return RedirectToAction("Index");
-                }
-                return View(model);
-            }
-            catch (Exception ex)
-            {
-                error.RegistrarError(ex.Message, "Post Editar Tratamiento");
-                return View("Error");
-            }
-        }
-
-        // Eliminar tratamiento
-        public ActionResult Eliminar(int id)
-        {
-            try
-            {
-                using (var context = new PetLoverEntities())
-                {
-                    var tratamiento = context.Tratamientos.Find(id);
-                    if (tratamiento == null)
-                        return HttpNotFound();
-                    return View(tratamiento);
+                    else
+                    {
+                        ViewBag.Mensaje = "La información no se ha podido actualizar correctamente";
+                        return View();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                error.RegistrarError(ex.Message, "Get Eliminar Tratamiento");
+                error.RegistrarError(ex.Message, "Post ActualizarTratamiento");
                 return View("Error");
             }
         }
-
-        // Eliminar tratamiento
-        [HttpPost, ActionName("Eliminar")]
-        public ActionResult ConfirmarEliminar(int id)
-        {
-            try
-            {
-                using (var context = new PetLoverEntities())
-                {
-                    context.EliminarTratamiento(id);
-                }
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                error.RegistrarError(ex.Message, "Post Eliminar Tratamiento");
-                return View("Error");
-            }
-        }
+        #endregion
     }
 }
     

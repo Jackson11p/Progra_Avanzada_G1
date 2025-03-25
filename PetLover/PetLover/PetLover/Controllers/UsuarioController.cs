@@ -56,7 +56,7 @@ namespace PetLover.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarUsuario(Usuarios model)
+        public ActionResult ActualizarUsuario(Usuario model)
         {
             try
             {
@@ -67,16 +67,7 @@ namespace PetLover.Controllers
 
                     if (result > 0)
                     {
-                        Session["IdPerfilUsuario"] = model.IdPerfil;
-                        //Session["NombrePerfilUsuario"] = model.Perfil;
-                        if (model.IdPerfil == 2)
-                        {
-                            return RedirectToAction("Index", "Principal");
-                        }
-                        else if (model.IdPerfil == 1)
-                        {
-                            return RedirectToAction("ConsultarUsuarios", "Usuario");
-                        }
+                        return RedirectToAction("ConsultarUsuarios", "Usuario");
                     }
 
                     ViewBag.Mensaje = "La información no se ha podido actualizar correctamente";
@@ -114,7 +105,7 @@ namespace PetLover.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarDatos(Usuarios model)
+        public ActionResult ActualizarDatos(Usuario model)
         {
             try
             {

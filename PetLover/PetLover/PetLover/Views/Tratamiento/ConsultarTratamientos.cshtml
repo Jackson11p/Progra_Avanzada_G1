@@ -1,24 +1,25 @@
-﻿@model List<PetLover.BaseDatos.ConsultarMascotas_Result>
+﻿@model List<PetLover.BaseDatos.ConsultarTratamientos_Result>
+
 @{
-    ViewBag.Title = "ConsultarMascotas";
+    ViewBag.Title = "ConsultarOfertas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="container-fluid">
     <div class="Margen"></div>
     <h5 class="m-0 font-weight-bold text-primary">Mantenimiento de Mascotas</h5>
 
     <div class="Margen">
-        <a class="btn btn-primary" href="@Url.Action("AgregarMascota","Pets")"> + Agregar Mascota</a>
+        <a class="btn btn-primary" href="@Url.Action("RegistrarTratamiento","Tratamiento")"> + Agregar</a>
     </div>
 
     <table id="example" class="table table-bordered table-hover">
         <thead>
             <tr>
+
                 <th>Nombre</th>
-                <th>Especie</th>
-                <th>Raza</th>
-                <th>Fecha Nacimiento</th>
-                <th>Dueño ID</th>
+                <th>Descripcion</th>
+                <th>Costo</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -26,19 +27,18 @@
 
             @foreach (var item in Model)
             {
+
                 <tr>
                     <td>@item.Nombre</td>
-                    <td>@item.Especie</td>
-                    <td>@item.Raza</td>
-                    <td>@(item.FechaNacimiento?.ToString("yyyy-MM-dd"))</td>
-                    <td>@item.ClienteID</td>
-                    <td><a href="@Url.Action("ActualizarMascota","Pets", new { q = item.MascotaID })"><i class="fa fa-edit"></i></a></td>
+                    <td>@item.Descripcion</td>
+                    <td>@item.Costo</td>
+                    <td><a href="@Url.Action("ActualizarTratamiento","Tratamiento", new { q = item.TratamientoID })"><i class="fa fa-edit"></i></a></td>
                 </tr>
             }
 
         </tbody>
     </table>
-    <div style="margin-bottom: 50px;"></div>
+
 </div>
 
 <script src="~/Templates/js/jquery.min.js"></script>

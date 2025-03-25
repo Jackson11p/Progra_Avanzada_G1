@@ -30,6 +30,15 @@
     <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Perfil" ToRole="Usuarios" />
   </EntityType>
+  <EntityType Name="Tratamiento">
+    <Key>
+      <PropertyRef Name="TratamientoID" />
+    </Key>
+    <Property Name="TratamientoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Costo" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="Usuario">
     <Key>
       <PropertyRef Name="UsuarioID" />
@@ -73,6 +82,7 @@
     <EntitySet Name="Errors" EntityType="Self.Error" />
     <EntitySet Name="Mascotas" EntityType="Self.Mascota" />
     <EntitySet Name="Perfils" EntityType="Self.Perfil" />
+    <EntitySet Name="Tratamientos" EntityType="Self.Tratamiento" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
     <AssociationSet Name="FK__Mascotas__IDUsua__76969D2E" Association="Self.FK__Mascotas__IDUsua__76969D2E">
       <End Role="Usuarios" EntitySet="Usuarios" />
@@ -94,6 +104,12 @@
       <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
       <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="ActualizarTratamiento">
+      <Parameter Name="TratamientoID" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Costo" Mode="In" Type="Decimal" />
+    </FunctionImport>
     <FunctionImport Name="ActualizarUsuario">
       <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
       <Parameter Name="Identificacion" Mode="In" Type="String" />
@@ -108,6 +124,7 @@
     <FunctionImport Name="ConsultarClientes" ReturnType="Collection(PetLoverModel.ConsultarClientes_Result)" />
     <FunctionImport Name="ConsultarMascotas" ReturnType="Collection(PetLoverModel.ConsultarMascotas_Result)" />
     <FunctionImport Name="ConsultarPerfiles" ReturnType="Collection(PetLoverModel.ConsultarPerfiles_Result)" />
+    <FunctionImport Name="ConsultarTratamientos" ReturnType="Collection(PetLoverModel.ConsultarTratamientos_Result)" />
     <FunctionImport Name="ConsultarUsuarios" ReturnType="Collection(PetLoverModel.ConsultarUsuarios_Result)" />
     <FunctionImport Name="IniciarSesion" ReturnType="Collection(PetLoverModel.IniciarSesion_Result)">
       <Parameter Name="Correo" Mode="In" Type="String" />
@@ -141,6 +158,11 @@
       <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
       <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="RegistrarTratamiento">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Costo" Mode="In" Type="Decimal" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CargarPerfiles_Result">
     <Property Type="Int32" Name="PerfilID" Nullable="false" />
@@ -165,6 +187,12 @@
   <ComplexType Name="ConsultarPerfiles_Result">
     <Property Type="Int32" Name="PerfilID" Nullable="false" />
     <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ConsultarTratamientos_Result">
+    <Property Type="Int32" Name="TratamientoID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Descripcion" Nullable="true" />
+    <Property Type="Decimal" Name="Costo" Nullable="false" Precision="10" Scale="2" />
   </ComplexType>
   <ComplexType Name="ConsultarUsuarios_Result">
     <Property Type="Int32" Name="UsuarioID" Nullable="false" />
