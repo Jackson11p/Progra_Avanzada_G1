@@ -1,18 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="PetLoverModelStoreContainer" CdmEntityContainer="PetLoverEntities">
-    <EntitySetMapping Name="Citas">
-      <EntityTypeMapping TypeName="PetLoverModel.Citas">
-        <MappingFragment StoreEntitySet="Citas">
-          <ScalarProperty Name="CitaID" ColumnName="CitaID" />
-          <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
-          <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
-          <ScalarProperty Name="VeterinarioID" ColumnName="VeterinarioID" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Error">
+    <EntitySetMapping Name="Errors">
       <EntityTypeMapping TypeName="PetLoverModel.Error">
         <MappingFragment StoreEntitySet="Error">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -23,19 +12,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HistorialMedico">
-      <EntityTypeMapping TypeName="PetLoverModel.HistorialMedico">
-        <MappingFragment StoreEntitySet="HistorialMedico">
-          <ScalarProperty Name="HistorialID" ColumnName="HistorialID" />
+    <EntitySetMapping Name="Mascotas">
+      <EntityTypeMapping TypeName="PetLoverModel.Mascota">
+        <MappingFragment StoreEntitySet="Mascotas">
           <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
-          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Diagnostico" ColumnName="Diagnostico" />
-          <ScalarProperty Name="Tratamiento" ColumnName="Tratamiento" />
-          <ScalarProperty Name="VeterinarioID" ColumnName="VeterinarioID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Especie" ColumnName="Especie" />
+          <ScalarProperty Name="Raza" ColumnName="Raza" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Perfil">
+    <EntitySetMapping Name="Perfils">
       <EntityTypeMapping TypeName="PetLoverModel.Perfil">
         <MappingFragment StoreEntitySet="Perfil">
           <ScalarProperty Name="PerfilID" ColumnName="PerfilID" />
@@ -43,30 +32,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Pets">
-      <EntityTypeMapping TypeName="PetLoverModel.Pets">
-        <MappingFragment StoreEntitySet="Pets">
-          <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Especie" ColumnName="Especie" />
-          <ScalarProperty Name="Raza" ColumnName="Raza" />
-          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-          <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Tratamientos">
-      <EntityTypeMapping TypeName="PetLoverModel.Tratamientos">
-        <MappingFragment StoreEntitySet="Tratamientos">
-          <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="Costo" ColumnName="Costo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Usuarios">
-      <EntityTypeMapping TypeName="PetLoverModel.Usuarios">
+      <EntityTypeMapping TypeName="PetLoverModel.Usuario">
         <MappingFragment StoreEntitySet="Usuarios">
           <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
           <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
@@ -79,29 +46,45 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Veterinarios">
-      <EntityTypeMapping TypeName="PetLoverModel.Veterinarios">
-        <MappingFragment StoreEntitySet="Veterinarios">
-          <ScalarProperty Name="VeterinarioID" ColumnName="VeterinarioID" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Contrasenna" ColumnName="Contrasenna" />
-          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-          <ScalarProperty Name="Salario" ColumnName="Salario" />
-          <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
-          <ScalarProperty Name="FechaContradado" ColumnName="FechaContradado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="CitaTratamientos" TypeName="PetLoverModel.CitaTratamientos" StoreEntitySet="CitaTratamientos">
-      <EndProperty Name="Citas">
-        <ScalarProperty Name="CitaID" ColumnName="CitaID" />
-      </EndProperty>
-      <EndProperty Name="Tratamientos">
-        <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="ActualizarContrasenna" FunctionName="PetLoverModel.Store.ActualizarContrasenna" />
+    <FunctionImportMapping FunctionImportName="ActualizarMascota" FunctionName="PetLoverModel.Store.ActualizarMascota" />
     <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="PetLoverModel.Store.ActualizarUsuario" />
+    <FunctionImportMapping FunctionImportName="CargarPerfiles" FunctionName="PetLoverModel.Store.CargarPerfiles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.CargarPerfiles_Result">
+          <ScalarProperty Name="PerfilID" ColumnName="PerfilID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CargarUsuarios" FunctionName="PetLoverModel.Store.CargarUsuarios">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.CargarUsuarios_Result">
+          <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ConsultarClientes" FunctionName="PetLoverModel.Store.ConsultarClientes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarClientes_Result">
+          <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ConsultarMascotas" FunctionName="PetLoverModel.Store.ConsultarMascotas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarMascotas_Result">
+          <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Especie" ColumnName="Especie" />
+          <ScalarProperty Name="Raza" ColumnName="Raza" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="Propietario" ColumnName="Propietario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="ConsultarPerfiles" FunctionName="PetLoverModel.Store.ConsultarPerfiles">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PetLoverModel.ConsultarPerfiles_Result">
@@ -138,20 +121,25 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="RegistrarCuenta" FunctionName="PetLoverModel.Store.RegistrarCuenta" />
-    <FunctionImportMapping FunctionImportName="RegistrarError" FunctionName="PetLoverModel.Store.RegistrarError" />
-    <FunctionImportMapping FunctionImportName="ActualizarTratamiento" FunctionName="PetLoverModel.Store.ActualizarTratamiento" />
-    <FunctionImportMapping FunctionImportName="ConsultarTratamientos" FunctionName="PetLoverModel.Store.ConsultarTratamientos">
+    <FunctionImportMapping FunctionImportName="InsertarMascota" FunctionName="PetLoverModel.Store.InsertarMascota" />
+    <FunctionImportMapping FunctionImportName="MostrarPerfiles" FunctionName="PetLoverModel.Store.MostrarPerfiles">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarTratamientos_Result">
-          <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
+        <ComplexTypeMapping TypeName="PetLoverModel.MostrarPerfiles_Result">
+          <ScalarProperty Name="PerfilID" ColumnName="PerfilID" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="Costo" ColumnName="Costo" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="EliminarTratamiento" FunctionName="PetLoverModel.Store.EliminarTratamiento" />
-    <FunctionImportMapping FunctionImportName="RegistrarTratamiento" FunctionName="PetLoverModel.Store.RegistrarTratamiento" />
+    <FunctionImportMapping FunctionImportName="MostrasUsuarios" FunctionName="PetLoverModel.Store.MostrasUsuarios">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.MostrasUsuarios_Result">
+          <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="RegistrarCuenta" FunctionName="PetLoverModel.Store.RegistrarCuenta" />
+    <FunctionImportMapping FunctionImportName="RegistrarError" FunctionName="PetLoverModel.Store.RegistrarError" />
+    <FunctionImportMapping FunctionImportName="RegistrarMascota" FunctionName="PetLoverModel.Store.RegistrarMascota" />
   </EntityContainerMapping>
 </Mapping>

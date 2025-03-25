@@ -1,0 +1,64 @@
+﻿@model List<PetLover.BaseDatos.ConsultarMascotas_Result>
+
+@{
+    ViewBag.Title = "ConsultarOfertas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="Margen"></div>
+    <h5 class="m-0 font-weight-bold text-primary">Mantenimiento de Mascotas</h5>
+
+    <div class="Margen">
+        <a class="btn btn-primary" href="@Url.Action("RegistrarMascota","Mascota")"> + Agregar</a>
+    </div>
+
+    <table id="example" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+
+                <th>Nombre</th>
+                <th>Especie</th>
+                <th>Raza</th>
+                <th>FechaNacimiento</th>
+                <th>Propietario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Especie</td>
+                    <td>@item.Raza</td>
+                    <td>@item.FechaNacimiento</td>
+                    <td>@item.Propietario</td>
+                    <td><a href="@Url.Action("ActualizarMascota","Mascota", new { q = item.MascotaID })"><i class="fa fa-edit"></i></a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>
+
+<script src="~/Templates/js/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        var table = new DataTable('#example', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json',
+            },
+            columnDefs: [
+                { "className": "dt-left", "targets": "_all" }
+            ]
+        });
+
+    });
+
+</script>
