@@ -89,9 +89,9 @@
     <FunctionImport Name="ActualizarMascota">
       <Parameter Name="MascotaID" Mode="In" Type="Int32" />
       <Parameter Name="Nombre" Mode="In" Type="String" />
-      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
       <Parameter Name="Especie" Mode="In" Type="String" />
       <Parameter Name="Raza" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
       <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="ActualizarUsuario">

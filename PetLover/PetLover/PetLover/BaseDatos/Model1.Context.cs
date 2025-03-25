@@ -45,7 +45,7 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarContrasenna", correoParameter, nuevaContrasennaParameter);
         }
     
-        public virtual int ActualizarMascota(Nullable<int> mascotaID, string nombre, Nullable<System.DateTime> fechaNacimiento, string especie, string raza, Nullable<int> iDUsuario)
+        public virtual int ActualizarMascota(Nullable<int> mascotaID, string nombre, string especie, string raza, Nullable<System.DateTime> fechaNacimiento, Nullable<int> iDUsuario)
         {
             var mascotaIDParameter = mascotaID.HasValue ?
                 new ObjectParameter("MascotaID", mascotaID) :
@@ -55,10 +55,6 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("Nombre", nombre) :
                 new ObjectParameter("Nombre", typeof(string));
     
-            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
-                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
-                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
-    
             var especieParameter = especie != null ?
                 new ObjectParameter("Especie", especie) :
                 new ObjectParameter("Especie", typeof(string));
@@ -67,11 +63,15 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("Raza", raza) :
                 new ObjectParameter("Raza", typeof(string));
     
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
+    
             var iDUsuarioParameter = iDUsuario.HasValue ?
                 new ObjectParameter("IDUsuario", iDUsuario) :
                 new ObjectParameter("IDUsuario", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarMascota", mascotaIDParameter, nombreParameter, fechaNacimientoParameter, especieParameter, razaParameter, iDUsuarioParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarMascota", mascotaIDParameter, nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, iDUsuarioParameter);
         }
     
         public virtual int ActualizarUsuario(Nullable<int> usuarioID, string identificacion, string nombre, string correo, string telefono, Nullable<bool> estado, Nullable<int> idPerfil)
