@@ -72,9 +72,9 @@
   <Function Name="ActualizarMascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MascotaID" Type="int" Mode="In" />
     <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
-    <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
     <Parameter Name="Especie" Type="nvarchar" Mode="In" />
     <Parameter Name="Raza" Type="nvarchar" Mode="In" />
+    <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
     <Parameter Name="IDUsuario" Type="int" Mode="In" />
   </Function>
   <Function Name="ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

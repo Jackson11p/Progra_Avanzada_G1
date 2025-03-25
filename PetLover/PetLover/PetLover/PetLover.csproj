@@ -304,6 +304,7 @@
     <Content Include="Views\Usuario\ActualizarDatos.cshtml" />
     <Content Include="Views\Mascota\RegistrarMascota.cshtml" />
     <Content Include="Views\Mascota\ConsultarMascotas.cshtml" />
+    <Content Include="Views\Mascota\ActualizarMascota.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

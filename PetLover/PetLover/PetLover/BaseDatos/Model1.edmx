@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PetLoverModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PetLoverModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Error">
           <Key>
             <PropertyRef Name="Id" />
@@ -77,9 +77,9 @@
         <Function Name="ActualizarMascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MascotaID" Type="int" Mode="In" />
           <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
-          <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
           <Parameter Name="Especie" Type="nvarchar" Mode="In" />
           <Parameter Name="Raza" Type="nvarchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
           <Parameter Name="IDUsuario" Type="int" Mode="In" />
         </Function>
         <Function Name="ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -143,7 +143,8 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PetLoverModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -236,9 +237,9 @@
           <FunctionImport Name="ActualizarMascota">
             <Parameter Name="MascotaID" Mode="In" Type="Int32" />
             <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
             <Parameter Name="Especie" Mode="In" Type="String" />
             <Parameter Name="Raza" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
             <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ActualizarUsuario">

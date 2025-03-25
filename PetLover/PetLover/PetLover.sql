@@ -219,21 +219,22 @@ GO
 CREATE OR ALTER PROCEDURE ActualizarMascota
     @MascotaID INT,
     @Nombre NVARCHAR(100),
-    @FechaNacimiento DATE,
     @Especie NVARCHAR(50),
     @Raza NVARCHAR(50),
+    @FechaNacimiento DATE,
     @IDUsuario INT
 AS
 BEGIN
     UPDATE Mascotas
     SET Nombre = @Nombre,
-        FechaNacimiento = @FechaNacimiento,
         Especie = @Especie,
         Raza = @Raza,
+        FechaNacimiento = @FechaNacimiento,
         IDUsuario = @IDUsuario
     WHERE MascotaID = @MascotaID;
 END;
 GO
+
 
 CREATE OR ALTER PROCEDURE ConsultarMascotas
 AS
