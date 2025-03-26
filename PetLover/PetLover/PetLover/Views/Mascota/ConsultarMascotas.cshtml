@@ -20,7 +20,8 @@
                 <th>Nombre</th>
                 <th>Especie</th>
                 <th>Raza</th>
-                <th>FechaNacimiento</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Estado</th>
                 <th>Propietario</th>
                 <th>Acciones</th>
             </tr>
@@ -29,12 +30,14 @@
 
             @foreach (var item in Model)
             {
+                var disponible = item.Estado ? "Activo" : "Inactivo";
 
                 <tr>
                     <td>@item.Nombre</td>
                     <td>@item.Especie</td>
                     <td>@item.Raza</td>
                     <td>@item.FechaNacimiento</td>
+                    <td>@disponible</td>
                     <td>@item.Propietario</td>
                     <td><a href="@Url.Action("ActualizarMascota","Mascota", new { q = item.MascotaID })"><i class="fa fa-edit"></i></a></td>
                 </tr>

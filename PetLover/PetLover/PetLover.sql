@@ -17,7 +17,12 @@ INSERT Perfil (PerfilID, Nombre) VALUES (1, N'Administrador')
 GO
 INSERT Perfil (PerfilID, Nombre) VALUES (2, N'Cliente')
 GO
-
+UPDATE USUARIOS
+SET IdPerfil = 1
+WHERE UsuarioID = 3
+UPDATE USUARIOS
+SET Estado = 1
+WHERE UsuarioID = 3
 -- Tabla para almacenar información de los usuarios
 SELECT * FROM Usuarios
 CREATE TABLE Usuarios (
@@ -46,12 +51,15 @@ GO
 
 -- Tabla para almacenar información de las mascotas
 SELECT * FROM MASCOTAS
+DELETE FROM Mascotas 
+WHERE MascotaID = 1
 CREATE TABLE Mascotas (
     MascotaID INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     Especie NVARCHAR(50),
     Raza NVARCHAR(50),
     FechaNacimiento DATE,
+	Estado BIT NOT NULL,
     IDUsuario INT FOREIGN KEY REFERENCES Usuarios(UsuarioID)
 );
 GO
@@ -79,11 +87,13 @@ CREATE TABLE Citas (
 GO
 
 -- Tabla para almacenar información de los tratamientos
+SELECT * FROM Tratamientos
 CREATE TABLE Tratamientos (
     TratamientoID INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     Descripcion NVARCHAR(MAX),
-    Costo DECIMAL(10, 2) NOT NULL
+    Costo DECIMAL(10, 2) NOT NULL,
+	Estado BIT NOT NULL,
 );
 GO
 
@@ -178,13 +188,14 @@ BEGIN
         u.UsuarioID,u.Identificacion, u.Nombre, u.Correo, u.Telefono, u.Estado, p.Nombre AS NombrePerfil 
     FROM Usuarios u
     INNER JOIN Perfil p ON p.PerfilID = u.IdPerfil
+	WHERE u.Estado = 1
 END;
 GO
 
 CREATE OR ALTER PROCEDURE ActualizarUsuario
     @UsuarioID INT,
-	@Identificacion  NVARCHAR(15),
-	@Nombre NVARCHAR(100),
+    @Identificacion NVARCHAR(15),
+    @Nombre NVARCHAR(100),
     @Correo NVARCHAR(100),
     @Telefono NVARCHAR(15),
     @Estado BIT,
@@ -193,14 +204,12 @@ AS
 BEGIN
     UPDATE Usuarios
     SET Identificacion = @Identificacion,
-		Nombre = @Nombre,
-		Correo = @Correo,
-		Telefono = @Telefono,
-		Estado = @Estado,
+        Nombre = @Nombre,
+        Correo = @Correo,
+        Telefono = @Telefono,
+        Estado = @Estado,
         IdPerfil = @IdPerfil
     WHERE UsuarioID = @UsuarioID;
-
-
 END;
 GO
 
@@ -209,11 +218,12 @@ CREATE OR ALTER PROCEDURE RegistrarMascota
     @Especie NVARCHAR(50),
     @Raza NVARCHAR(50),
 	@FechaNacimiento DATE,
+	@Estado BIT,
     @IDUsuario INT
 AS
 BEGIN
-    INSERT INTO Mascotas (Nombre, FechaNacimiento, Especie, Raza, IDUsuario)
-    VALUES (@Nombre, @FechaNacimiento, @Especie, @Raza, @IDUsuario);
+    INSERT INTO Mascotas (Nombre, FechaNacimiento, Especie, Raza, Estado ,IDUsuario)
+    VALUES (@Nombre, @FechaNacimiento, @Especie, @Raza,@Estado,@IDUsuario);
 END;
 GO
 
@@ -223,6 +233,7 @@ CREATE OR ALTER PROCEDURE ActualizarMascota
     @Especie NVARCHAR(50),
     @Raza NVARCHAR(50),
     @FechaNacimiento DATE,
+	@Estado BIT,
     @IDUsuario INT
 AS
 BEGIN
@@ -231,6 +242,7 @@ BEGIN
         Especie = @Especie,
         Raza = @Raza,
         FechaNacimiento = @FechaNacimiento,
+		Estado = @Estado,
         IDUsuario = @IDUsuario
     WHERE MascotaID = @MascotaID;
 END;
@@ -241,9 +253,10 @@ CREATE OR ALTER PROCEDURE ConsultarMascotas
 AS
 BEGIN
     SELECT 
-        m.MascotaID, m.Nombre, m.Especie, m.Raza, m.FechaNacimiento, u.Nombre AS Propietario 
+        m.MascotaID, m.Nombre, m.Especie, m.Raza, m.FechaNacimiento, m.Estado, u.Nombre AS Propietario 
     FROM Mascotas m
     INNER JOIN Usuarios u ON u.UsuarioID = m.IDUsuario
+	WHERE m.Estado = 1
 END;
 GO
 
@@ -262,24 +275,24 @@ BEGIN
     FROM Perfil;
 END;
 
-EXEC ConsultarUsuarios
-
 CREATE OR ALTER PROCEDURE RegistrarTratamiento
     @Nombre NVARCHAR(100),
     @Descripcion NVARCHAR(MAX),
-    @Costo DECIMAL(10,2)
+    @Costo DECIMAL(10,2),
+	@Estado BIT
 AS
 BEGIN
-    INSERT INTO Tratamientos (Nombre, Descripcion, Costo)
-    VALUES (@Nombre, @Descripcion, @Costo)
+    INSERT INTO Tratamientos (Nombre, Descripcion, Costo, Estado)
+    VALUES (@Nombre, @Descripcion, @Costo, @Estado)
 END;
 GO
 
-CREATE PROCEDURE ConsultarTratamientos
+CREATE OR ALTER PROCEDURE ConsultarTratamientos
 AS
 BEGIN
-    SELECT TratamientoID, Nombre, Descripcion, Costo
-    FROM Tratamientos;
+    SELECT TratamientoID, Nombre, Descripcion, Costo, Estado
+    FROM Tratamientos
+	WHERE Estado = 1
 END;
 GO
 
@@ -287,14 +300,16 @@ CREATE OR ALTER PROCEDURE ActualizarTratamiento
     @TratamientoID INT,
     @Nombre NVARCHAR(100),
     @Descripcion NVARCHAR(MAX),
-    @Costo DECIMAL(10,2)
+    @Costo DECIMAL(10,2),
+	@Estado BIT
 AS
 BEGIN
     UPDATE Tratamientos
     SET 
         Nombre = @Nombre,
         Descripcion = @Descripcion,
-        Costo = @Costo
+        Costo = @Costo,
+		Estado = @Estado
     WHERE TratamientoID = @TratamientoID;
 END;
 GO

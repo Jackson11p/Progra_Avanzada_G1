@@ -7,7 +7,7 @@
 
 <div class="container-fluid">
     <div class="Margen"></div>
-    <h5 class="m-0 font-weight-bold text-primary">Mantenimiento de Mascotas</h5>
+    <h5 class="m-0 font-weight-bold text-primary">Mantenimiento de Tratamientos</h5>
 
     <div class="Margen">
         <a class="btn btn-primary" href="@Url.Action("RegistrarTratamiento","Tratamiento")"> + Agregar</a>
@@ -20,6 +20,7 @@
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Costo</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -27,11 +28,12 @@
 
             @foreach (var item in Model)
             {
-
+                var disponible = item.Estado ? "Activo" : "Inactivo";
                 <tr>
                     <td>@item.Nombre</td>
                     <td>@item.Descripcion</td>
                     <td>@item.Costo</td>
+                    <td>@disponible</td>
                     <td><a href="@Url.Action("ActualizarTratamiento","Tratamiento", new { q = item.TratamientoID })"><i class="fa fa-edit"></i></a></td>
                 </tr>
             }

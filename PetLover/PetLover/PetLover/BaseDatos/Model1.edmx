@@ -24,6 +24,7 @@
           <Property Name="Especie" Type="nvarchar" MaxLength="50" />
           <Property Name="Raza" Type="nvarchar" MaxLength="50" />
           <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="IDUsuario" Type="int" />
         </EntityType>
         <EntityType Name="Perfil">
@@ -41,6 +42,7 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar(max)" />
           <Property Name="Costo" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -55,7 +57,7 @@
           <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="IdPerfil" Type="int" />
         </EntityType>
-        <Association Name="FK__Mascotas__IDUsua__76969D2E">
+        <Association Name="FK__Mascotas__IDUsua__07C12930">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
           <End Role="Mascotas" Type="Self.Mascotas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -89,6 +91,7 @@
           <Parameter Name="Especie" Type="nvarchar" Mode="In" />
           <Parameter Name="Raza" Type="nvarchar" Mode="In" />
           <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+          <Parameter Name="Estado" Type="bit" Mode="In" />
           <Parameter Name="IDUsuario" Type="int" Mode="In" />
         </Function>
         <Function Name="ActualizarTratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -96,6 +99,7 @@
           <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
           <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Costo" Type="decimal" Mode="In" />
+          <Parameter Name="Estado" Type="bit" Mode="In" />
         </Function>
         <Function Name="ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UsuarioID" Type="int" Mode="In" />
@@ -143,12 +147,14 @@
           <Parameter Name="Especie" Type="nvarchar" Mode="In" />
           <Parameter Name="Raza" Type="nvarchar" Mode="In" />
           <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+          <Parameter Name="Estado" Type="bit" Mode="In" />
           <Parameter Name="IDUsuario" Type="int" Mode="In" />
         </Function>
         <Function Name="RegistrarTratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
           <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Costo" Type="decimal" Mode="In" />
+          <Parameter Name="Estado" Type="bit" Mode="In" />
         </Function>
         <EntityContainer Name="PetLoverModelStoreContainer">
           <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
@@ -156,7 +162,7 @@
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tratamientos" EntityType="Self.Tratamientos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Mascotas__IDUsua__76969D2E" Association="Self.FK__Mascotas__IDUsua__76969D2E">
+          <AssociationSet Name="FK__Mascotas__IDUsua__07C12930" Association="Self.FK__Mascotas__IDUsua__07C12930">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Mascotas" EntitySet="Mascotas" />
           </AssociationSet>
@@ -189,8 +195,9 @@
           <Property Name="Especie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Raza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuario" Type="Int32" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Mascotas__IDUsua__76969D2E" FromRole="Mascotas" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Mascotas__IDUsua__07C12930" FromRole="Mascotas" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Perfil">
           <Key>
@@ -208,6 +215,7 @@
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Costo" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -221,10 +229,10 @@
           <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="IdPerfil" Type="Int32" />
-          <NavigationProperty Name="Mascotas" Relationship="Self.FK__Mascotas__IDUsua__76969D2E" FromRole="Usuarios" ToRole="Mascotas" />
+          <NavigationProperty Name="Mascotas" Relationship="Self.FK__Mascotas__IDUsua__07C12930" FromRole="Usuarios" ToRole="Mascotas" />
           <NavigationProperty Name="Perfil" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Usuarios" ToRole="Perfil" />
         </EntityType>
-        <Association Name="FK__Mascotas__IDUsua__76969D2E">
+        <Association Name="FK__Mascotas__IDUsua__07C12930">
           <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Mascotas" Type="Self.Mascota" Multiplicity="*" />
           <ReferentialConstraint>
@@ -254,7 +262,7 @@
           <EntitySet Name="Perfils" EntityType="Self.Perfil" />
           <EntitySet Name="Tratamientos" EntityType="Self.Tratamiento" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK__Mascotas__IDUsua__76969D2E" Association="Self.FK__Mascotas__IDUsua__76969D2E">
+          <AssociationSet Name="FK__Mascotas__IDUsua__07C12930" Association="Self.FK__Mascotas__IDUsua__07C12930">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Mascotas" EntitySet="Mascotas" />
           </AssociationSet>
@@ -272,6 +280,7 @@
             <Parameter Name="Especie" Mode="In" Type="String" />
             <Parameter Name="Raza" Mode="In" Type="String" />
             <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="Estado" Mode="In" Type="Boolean" />
             <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ActualizarTratamiento">
@@ -279,6 +288,7 @@
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Costo" Mode="In" Type="Decimal" />
+            <Parameter Name="Estado" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="ActualizarUsuario">
             <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
@@ -326,12 +336,14 @@
             <Parameter Name="Especie" Mode="In" Type="String" />
             <Parameter Name="Raza" Mode="In" Type="String" />
             <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="Estado" Mode="In" Type="Boolean" />
             <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RegistrarTratamiento">
             <Parameter Name="Nombre" Mode="In" Type="String" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Costo" Mode="In" Type="Decimal" />
+            <Parameter Name="Estado" Mode="In" Type="Boolean" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CargarPerfiles_Result">
@@ -352,6 +364,7 @@
           <Property Type="String" Name="Especie" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Raza" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
           <Property Type="String" Name="Propietario" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="ConsultarPerfiles_Result">
@@ -363,6 +376,7 @@
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Descripcion" Nullable="true" />
           <Property Type="Decimal" Name="Costo" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
         </ComplexType>
         <ComplexType Name="ConsultarUsuarios_Result">
           <Property Type="Int32" Name="UsuarioID" Nullable="false" />
@@ -417,6 +431,7 @@
                 <ScalarProperty Name="Especie" ColumnName="Especie" />
                 <ScalarProperty Name="Raza" ColumnName="Raza" />
                 <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -436,6 +451,7 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -489,6 +505,7 @@
                 <ScalarProperty Name="Especie" ColumnName="Especie" />
                 <ScalarProperty Name="Raza" ColumnName="Raza" />
                 <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Propietario" ColumnName="Propietario" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -508,6 +525,7 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

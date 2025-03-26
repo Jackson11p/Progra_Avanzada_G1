@@ -91,7 +91,8 @@ namespace PetLover.Controllers
             {
                 using (var context = new PetLoverEntities())
                 {
-                    long idSesion = long.Parse(Session["IdUsuario"].ToString());
+                    int idSesion = int.Parse(Session["IdUsuario"].ToString());
+                    //long idSesion = long.Parse(Session["IdUsuario"].ToString());
                     var info = context.Usuarios.Where(x => x.UsuarioID == idSesion).FirstOrDefault();
 
                     return View(info);
@@ -111,7 +112,7 @@ namespace PetLover.Controllers
             {
                 using (var context = new PetLoverEntities())
                 {
-                    long idSesion = long.Parse(Session["IdUsuario"].ToString());
+                    int idSesion = int.Parse(Session["IdUsuario"].ToString());
                     var info = context.Usuarios.Where(x => x.UsuarioID == idSesion).FirstOrDefault();
 
                     var infoCorreo = context.Usuarios.Where(x => x.Correo == model.Correo
@@ -119,7 +120,7 @@ namespace PetLover.Controllers
 
                     if (infoCorreo == null)
                     {
-                        var result = context.ActualizarUsuario(model.UsuarioID, model.Identificacion, model.Nombre, model.Correo, model.Telefono, model.Estado, model.IdPerfil);
+                        var result = context.ActualizarUsuario(idSesion, model.Identificacion, model.Nombre, model.Correo, model.Telefono, model.Estado, model.IdPerfil);
 
                         if (result > 0)
                         {

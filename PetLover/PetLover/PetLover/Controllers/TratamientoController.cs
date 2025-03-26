@@ -55,7 +55,7 @@ namespace PetLover.Controllers
                 using (var context = new PetLoverEntities())
                 {
 
-                    var result = context.RegistrarTratamiento(model.Nombre, model.Descripcion, model.Costo);
+                    var result = context.RegistrarTratamiento(model.Nombre, model.Descripcion, model.Costo, model.Estado);
 
                     if (result > 0)
                         return RedirectToAction("ConsultarTratamientos", "Tratamiento");
@@ -102,7 +102,7 @@ namespace PetLover.Controllers
                 using (var context = new PetLoverEntities())
                 {
                     var info = context.Tratamientos.Where(x => x.TratamientoID == model.TratamientoID).FirstOrDefault();
-                    var result = context.ActualizarTratamiento(model.TratamientoID, model.Nombre, model.Descripcion, model.Costo);
+                    var result = context.ActualizarTratamiento(model.TratamientoID, model.Nombre, model.Descripcion, model.Costo, model.Estado);
                     if (result > 0)
                     {
                         return RedirectToAction("ConsultarTratamientos", "Tratamiento");

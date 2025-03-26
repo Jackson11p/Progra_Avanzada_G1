@@ -20,6 +20,7 @@
           <ScalarProperty Name="Especie" ColumnName="Especie" />
           <ScalarProperty Name="Raza" ColumnName="Raza" />
           <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -39,6 +40,7 @@
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Costo" ColumnName="Costo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -92,6 +94,7 @@
           <ScalarProperty Name="Especie" ColumnName="Especie" />
           <ScalarProperty Name="Raza" ColumnName="Raza" />
           <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Propietario" ColumnName="Propietario" />
         </ComplexTypeMapping>
       </ResultMapping>
@@ -111,6 +114,7 @@
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Costo" ColumnName="Costo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

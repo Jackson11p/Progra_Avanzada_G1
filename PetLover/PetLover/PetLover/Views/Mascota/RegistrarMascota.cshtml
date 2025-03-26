@@ -41,6 +41,10 @@
             <div class="form-group">
                 @Html.DropDownListFor(x => x.IDUsuario, (IEnumerable<SelectListItem>)ViewBag.usuarioCombo, new { @class = "form-control", @Required = "true" })
             </div>
+            <div class="form-check form-group">
+                @Html.CheckBoxFor(x => x.Estado, new { @class = "form-check-input" })
+                @Html.LabelFor(x => x.Estado, new { @class = "form-check-label" })
+            </div>
             <div style="text-align: right; width: 200px">
                 <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar">
             </div>

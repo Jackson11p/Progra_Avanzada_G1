@@ -56,7 +56,7 @@ namespace PetLover.Controllers
                 using (var context = new PetLoverEntities())
                 {
 
-                    var result = context.RegistrarMascota(model.Nombre, model.Especie, model.Raza, model.FechaNacimiento, model.IDUsuario);
+                    var result = context.RegistrarMascota(model.Nombre, model.Especie, model.Raza, model.FechaNacimiento, model.Estado, model.IDUsuario);
 
                     if (result > 0)
                         return RedirectToAction("ConsultarMascotas", "Mascota");
@@ -104,7 +104,7 @@ namespace PetLover.Controllers
                 using (var context = new PetLoverEntities())
                 {
                     var info = context.Mascotas.Where(x => x.MascotaID == model.MascotaID).FirstOrDefault();
-                    var result = context.ActualizarMascota(model.MascotaID, model.Nombre, model.Especie, model.Raza, model.FechaNacimiento, model.IDUsuario);
+                    var result = context.ActualizarMascota(model.MascotaID, model.Nombre, model.Especie, model.Raza, model.FechaNacimiento, model.Estado, model.IDUsuario);
 
                     if (result > 0)
                     {          

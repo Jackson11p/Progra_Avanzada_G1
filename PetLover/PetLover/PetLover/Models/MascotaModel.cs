@@ -11,6 +11,7 @@ namespace PetLover.Models
         public string Especie { get; set; }
         public string Raza { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public bool Estado { get; set; }
         public int IDUsuario { get; set; }
 
     }

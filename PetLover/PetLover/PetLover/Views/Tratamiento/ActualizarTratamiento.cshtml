@@ -22,6 +22,7 @@
 
         @using (Html.BeginForm("ActualizarTratamiento", "Tratamiento"))
         {
+            @Html.HiddenFor(x => x.TratamientoID)
             <div class="form-group">
                 Nombre
                 @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control form-control-user", @Required = "true" })
@@ -33,6 +34,10 @@
             <div class="form-group">
                 Costo
                 @Html.TextBoxFor(x => x.Costo, new { @class = "form-control form-control-user", @Required = "true", @type = "number", @min = "0" })
+            </div>
+            <div class="form-check form-group">
+                @Html.CheckBoxFor(x => x.Estado, new { @class = "form-check-input" })
+                @Html.LabelFor(x => x.Estado, new { @class = "form-check-label" })
             </div>
             <div style="text-align: right; width: 200px">
                 <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar">

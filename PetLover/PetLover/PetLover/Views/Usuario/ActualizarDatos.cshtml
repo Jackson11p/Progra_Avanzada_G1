@@ -38,6 +38,8 @@
                 Teléfono
                 @Html.TextBoxFor(x => x.Telefono, new { @class = "form-control form-control-user", @Required = "true" })
             </div>
+            @Html.HiddenFor(x => x.Estado)
+            @Html.HiddenFor(x => x.IdPerfil)
             <div style="text-align: right; width: 200px">
                 <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar">
             </div>

@@ -17,5 +17,6 @@ namespace PetLover.BaseDatos
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public decimal Costo { get; set; }
+        public bool Estado { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace PetLover.BaseDatos
         public string Especie { get; set; }
         public string Raza { get; set; }
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
+        public bool Estado { get; set; }
         public string Propietario { get; set; }
     }
 }
