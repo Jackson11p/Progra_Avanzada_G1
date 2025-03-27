@@ -114,8 +114,10 @@
         <Function Name="CargarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarMascotas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarMascotasInactivas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarTratamientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarTratamientosInactivos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="IniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
@@ -303,8 +305,10 @@
           <FunctionImport Name="CargarUsuarios" ReturnType="Collection(PetLoverModel.CargarUsuarios_Result)" />
           <FunctionImport Name="ConsultarClientes" ReturnType="Collection(PetLoverModel.ConsultarClientes_Result)" />
           <FunctionImport Name="ConsultarMascotas" ReturnType="Collection(PetLoverModel.ConsultarMascotas_Result)" />
+          <FunctionImport Name="ConsultarMascotasInactivas" ReturnType="Collection(PetLoverModel.ConsultarMascotasInactivas_Result)" />
           <FunctionImport Name="ConsultarPerfiles" ReturnType="Collection(PetLoverModel.ConsultarPerfiles_Result)" />
           <FunctionImport Name="ConsultarTratamientos" ReturnType="Collection(PetLoverModel.ConsultarTratamientos_Result)" />
+          <FunctionImport Name="ConsultarTratamientosInactivos" ReturnType="Collection(PetLoverModel.ConsultarTratamientosInactivos_Result)" />
           <FunctionImport Name="ConsultarUsuarios" ReturnType="Collection(PetLoverModel.ConsultarUsuarios_Result)" />
           <FunctionImport Name="IniciarSesion" ReturnType="Collection(PetLoverModel.IniciarSesion_Result)">
             <Parameter Name="Correo" Mode="In" Type="String" />
@@ -367,11 +371,27 @@
           <Property Type="Boolean" Name="Estado" Nullable="false" />
           <Property Type="String" Name="Propietario" Nullable="false" MaxLength="100" />
         </ComplexType>
+        <ComplexType Name="ConsultarMascotasInactivas_Result">
+          <Property Type="Int32" Name="MascotaID" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Especie" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Raza" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="String" Name="Propietario" Nullable="false" MaxLength="100" />
+        </ComplexType>
         <ComplexType Name="ConsultarPerfiles_Result">
           <Property Type="Int32" Name="PerfilID" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="ConsultarTratamientos_Result">
+          <Property Type="Int32" Name="TratamientoID" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="Decimal" Name="Costo" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ConsultarTratamientosInactivos_Result">
           <Property Type="Int32" Name="TratamientoID" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Descripcion" Nullable="true" />
@@ -510,6 +530,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarMascotasInactivas" FunctionName="PetLoverModel.Store.ConsultarMascotasInactivas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.ConsultarMascotasInactivas_Result">
+                <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Especie" ColumnName="Especie" />
+                <ScalarProperty Name="Raza" ColumnName="Raza" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Propietario" ColumnName="Propietario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ConsultarPerfiles" FunctionName="PetLoverModel.Store.ConsultarPerfiles">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PetLoverModel.ConsultarPerfiles_Result">
@@ -521,6 +554,17 @@
           <FunctionImportMapping FunctionImportName="ConsultarTratamientos" FunctionName="PetLoverModel.Store.ConsultarTratamientos">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PetLoverModel.ConsultarTratamientos_Result">
+                <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarTratamientosInactivos" FunctionName="PetLoverModel.Store.ConsultarTratamientosInactivos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.ConsultarTratamientosInactivos_Result">
                 <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />

@@ -52,7 +52,7 @@ GO
 -- Tabla para almacenar información de las mascotas
 SELECT * FROM MASCOTAS
 DELETE FROM Mascotas 
-WHERE MascotaID = 1
+WHERE MascotaID = 3
 CREATE TABLE Mascotas (
     MascotaID INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
@@ -75,7 +75,6 @@ CREATE TABLE Veterinarios (
 	FechaContradado DATETIME NOT NULL
 );
 GO
-
 -- Tabla para almacenar información de las citas
 CREATE TABLE Citas (
     CitaID INT PRIMARY KEY IDENTITY(1,1),
@@ -260,6 +259,17 @@ BEGIN
 END;
 GO
 
+CREATE OR ALTER PROCEDURE ConsultarMascotasInactivas
+AS
+BEGIN
+    SELECT 
+        m.MascotaID, m.Nombre, m.Especie, m.Raza, m.FechaNacimiento, m.Estado, u.Nombre AS Propietario 
+    FROM Mascotas m
+    INNER JOIN Usuarios u ON u.UsuarioID = m.IDUsuario
+	WHERE m.Estado = 0
+END;
+GO
+
 CREATE OR ALTER PROCEDURE CargarUsuarios
 AS
 BEGIN
@@ -293,6 +303,15 @@ BEGIN
     SELECT TratamientoID, Nombre, Descripcion, Costo, Estado
     FROM Tratamientos
 	WHERE Estado = 1
+END;
+GO
+
+CREATE OR ALTER PROCEDURE ConsultarTratamientosInactivos
+AS
+BEGIN
+    SELECT TratamientoID, Nombre, Descripcion, Costo, Estado
+    FROM Tratamientos
+	WHERE Estado = 0
 END;
 GO
 

@@ -32,6 +32,26 @@ namespace PetLover.Controllers
         }
         #endregion
 
+        #region Ver tratamientos inactivos
+        [HttpGet]
+        public ActionResult ConsultarTratamientosInactivos()
+        {
+            try
+            {
+                using (var context = new PetLoverEntities())
+                {
+                    var info = context.ConsultarTratamientosInactivos().ToList();
+                    return View(info);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get ConsultarTratamientos");
+                return View("Error");
+            }
+        }
+        #endregion
+
         #region Registrar Tratamientos
         [HttpGet]
         public ActionResult RegistrarTratamiento()

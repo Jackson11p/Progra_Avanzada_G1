@@ -1,7 +1,7 @@
 ﻿@model List<PetLover.BaseDatos.ConsultarMascotas_Result>
 
 @{
-    ViewBag.Title = "ConsultarOfertas";
+    ViewBag.Title = "ConsultarMascotas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,8 +11,10 @@
 
     <div class="Margen">
         <a class="btn btn-primary" href="@Url.Action("RegistrarMascota","Mascota")"> + Agregar</a>
-    </div>
+        <a class="btn btn-dark" href="@Url.Action("ConsultarMascotasInactivas","Mascota")"> - Ver Mascotas Inactivas</a>
 
+    </div>
+ 
     <table id="example" class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -31,7 +33,6 @@
             @foreach (var item in Model)
             {
                 var disponible = item.Estado ? "Activo" : "Inactivo";
-
                 <tr>
                     <td>@item.Nombre</td>
                     <td>@item.Especie</td>
@@ -47,7 +48,6 @@
     </table>
 
 </div>
-
 <script src="~/Templates/js/jquery.min.js"></script>
 <script>
 
@@ -65,3 +65,4 @@
     });
 
 </script>
+

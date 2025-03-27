@@ -12,7 +12,7 @@ namespace PetLover.Controllers
     {
         RegistroErrores error = new RegistroErrores();
 
-        #region Ver usuarios
+        #region Ver Mascotas
         [HttpGet]
         public ActionResult ConsultarMascotas()
         {
@@ -21,6 +21,26 @@ namespace PetLover.Controllers
                 using (var context = new PetLoverEntities())
                 {
                     var info = context.ConsultarMascotas().ToList();
+                    return View(info);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get ConsultarMascotas");
+                return View("Error");
+            }
+        }
+        #endregion
+
+        #region Ver Mascotas Inactivas
+        [HttpGet]
+        public ActionResult ConsultarMascotasInactivas()
+        {
+            try
+            {
+                using (var context = new PetLoverEntities())
+                {
+                    var info = context.ConsultarMascotasInactivas().ToList();
                     return View(info);
                 }
             }

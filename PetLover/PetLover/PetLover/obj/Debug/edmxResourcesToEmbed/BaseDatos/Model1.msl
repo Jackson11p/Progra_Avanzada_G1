@@ -99,6 +99,19 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ConsultarMascotasInactivas" FunctionName="PetLoverModel.Store.ConsultarMascotasInactivas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarMascotasInactivas_Result">
+          <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Especie" ColumnName="Especie" />
+          <ScalarProperty Name="Raza" ColumnName="Raza" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Propietario" ColumnName="Propietario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="ConsultarPerfiles" FunctionName="PetLoverModel.Store.ConsultarPerfiles">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PetLoverModel.ConsultarPerfiles_Result">
@@ -110,6 +123,17 @@
     <FunctionImportMapping FunctionImportName="ConsultarTratamientos" FunctionName="PetLoverModel.Store.ConsultarTratamientos">
       <ResultMapping>
         <ComplexTypeMapping TypeName="PetLoverModel.ConsultarTratamientos_Result">
+          <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ConsultarTratamientosInactivos" FunctionName="PetLoverModel.Store.ConsultarTratamientosInactivos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarTratamientosInactivos_Result">
           <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />

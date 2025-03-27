@@ -157,6 +157,11 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarMascotas_Result>("ConsultarMascotas");
         }
     
+        public virtual ObjectResult<ConsultarMascotasInactivas_Result> ConsultarMascotasInactivas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarMascotasInactivas_Result>("ConsultarMascotasInactivas");
+        }
+    
         public virtual ObjectResult<ConsultarPerfiles_Result> ConsultarPerfiles()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarPerfiles_Result>("ConsultarPerfiles");
@@ -165,6 +170,11 @@ namespace PetLover.BaseDatos
         public virtual ObjectResult<ConsultarTratamientos_Result> ConsultarTratamientos()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarTratamientos_Result>("ConsultarTratamientos");
+        }
+    
+        public virtual ObjectResult<ConsultarTratamientosInactivos_Result> ConsultarTratamientosInactivos()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarTratamientosInactivos_Result>("ConsultarTratamientosInactivos");
         }
     
         public virtual ObjectResult<ConsultarUsuarios_Result> ConsultarUsuarios()
