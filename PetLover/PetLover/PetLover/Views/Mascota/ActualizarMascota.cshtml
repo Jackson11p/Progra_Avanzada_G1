@@ -20,9 +20,10 @@
             </div>
         }
 
-        @using (Html.BeginForm("ActualizarMascota", "Mascota"))
+        @using (Html.BeginForm("ActualizarMascota", "Mascota", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
             @Html.HiddenFor(x => x.MascotaID)
+            @Html.HiddenFor(x => x.Imagen)
 
             <div class="form-group">
                 Nombre
@@ -41,11 +42,24 @@
                 @Html.TextBoxFor(x => x.FechaNacimiento, "{0:mm/dd/yyyy}", new { @class = "form-control form-control-user", @type = "date", @Required = "true", @max = DateTime.Now.ToString("yyyy-MM-dd") })
             </div>
             <div class="form-group">
+                Propietario
                 @Html.DropDownListFor(x => x.IDUsuario, (IEnumerable<SelectListItem>)ViewBag.usuarioCombo, new { @class = "form-control", @Required = "true" })
             </div>
-            <div class="form-check form-group">
-                @Html.CheckBoxFor(x => x.Estado, new { @class = "form-check-input" })
-                @Html.LabelFor(x => x.Estado, new { @class = "form-check-label" })
+            <div class="form-group mb-4">
+                <label class="form-label">Imagen de la mascota</label>
+                <input type="file" class="form-control" id="ImagenMascota" name="ImagenMascota">
+            </div>
+            <div class="form-group text-center mb-4">
+                <img src="@Model.Imagen" class="img-thumbnail"
+                     style="max-width: 200px; max-height: 150px;"
+                     onerror="this.src='/ImagenesMascota/default.jpg'"
+                     alt="Imagen actual">
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-check form-switch">
+                    @Html.CheckBoxFor(x => x.Estado, new { @class = "form-check-input", role = "switch" })
+                    <label class="form-check-label">Estado</label>
+                </div>
             </div>
             <div style="text-align: right; width: 200px">
                 <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar">

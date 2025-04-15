@@ -81,6 +81,7 @@ namespace PetLover.Controllers
                         return RedirectToAction("ConsultarTratamientos", "Tratamiento");
                     else
                     {
+                        TempData["MensajeExito"] = "El tratamiento se registró correctamente.";
                         ViewBag.Mensaje = "Su información no se ha podido registrar correctamente";
                         return View();
                     }
@@ -125,6 +126,7 @@ namespace PetLover.Controllers
                     var result = context.ActualizarTratamiento(model.TratamientoID, model.Nombre, model.Descripcion, model.Costo, model.Estado);
                     if (result > 0)
                     {
+                        TempData["MensajeExito"] = "El tratamiento se actualizo correctamente.";
                         return RedirectToAction("ConsultarTratamientos", "Tratamiento");
                     }
                     else

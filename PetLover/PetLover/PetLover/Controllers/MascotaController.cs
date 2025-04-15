@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -52,6 +54,27 @@ namespace PetLover.Controllers
         }
         #endregion
 
+        #region Ver Mascotas por Usuario
+        [HttpGet]
+        public ActionResult MisMascotas()
+        {
+            try
+            {
+                using (var context = new PetLoverEntities())
+                {
+                    int idSesion = int.Parse(Session["IdUsuario"].ToString());
+                    var info = context.ConsultarMascotasPorUsuario(idSesion).ToList();
+                    return View(info);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get ConsultarMascotas");
+                return View("Error");
+            }
+        }
+        #endregion
+
         #region Registrar Mascota
         [HttpGet]
         public ActionResult RegistrarMascota()
@@ -69,21 +92,36 @@ namespace PetLover.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegistrarMascota(MascotaModel model)
+        public ActionResult RegistrarMascota(MascotaModel model, HttpPostedFileBase ImagenMascota)
         {
             try
             {
+                string rutaImagen = null;
+
+                if (ImagenMascota != null && ImagenMascota.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(ImagenMascota.FileName).ToLower();
+                    string nombreArchivo = Guid.NewGuid().ToString() + extension;
+                    string rutaFisica = Path.Combine(Server.MapPath("~/ImagenesMascota"), nombreArchivo);
+
+                    Directory.CreateDirectory(Path.GetDirectoryName(rutaFisica));
+                    ImagenMascota.SaveAs(rutaFisica);
+                    rutaImagen = "/ImagenesMascota/" + nombreArchivo;
+                }
                 using (var context = new PetLoverEntities())
                 {
-
-                    var result = context.RegistrarMascota(model.Nombre, model.Especie, model.Raza, model.FechaNacimiento, model.Estado, model.IDUsuario);
+                    var result = context.RegistrarMascota(model.Nombre, model.Especie, model.Raza, model.FechaNacimiento, model.Estado, model.IDUsuario, rutaImagen);
 
                     if (result > 0)
+                    {
+                        TempData["MensajeExito"] = "La mascota se registró correctamente.";
                         return RedirectToAction("ConsultarMascotas", "Mascota");
+                    }
                     else
                     {
-                        ViewBag.Mensaje = "Su información no se ha podido registrar correctamente";
-                        return View();
+                        ViewBag.Mensaje = "No se pudo registrar la mascota";
+                        CargarUsuarios();
+                        return View(model);
                     }
                 }
             }
@@ -92,7 +130,6 @@ namespace PetLover.Controllers
                 error.RegistrarError(ex.Message, "Post RegistrarMascota");
                 return View("Error");
             }
-
         }
         #endregion
 
@@ -117,21 +154,44 @@ namespace PetLover.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarMascota(Mascota model)
+        public ActionResult ActualizarMascota(Mascota model, HttpPostedFileBase ImagenMascota)
         {
             try
             {
                 using (var context = new PetLoverEntities())
                 {
-                    var info = context.Mascotas.Where(x => x.MascotaID == model.MascotaID).FirstOrDefault();
-                    var result = context.ActualizarMascota(model.MascotaID, model.Nombre, model.Especie, model.Raza, model.FechaNacimiento, model.Estado, model.IDUsuario);
+                    string rutaImagen = model.Imagen;
+
+                    if (ImagenMascota != null && ImagenMascota.ContentLength > 0)
+                    {
+                        if (!string.IsNullOrEmpty(model.Imagen))
+                        {
+                            string rutaAntigua = Server.MapPath(model.Imagen);
+                            if (System.IO.File.Exists(rutaAntigua))
+                            {
+                                System.IO.File.Delete(rutaAntigua);
+                            }
+                        }
+                        string extension = Path.GetExtension(ImagenMascota.FileName).ToLower();
+
+                        string nombreArchivo = $"{model.MascotaID}_{DateTime.Now:yyyyMMddHHmmss}{extension}";
+                        string rutaFisica = Path.Combine(Server.MapPath("~/ImagenesMascota"), nombreArchivo);
+                        Directory.CreateDirectory(Path.GetDirectoryName(rutaFisica));
+                        ImagenMascota.SaveAs(rutaFisica);
+                        rutaImagen = "/ImagenesMascota/" + nombreArchivo;
+                    }
+
+                    var result = context.ActualizarMascota(model.MascotaID, model.Nombre, model.Especie, model.Raza, model.FechaNacimiento, model.Estado, model.IDUsuario, rutaImagen);
 
                     if (result > 0)
-                    {          
+                    {
+                        TempData["MensajeExito"] = "La mascota se actualizó correctamente.";
                         return RedirectToAction("ConsultarMascotas", "Mascota");
                     }
-                    else{
-                        ViewBag.Mensaje = "La información no se ha podido actualizar correctamente";
+                    else
+                    {
+                        ViewBag.ErrorMessage = "No se pudo actualizar la mascota";
+                        CargarUsuarios();
                         return View(model);
                     }
                 }
@@ -142,6 +202,7 @@ namespace PetLover.Controllers
                 return View("Error");
             }
         }
+
         #endregion
 
         #region Cargar Usuarios

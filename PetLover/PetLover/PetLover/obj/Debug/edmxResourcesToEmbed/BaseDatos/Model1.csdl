@@ -21,7 +21,8 @@
     <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
     <Property Name="Estado" Type="Boolean" Nullable="false" />
     <Property Name="IDUsuario" Type="Int32" />
-    <NavigationProperty Name="Usuario" Relationship="Self.FK__Mascotas__IDUsua__07C12930" FromRole="Mascotas" ToRole="Usuarios" />
+    <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK__Mascotas__IDUsua__160F4887" FromRole="Mascotas" ToRole="Usuarios" />
   </EntityType>
   <EntityType Name="Perfil">
     <Key>
@@ -53,10 +54,10 @@
     <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="Estado" Type="Boolean" Nullable="false" />
     <Property Name="IdPerfil" Type="Int32" />
-    <NavigationProperty Name="Mascotas" Relationship="Self.FK__Mascotas__IDUsua__07C12930" FromRole="Usuarios" ToRole="Mascotas" />
+    <NavigationProperty Name="Mascotas" Relationship="Self.FK__Mascotas__IDUsua__160F4887" FromRole="Usuarios" ToRole="Mascotas" />
     <NavigationProperty Name="Perfil" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Usuarios" ToRole="Perfil" />
   </EntityType>
-  <Association Name="FK__Mascotas__IDUsua__07C12930">
+  <Association Name="FK__Mascotas__IDUsua__160F4887">
     <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
     <End Role="Mascotas" Type="Self.Mascota" Multiplicity="*" />
     <ReferentialConstraint>
@@ -86,7 +87,7 @@
     <EntitySet Name="Perfils" EntityType="Self.Perfil" />
     <EntitySet Name="Tratamientos" EntityType="Self.Tratamiento" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
-    <AssociationSet Name="FK__Mascotas__IDUsua__07C12930" Association="Self.FK__Mascotas__IDUsua__07C12930">
+    <AssociationSet Name="FK__Mascotas__IDUsua__160F4887" Association="Self.FK__Mascotas__IDUsua__160F4887">
       <End Role="Usuarios" EntitySet="Usuarios" />
       <End Role="Mascotas" EntitySet="Mascotas" />
     </AssociationSet>
@@ -98,6 +99,10 @@
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="NuevaContrasenna" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="ActualizarImagenMascota">
+      <Parameter Name="MascotaID" Mode="In" Type="Int32" />
+      <Parameter Name="RutaImagen" Mode="In" Type="String" />
+    </FunctionImport>
     <FunctionImport Name="ActualizarMascota">
       <Parameter Name="MascotaID" Mode="In" Type="Int32" />
       <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -106,6 +111,7 @@
       <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
       <Parameter Name="Estado" Mode="In" Type="Boolean" />
       <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="Imagen" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="ActualizarTratamiento">
       <Parameter Name="TratamientoID" Mode="In" Type="Int32" />
@@ -128,6 +134,9 @@
     <FunctionImport Name="ConsultarClientes" ReturnType="Collection(PetLoverModel.ConsultarClientes_Result)" />
     <FunctionImport Name="ConsultarMascotas" ReturnType="Collection(PetLoverModel.ConsultarMascotas_Result)" />
     <FunctionImport Name="ConsultarMascotasInactivas" ReturnType="Collection(PetLoverModel.ConsultarMascotasInactivas_Result)" />
+    <FunctionImport Name="ConsultarMascotasPorUsuario" ReturnType="Collection(PetLoverModel.ConsultarMascotasPorUsuario_Result)">
+      <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="ConsultarPerfiles" ReturnType="Collection(PetLoverModel.ConsultarPerfiles_Result)" />
     <FunctionImport Name="ConsultarTratamientos" ReturnType="Collection(PetLoverModel.ConsultarTratamientos_Result)" />
     <FunctionImport Name="ConsultarTratamientosInactivos" ReturnType="Collection(PetLoverModel.ConsultarTratamientosInactivos_Result)" />
@@ -164,6 +173,7 @@
       <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
       <Parameter Name="Estado" Mode="In" Type="Boolean" />
       <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="Imagen" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="RegistrarTratamiento">
       <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -201,6 +211,14 @@
     <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
     <Property Type="Boolean" Name="Estado" Nullable="false" />
     <Property Type="String" Name="Propietario" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="ConsultarMascotasPorUsuario_Result">
+    <Property Type="Int32" Name="MascotaID" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Especie" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Raza" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+    <Property Type="String" Name="Imagen" Nullable="true" />
   </ComplexType>
   <ComplexType Name="ConsultarPerfiles_Result">
     <Property Type="Int32" Name="PerfilID" Nullable="false" />

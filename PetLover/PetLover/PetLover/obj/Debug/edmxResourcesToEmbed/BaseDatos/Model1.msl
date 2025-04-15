@@ -22,6 +22,7 @@
           <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+          <ScalarProperty Name="Imagen" ColumnName="Imagen" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -59,6 +60,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ActualizarContrasenna" FunctionName="PetLoverModel.Store.ActualizarContrasenna" />
+    <FunctionImportMapping FunctionImportName="ActualizarImagenMascota" FunctionName="PetLoverModel.Store.ActualizarImagenMascota" />
     <FunctionImportMapping FunctionImportName="ActualizarMascota" FunctionName="PetLoverModel.Store.ActualizarMascota" />
     <FunctionImportMapping FunctionImportName="ActualizarTratamiento" FunctionName="PetLoverModel.Store.ActualizarTratamiento" />
     <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="PetLoverModel.Store.ActualizarUsuario" />
@@ -109,6 +111,18 @@
           <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Propietario" ColumnName="Propietario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ConsultarMascotasPorUsuario" FunctionName="PetLoverModel.Store.ConsultarMascotasPorUsuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PetLoverModel.ConsultarMascotasPorUsuario_Result">
+          <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Especie" ColumnName="Especie" />
+          <ScalarProperty Name="Raza" ColumnName="Raza" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="Imagen" ColumnName="Imagen" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

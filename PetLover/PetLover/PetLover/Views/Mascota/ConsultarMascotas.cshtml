@@ -8,13 +8,17 @@
 <div class="container-fluid">
     <div class="Margen"></div>
     <h5 class="m-0 font-weight-bold text-primary">Mantenimiento de Mascotas</h5>
-
+    @if (TempData["MensajeExito"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["MensajeExito"]
+        </div>
+    }
     <div class="Margen">
         <a class="btn btn-primary" href="@Url.Action("RegistrarMascota","Mascota")"> + Agregar</a>
         <a class="btn btn-dark" href="@Url.Action("ConsultarMascotasInactivas","Mascota")"> - Ver Mascotas Inactivas</a>
 
     </div>
- 
     <table id="example" class="table table-bordered table-hover">
         <thead>
             <tr>

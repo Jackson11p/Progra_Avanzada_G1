@@ -8,7 +8,12 @@
 <div class="container-fluid">
     <div class="Margen"></div>
     <h5 class="m-0 font-weight-bold text-primary">Mantenimiento de Tratamientos</h5>
-
+    @if (TempData["MensajeExito"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["MensajeExito"]
+        </div>
+    }
     <div class="Margen">
         <a class="btn btn-primary" href="@Url.Action("RegistrarTratamiento","Tratamiento")"> + Agregar</a>
         <a class="btn btn-dark" href="@Url.Action("ConsultarTratamientosInactivos","Tratamiento")"> - Ver tratamientos inactivos</a>
