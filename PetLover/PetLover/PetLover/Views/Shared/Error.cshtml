@@ -5,9 +5,14 @@
     <title>Error</title>
 </head>
 <body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
+        <div class="col-lg-3 col-md-2"></div>
+        <div class="col-lg-6 col-md-8">
+
+            <div class="Margen"></div>
+            <h1 class="text-danger">¡Ups! Algo salió mal.</h1>
+            <h4>Ocurrió un error al procesar tu solicitud.</h4>
+            <p>Por favor, intenta nuevamente o contacta con el soporte si el problema persiste.</p>
+            <a href="@Url.Action("Index","Principal")" class="btn btn-danger mt-3">Regresar al inicio</a>
+        </div>
 </body>
 </html>

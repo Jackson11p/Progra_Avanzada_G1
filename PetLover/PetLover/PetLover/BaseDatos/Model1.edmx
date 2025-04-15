@@ -26,6 +26,7 @@
           <Property Name="FechaNacimiento" Type="date" />
           <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="IDUsuario" Type="int" />
+          <Property Name="Imagen" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Perfil">
           <Key>
@@ -57,7 +58,7 @@
           <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="IdPerfil" Type="int" />
         </EntityType>
-        <Association Name="FK__Mascotas__IDUsua__07C12930">
+        <Association Name="FK__Mascotas__IDUsua__160F4887">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
           <End Role="Mascotas" Type="Self.Mascotas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -85,6 +86,10 @@
           <Parameter Name="Correo" Type="nvarchar" Mode="In" />
           <Parameter Name="NuevaContrasenna" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="ActualizarImagenMascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MascotaID" Type="int" Mode="In" />
+          <Parameter Name="RutaImagen" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="ActualizarMascota" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MascotaID" Type="int" Mode="In" />
           <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
@@ -93,6 +98,7 @@
           <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
           <Parameter Name="Estado" Type="bit" Mode="In" />
           <Parameter Name="IDUsuario" Type="int" Mode="In" />
+          <Parameter Name="Imagen" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="ActualizarTratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TratamientoID" Type="int" Mode="In" />
@@ -115,6 +121,9 @@
         <Function Name="ConsultarClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarMascotas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarMascotasInactivas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarMascotasPorUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UsuarioID" Type="int" Mode="In" />
+        </Function>
         <Function Name="ConsultarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarTratamientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarTratamientosInactivos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -151,6 +160,7 @@
           <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
           <Parameter Name="Estado" Type="bit" Mode="In" />
           <Parameter Name="IDUsuario" Type="int" Mode="In" />
+          <Parameter Name="Imagen" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="RegistrarTratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
@@ -164,7 +174,7 @@
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tratamientos" EntityType="Self.Tratamientos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Mascotas__IDUsua__07C12930" Association="Self.FK__Mascotas__IDUsua__07C12930">
+          <AssociationSet Name="FK__Mascotas__IDUsua__160F4887" Association="Self.FK__Mascotas__IDUsua__160F4887">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Mascotas" EntitySet="Mascotas" />
           </AssociationSet>
@@ -199,7 +209,8 @@
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuario" Type="Int32" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Mascotas__IDUsua__07C12930" FromRole="Mascotas" ToRole="Usuarios" />
+          <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Mascotas__IDUsua__160F4887" FromRole="Mascotas" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Perfil">
           <Key>
@@ -231,10 +242,10 @@
           <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="IdPerfil" Type="Int32" />
-          <NavigationProperty Name="Mascotas" Relationship="Self.FK__Mascotas__IDUsua__07C12930" FromRole="Usuarios" ToRole="Mascotas" />
+          <NavigationProperty Name="Mascotas" Relationship="Self.FK__Mascotas__IDUsua__160F4887" FromRole="Usuarios" ToRole="Mascotas" />
           <NavigationProperty Name="Perfil" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Usuarios" ToRole="Perfil" />
         </EntityType>
-        <Association Name="FK__Mascotas__IDUsua__07C12930">
+        <Association Name="FK__Mascotas__IDUsua__160F4887">
           <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Mascotas" Type="Self.Mascota" Multiplicity="*" />
           <ReferentialConstraint>
@@ -264,7 +275,7 @@
           <EntitySet Name="Perfils" EntityType="Self.Perfil" />
           <EntitySet Name="Tratamientos" EntityType="Self.Tratamiento" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK__Mascotas__IDUsua__07C12930" Association="Self.FK__Mascotas__IDUsua__07C12930">
+          <AssociationSet Name="FK__Mascotas__IDUsua__160F4887" Association="Self.FK__Mascotas__IDUsua__160F4887">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Mascotas" EntitySet="Mascotas" />
           </AssociationSet>
@@ -276,6 +287,10 @@
             <Parameter Name="Correo" Mode="In" Type="String" />
             <Parameter Name="NuevaContrasenna" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="ActualizarImagenMascota">
+            <Parameter Name="MascotaID" Mode="In" Type="Int32" />
+            <Parameter Name="RutaImagen" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="ActualizarMascota">
             <Parameter Name="MascotaID" Mode="In" Type="Int32" />
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -284,6 +299,7 @@
             <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
             <Parameter Name="Estado" Mode="In" Type="Boolean" />
             <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ActualizarTratamiento">
             <Parameter Name="TratamientoID" Mode="In" Type="Int32" />
@@ -306,6 +322,9 @@
           <FunctionImport Name="ConsultarClientes" ReturnType="Collection(PetLoverModel.ConsultarClientes_Result)" />
           <FunctionImport Name="ConsultarMascotas" ReturnType="Collection(PetLoverModel.ConsultarMascotas_Result)" />
           <FunctionImport Name="ConsultarMascotasInactivas" ReturnType="Collection(PetLoverModel.ConsultarMascotasInactivas_Result)" />
+          <FunctionImport Name="ConsultarMascotasPorUsuario" ReturnType="Collection(PetLoverModel.ConsultarMascotasPorUsuario_Result)">
+            <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="ConsultarPerfiles" ReturnType="Collection(PetLoverModel.ConsultarPerfiles_Result)" />
           <FunctionImport Name="ConsultarTratamientos" ReturnType="Collection(PetLoverModel.ConsultarTratamientos_Result)" />
           <FunctionImport Name="ConsultarTratamientosInactivos" ReturnType="Collection(PetLoverModel.ConsultarTratamientosInactivos_Result)" />
@@ -342,6 +361,7 @@
             <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
             <Parameter Name="Estado" Mode="In" Type="Boolean" />
             <Parameter Name="IDUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="Imagen" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RegistrarTratamiento">
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -379,6 +399,14 @@
           <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
           <Property Type="String" Name="Propietario" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ConsultarMascotasPorUsuario_Result">
+          <Property Type="Int32" Name="MascotaID" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Especie" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Raza" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+          <Property Type="String" Name="Imagen" Nullable="true" />
         </ComplexType>
         <ComplexType Name="ConsultarPerfiles_Result">
           <Property Type="Int32" Name="PerfilID" Nullable="false" />
@@ -453,6 +481,7 @@
                 <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -490,6 +519,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ActualizarContrasenna" FunctionName="PetLoverModel.Store.ActualizarContrasenna" />
+          <FunctionImportMapping FunctionImportName="ActualizarImagenMascota" FunctionName="PetLoverModel.Store.ActualizarImagenMascota" />
           <FunctionImportMapping FunctionImportName="ActualizarMascota" FunctionName="PetLoverModel.Store.ActualizarMascota" />
           <FunctionImportMapping FunctionImportName="ActualizarTratamiento" FunctionName="PetLoverModel.Store.ActualizarTratamiento" />
           <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="PetLoverModel.Store.ActualizarUsuario" />
@@ -540,6 +570,18 @@
                 <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Propietario" ColumnName="Propietario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarMascotasPorUsuario" FunctionName="PetLoverModel.Store.ConsultarMascotasPorUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.ConsultarMascotasPorUsuario_Result">
+                <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Especie" ColumnName="Especie" />
+                <ScalarProperty Name="Raza" ColumnName="Raza" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

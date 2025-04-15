@@ -71,6 +71,13 @@
                                 <a href="@Url.Action("ConsultarTratamientos","Tratamiento")" class="dropdown-item">Tratamientos</a>
                             </div>
                         </div>
+                        <a href="@Url.Action("MisMascotas","Mascota")" class="nav-item nav-link">Mis Mascotas</a>
+                    }
+                    else if (Session["IdPerfilUsuario"] != null && Session["IdPerfilUsuario"].ToString() == "2")
+                    {
+                        <a href="@Url.Action("Index","Principal")" class="nav-item nav-link">Inicio</a>
+                        <a href="@Url.Action("Nosotros","Principal")" class="nav-item nav-link">Nosotros</a>
+                        <a href="@Url.Action("MisMascotas","Mascota")" class="nav-item nav-link">Mis Mascotas</a>
                     }
                     else
                     {

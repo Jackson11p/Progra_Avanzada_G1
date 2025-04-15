@@ -46,7 +46,20 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarContrasenna", correoParameter, nuevaContrasennaParameter);
         }
     
-        public virtual int ActualizarMascota(Nullable<int> mascotaID, string nombre, string especie, string raza, Nullable<System.DateTime> fechaNacimiento, Nullable<bool> estado, Nullable<int> iDUsuario)
+        public virtual int ActualizarImagenMascota(Nullable<int> mascotaID, string rutaImagen)
+        {
+            var mascotaIDParameter = mascotaID.HasValue ?
+                new ObjectParameter("MascotaID", mascotaID) :
+                new ObjectParameter("MascotaID", typeof(int));
+    
+            var rutaImagenParameter = rutaImagen != null ?
+                new ObjectParameter("RutaImagen", rutaImagen) :
+                new ObjectParameter("RutaImagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarImagenMascota", mascotaIDParameter, rutaImagenParameter);
+        }
+    
+        public virtual int ActualizarMascota(Nullable<int> mascotaID, string nombre, string especie, string raza, Nullable<System.DateTime> fechaNacimiento, Nullable<bool> estado, Nullable<int> iDUsuario, string imagen)
         {
             var mascotaIDParameter = mascotaID.HasValue ?
                 new ObjectParameter("MascotaID", mascotaID) :
@@ -76,7 +89,11 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("IDUsuario", iDUsuario) :
                 new ObjectParameter("IDUsuario", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarMascota", mascotaIDParameter, nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, estadoParameter, iDUsuarioParameter);
+            var imagenParameter = imagen != null ?
+                new ObjectParameter("Imagen", imagen) :
+                new ObjectParameter("Imagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarMascota", mascotaIDParameter, nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, estadoParameter, iDUsuarioParameter, imagenParameter);
         }
     
         public virtual int ActualizarTratamiento(Nullable<int> tratamientoID, string nombre, string descripcion, Nullable<decimal> costo, Nullable<bool> estado)
@@ -160,6 +177,15 @@ namespace PetLover.BaseDatos
         public virtual ObjectResult<ConsultarMascotasInactivas_Result> ConsultarMascotasInactivas()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarMascotasInactivas_Result>("ConsultarMascotasInactivas");
+        }
+    
+        public virtual ObjectResult<ConsultarMascotasPorUsuario_Result> ConsultarMascotasPorUsuario(Nullable<int> usuarioID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarMascotasPorUsuario_Result>("ConsultarMascotasPorUsuario", usuarioIDParameter);
         }
     
         public virtual ObjectResult<ConsultarPerfiles_Result> ConsultarPerfiles()
@@ -272,7 +298,7 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarError", idUsuarioParameter, mensajeParameter, origenParameter);
         }
     
-        public virtual int RegistrarMascota(string nombre, string especie, string raza, Nullable<System.DateTime> fechaNacimiento, Nullable<bool> estado, Nullable<int> iDUsuario)
+        public virtual int RegistrarMascota(string nombre, string especie, string raza, Nullable<System.DateTime> fechaNacimiento, Nullable<bool> estado, Nullable<int> iDUsuario, string imagen)
         {
             var nombreParameter = nombre != null ?
                 new ObjectParameter("Nombre", nombre) :
@@ -298,7 +324,11 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("IDUsuario", iDUsuario) :
                 new ObjectParameter("IDUsuario", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarMascota", nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, estadoParameter, iDUsuarioParameter);
+            var imagenParameter = imagen != null ?
+                new ObjectParameter("Imagen", imagen) :
+                new ObjectParameter("Imagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarMascota", nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, estadoParameter, iDUsuarioParameter, imagenParameter);
         }
     
         public virtual int RegistrarTratamiento(string nombre, string descripcion, Nullable<decimal> costo, Nullable<bool> estado)

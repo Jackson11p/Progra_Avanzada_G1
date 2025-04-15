@@ -140,6 +140,9 @@
     <Compile Include="BaseDatos\ConsultarMascotasInactivas_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\ConsultarMascotasPorUsuario_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\ConsultarMascotas_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -325,9 +328,11 @@
     <Content Include="Views\Tratamiento\ActualizarTratamiento.cshtml" />
     <Content Include="Views\Mascota\ConsultarMascotasInactivas.cshtml" />
     <Content Include="Views\Tratamiento\ConsultarTratamientosInactivos.cshtml" />
+    <Content Include="Views\Mascota\MisMascotas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ImagenesMascota\" />
     <Folder Include="Views\App_LocalResources\" />
   </ItemGroup>
   <ItemGroup>

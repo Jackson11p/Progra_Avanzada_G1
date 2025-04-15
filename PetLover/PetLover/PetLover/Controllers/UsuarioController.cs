@@ -67,6 +67,7 @@ namespace PetLover.Controllers
 
                     if (result > 0)
                     {
+                        TempData["MensajeExito"] = "El usuario se actualizo correctamente.";
                         return RedirectToAction("ConsultarUsuarios", "Usuario");
                     }
 
@@ -92,7 +93,6 @@ namespace PetLover.Controllers
                 using (var context = new PetLoverEntities())
                 {
                     int idSesion = int.Parse(Session["IdUsuario"].ToString());
-                    //long idSesion = long.Parse(Session["IdUsuario"].ToString());
                     var info = context.Usuarios.Where(x => x.UsuarioID == idSesion).FirstOrDefault();
 
                     return View(info);

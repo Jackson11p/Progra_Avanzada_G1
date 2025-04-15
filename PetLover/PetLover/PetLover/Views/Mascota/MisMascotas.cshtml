@@ -1,0 +1,48 @@
+﻿@model List<PetLover.BaseDatos.ConsultarMascotasPorUsuario_Result>
+@{
+    ViewBag.Title = "MisMascotas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="Margen"></div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-12 d-flex justify-content-center">
+                    <div class="card shadow rounded-3" style="width: 100%; margin-bottom: 30px;">
+
+                        <div class="text-center mt-3">
+                            <img class="card-img-top rounded-circle border"
+                                 src="@item.Imagen"
+                                 alt="Imagen No cargada"
+                                 style="width: 150px; height: 150px; object-fit: cover;">
+                        </div>
+
+                        <div class="card-body text-center">
+                            <h5 class="card-title font-weight-bold mb-1">@item.Nombre</h5>
+                            <p class="card-text text-muted mb-1">@item.Especie</p>
+                            <p class="card-text text-muted mb-1">@item.Raza</p>
+                            <p class="card-text text-muted">@item.FechaNacimiento</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-5" role="alert">
+            <h4 class="alert-heading">¡Sin mascotas registradas!</h4>
+            <p>Parece que aún no has registrado ninguna mascota.</p>
+            <hr />
+            <p class="mb-0">Desde la primera visita de su mascota a PetLover, tendrá acceso completo a su registro y seguimiento en nuestra plataforma.</p>
+        </div>
+    }
+</div>
+
+
+

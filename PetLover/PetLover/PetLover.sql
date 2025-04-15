@@ -52,17 +52,18 @@ GO
 -- Tabla para almacenar información de las mascotas
 SELECT * FROM MASCOTAS
 DELETE FROM Mascotas 
-WHERE MascotaID = 3
 CREATE TABLE Mascotas (
     MascotaID INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
     Especie NVARCHAR(50),
     Raza NVARCHAR(50),
-    FechaNacimiento DATE,
-	Estado BIT NOT NULL,
-    IDUsuario INT FOREIGN KEY REFERENCES Usuarios(UsuarioID)
+    FechaNacimiento DATE NOT NULL,
+    Estado BIT NOT NULL,
+    IDUsuario INT FOREIGN KEY REFERENCES Usuarios(UsuarioID),
+    Imagen NVARCHAR(MAX) NULL
 );
 GO
+
 -- Tabla para almacenar información de los veterinarios
 CREATE TABLE Veterinarios (
     VeterinarioID INT PRIMARY KEY IDENTITY(1,1),
@@ -218,11 +219,12 @@ CREATE OR ALTER PROCEDURE RegistrarMascota
     @Raza NVARCHAR(50),
 	@FechaNacimiento DATE,
 	@Estado BIT,
-    @IDUsuario INT
+    @IDUsuario INT,
+	@Imagen NVARCHAR(MAX)
 AS
 BEGIN
-    INSERT INTO Mascotas (Nombre, FechaNacimiento, Especie, Raza, Estado ,IDUsuario)
-    VALUES (@Nombre, @FechaNacimiento, @Especie, @Raza,@Estado,@IDUsuario);
+    INSERT INTO Mascotas (Nombre, FechaNacimiento, Especie, Raza, Estado ,IDUsuario, Imagen)
+    VALUES (@Nombre, @FechaNacimiento, @Especie, @Raza,@Estado,@IDUsuario, @Imagen);
 END;
 GO
 
@@ -233,7 +235,8 @@ CREATE OR ALTER PROCEDURE ActualizarMascota
     @Raza NVARCHAR(50),
     @FechaNacimiento DATE,
 	@Estado BIT,
-    @IDUsuario INT
+    @IDUsuario INT,
+	@Imagen NVARCHAR(MAX)
 AS
 BEGIN
     UPDATE Mascotas
@@ -242,7 +245,8 @@ BEGIN
         Raza = @Raza,
         FechaNacimiento = @FechaNacimiento,
 		Estado = @Estado,
-        IDUsuario = @IDUsuario
+        IDUsuario = @IDUsuario,
+		Imagen = @Imagen
     WHERE MascotaID = @MascotaID;
 END;
 GO
@@ -252,7 +256,7 @@ CREATE OR ALTER PROCEDURE ConsultarMascotas
 AS
 BEGIN
     SELECT 
-        m.MascotaID, m.Nombre, m.Especie, m.Raza, m.FechaNacimiento, m.Estado, u.Nombre AS Propietario 
+        m.MascotaID, m.Nombre, m.Especie, m.Raza, m.FechaNacimiento, m.Estado, u.Nombre AS Propietario
     FROM Mascotas m
     INNER JOIN Usuarios u ON u.UsuarioID = m.IDUsuario
 	WHERE m.Estado = 1
@@ -269,6 +273,36 @@ BEGIN
 	WHERE m.Estado = 0
 END;
 GO
+
+CREATE OR ALTER PROCEDURE ConsultarMascotasPorUsuario
+    @UsuarioID INT
+AS
+BEGIN
+    SELECT 
+        MascotaID,
+        Nombre,
+        Especie,
+        Raza,
+        FechaNacimiento,
+		Imagen
+    FROM Mascotas
+    WHERE IDUsuario = @UsuarioID;
+END;
+GO
+
+
+
+CREATE PROCEDURE ActualizarImagenMascota
+    @MascotaID INT,
+    @RutaImagen NVARCHAR(200)
+AS
+BEGIN
+    UPDATE Mascota
+    SET Imagen = @RutaImagen
+    WHERE MascotaID = @MascotaID;
+END
+
+
 
 CREATE OR ALTER PROCEDURE CargarUsuarios
 AS

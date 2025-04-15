@@ -20,11 +20,12 @@
             </div>
         }
 
-        @using (Html.BeginForm("RegistrarMascota", "Mascota"))
+        @using (Html.BeginForm("RegistrarMascota", "Mascota", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
+            @Html.HiddenFor(x => x.MascotaID)
             <div class="form-group">
                 Nombre
-                @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control form-control-user", @Required = "true", @onkeyup = "ConsultarNombre();" })
+                @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control form-control-user", @Required = "true" })
             </div>
             <div class="form-group">
                 Especie
@@ -39,7 +40,12 @@
                 @Html.TextBoxFor(x => x.FechaNacimiento, new { @class = "form-control form-control-user", @type = "date", @Required = "true", @max = DateTime.Now.ToString("yyyy-MM-dd"), })
             </div>
             <div class="form-group">
+                Propietario
                 @Html.DropDownListFor(x => x.IDUsuario, (IEnumerable<SelectListItem>)ViewBag.usuarioCombo, new { @class = "form-control", @Required = "true" })
+            </div>
+            <div class="form-group">
+                Imagen
+                <input type="file" id="ImagenMascota" name="ImagenMascota" class="form-control" required>
             </div>
             <div class="form-check form-group">
                 @Html.CheckBoxFor(x => x.Estado, new { @class = "form-check-input" })
