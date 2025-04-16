@@ -17,14 +17,15 @@ INSERT Perfil (PerfilID, Nombre) VALUES (1, N'Administrador')
 GO
 INSERT Perfil (PerfilID, Nombre) VALUES (2, N'Cliente')
 GO
-UPDATE USUARIOS
-SET IdPerfil = 1
-WHERE UsuarioID = 3
-UPDATE USUARIOS
-SET Estado = 1
-WHERE UsuarioID = 3
+
+--UPDATE USUARIOS
+--SET IdPerfil = 1
+--WHERE UsuarioID = 3
+--UPDATE USUARIOS
+--SET Estado = 1
+--WHERE UsuarioID = 3
+
 -- Tabla para almacenar información de los usuarios
-SELECT * FROM Usuarios
 CREATE TABLE Usuarios (
     UsuarioID INT PRIMARY KEY IDENTITY(1,1),
 	Identificacion NVARCHAR(15) NOT NULL,
@@ -36,6 +37,7 @@ CREATE TABLE Usuarios (
 	IdPerfil INT FOREIGN KEY REFERENCES Perfil(PerfilID)
 );
 GO
+
 --Agregamos indices a datos unicos en la tabla Usarios
 ALTER TABLE Usuarios
 ADD CONSTRAINT UQ_Usuarios_Identificacion UNIQUE (Identificacion);
@@ -49,9 +51,9 @@ ALTER TABLE Usuarios
 ADD CONSTRAINT UQ_Usuarios_Telefono UNIQUE (Telefono);
 GO
 
+SELECT * FROM Usuarios
+
 -- Tabla para almacenar información de las mascotas
-SELECT * FROM MASCOTAS
-DELETE FROM Mascotas 
 CREATE TABLE Mascotas (
     MascotaID INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
@@ -63,6 +65,8 @@ CREATE TABLE Mascotas (
     Imagen NVARCHAR(MAX) NULL
 );
 GO
+
+SELECT * FROM Mascotas
 
 -- Tabla para almacenar información de los veterinarios
 CREATE TABLE Veterinarios (
@@ -76,18 +80,18 @@ CREATE TABLE Veterinarios (
 	FechaContradado DATETIME NOT NULL
 );
 GO
+
 -- Tabla para almacenar información de las citas
 CREATE TABLE Citas (
     CitaID INT PRIMARY KEY IDENTITY(1,1),
     FechaHora DATETIME NOT NULL,
-    MascotaID INT FOREIGN KEY REFERENCES Pets(MascotaID),
+    MascotaID INT FOREIGN KEY REFERENCES Mascotas(MascotaID),
     VeterinarioID INT FOREIGN KEY REFERENCES Veterinarios(VeterinarioID),
     Descripcion NVARCHAR(MAX)
 );
 GO
 
 -- Tabla para almacenar información de los tratamientos
-SELECT * FROM Tratamientos
 CREATE TABLE Tratamientos (
     TratamientoID INT PRIMARY KEY IDENTITY(1,1),
     Nombre NVARCHAR(100) NOT NULL,
@@ -96,6 +100,8 @@ CREATE TABLE Tratamientos (
 	Estado BIT NOT NULL,
 );
 GO
+
+SELECT * FROM Tratamientos
 
 -- Tabla para relacionar citas con tratamientos
 CREATE TABLE CitaTratamientos (
@@ -108,7 +114,7 @@ GO
 -- Tabla para almacenar historial médico de las mascotas
 CREATE TABLE HistorialMedico (
     HistorialID INT PRIMARY KEY IDENTITY(1,1),
-    MascotaID INT FOREIGN KEY REFERENCES Pets(MascotaID),
+    MascotaID INT FOREIGN KEY REFERENCES Mascotas(MascotaID),
     Fecha DATE NOT NULL,
     Diagnostico NVARCHAR(MAX),
     Tratamiento NVARCHAR(MAX),
@@ -125,11 +131,13 @@ CREATE TABLE Error(
 	Origen varchar(500) NOT NULL
 );
 GO
-select *  from Error
+
+select *  from Error;
+go
 --Procedimientos almacenados
 
 --Registrar un usuario
-CREATE PROCEDURE RegistrarCuenta
+CREATE OR ALTER PROCEDURE RegistrarCuenta
 	@Identificacion varchar(15),
 	@Contrasenna varchar(15),
 	@Nombre varchar(200),
@@ -144,7 +152,7 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[IniciarSesion]
+CREATE OR ALTER PROCEDURE IniciarSesion
 	@Correo varchar(100),
 	@Contrasenna varchar(15)
 AS
@@ -158,7 +166,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE RegistrarError
+CREATE OR ALTER PROCEDURE RegistrarError
 	@IdUsuario BIGINT,
 	@Mensaje   NVARCHAR(max),
 	@Origen	   NVARCHAR(500)
@@ -292,16 +300,16 @@ GO
 
 
 
-CREATE PROCEDURE ActualizarImagenMascota
+CREATE OR ALTER PROCEDURE ActualizarImagenMascota
     @MascotaID INT,
     @RutaImagen NVARCHAR(200)
 AS
 BEGIN
-    UPDATE Mascota
+    UPDATE Mascotas
     SET Imagen = @RutaImagen
     WHERE MascotaID = @MascotaID;
 END
-
+GO
 
 
 CREATE OR ALTER PROCEDURE CargarUsuarios
@@ -310,7 +318,7 @@ BEGIN
     SELECT UsuarioID, Nombre
     FROM Usuarios;
 END;
-
+GO
 
 CREATE OR ALTER PROCEDURE CargarPerfiles
 AS
@@ -318,6 +326,7 @@ BEGIN
     SELECT PerfilID, Nombre
     FROM Perfil;
 END;
+GO
 
 CREATE OR ALTER PROCEDURE RegistrarTratamiento
     @Nombre NVARCHAR(100),
