@@ -154,7 +154,7 @@ namespace PetLover.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarMascota(Mascota model, HttpPostedFileBase ImagenMascota)
+        public ActionResult ActualizarMascota(Mascotas model, HttpPostedFileBase ImagenMascota)
         {
             try
             {

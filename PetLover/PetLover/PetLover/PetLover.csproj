@@ -134,7 +134,7 @@
     <Compile Include="BaseDatos\CargarUsuarios_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="BaseDatos\ConsultarClientes_Result.cs">
+    <Compile Include="BaseDatos\Citas.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\ConsultarMascotasInactivas_Result.cs">
@@ -144,9 +144,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\ConsultarMascotas_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseDatos\ConsultarPerfiles_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\ConsultarTratamientosInactivos_Result.cs">
@@ -161,10 +158,13 @@
     <Compile Include="BaseDatos\Error.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\HistorialMedico.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\IniciarSesion_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="BaseDatos\Mascota.cs">
+    <Compile Include="BaseDatos\Mascotas.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\Model1.Context.cs">
@@ -182,19 +182,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="BaseDatos\MostrarPerfiles_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BaseDatos\MostrasUsuarios_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="BaseDatos\Perfil.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="BaseDatos\Tratamiento.cs">
+    <Compile Include="BaseDatos\Tratamientos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="BaseDatos\Usuario.cs">
+    <Compile Include="BaseDatos\Usuarios.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Veterinarios.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\MascotaController.cs" />

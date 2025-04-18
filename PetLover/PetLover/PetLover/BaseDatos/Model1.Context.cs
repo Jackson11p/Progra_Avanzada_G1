@@ -27,11 +27,14 @@ namespace PetLover.BaseDatos
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Error> Errors { get; set; }
-        public virtual DbSet<Mascota> Mascotas { get; set; }
-        public virtual DbSet<Perfil> Perfils { get; set; }
-        public virtual DbSet<Tratamiento> Tratamientos { get; set; }
-        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Citas> Citas { get; set; }
+        public virtual DbSet<Error> Error { get; set; }
+        public virtual DbSet<HistorialMedico> HistorialMedico { get; set; }
+        public virtual DbSet<Mascotas> Mascotas { get; set; }
+        public virtual DbSet<Perfil> Perfil { get; set; }
+        public virtual DbSet<Tratamientos> Tratamientos { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Veterinarios> Veterinarios { get; set; }
     
         public virtual int ActualizarContrasenna(string correo, string nuevaContrasenna)
         {
@@ -164,11 +167,6 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarUsuarios_Result>("CargarUsuarios");
         }
     
-        public virtual ObjectResult<ConsultarClientes_Result> ConsultarClientes()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarClientes_Result>("ConsultarClientes");
-        }
-    
         public virtual ObjectResult<ConsultarMascotas_Result> ConsultarMascotas()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarMascotas_Result>("ConsultarMascotas");
@@ -186,11 +184,6 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("UsuarioID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarMascotasPorUsuario_Result>("ConsultarMascotasPorUsuario", usuarioIDParameter);
-        }
-    
-        public virtual ObjectResult<ConsultarPerfiles_Result> ConsultarPerfiles()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarPerfiles_Result>("ConsultarPerfiles");
         }
     
         public virtual ObjectResult<ConsultarTratamientos_Result> ConsultarTratamientos()
@@ -219,41 +212,6 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("Contrasenna", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IniciarSesion_Result>("IniciarSesion", correoParameter, contrasennaParameter);
-        }
-    
-        public virtual int InsertarMascota(string nombre, string especie, string raza, Nullable<System.DateTime> fechaNacimiento, Nullable<int> clienteID)
-        {
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
-            var especieParameter = especie != null ?
-                new ObjectParameter("Especie", especie) :
-                new ObjectParameter("Especie", typeof(string));
-    
-            var razaParameter = raza != null ?
-                new ObjectParameter("Raza", raza) :
-                new ObjectParameter("Raza", typeof(string));
-    
-            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
-                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
-                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
-    
-            var clienteIDParameter = clienteID.HasValue ?
-                new ObjectParameter("ClienteID", clienteID) :
-                new ObjectParameter("ClienteID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertarMascota", nombreParameter, especieParameter, razaParameter, fechaNacimientoParameter, clienteIDParameter);
-        }
-    
-        public virtual ObjectResult<MostrarPerfiles_Result> MostrarPerfiles()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrarPerfiles_Result>("MostrarPerfiles");
-        }
-    
-        public virtual ObjectResult<MostrasUsuarios_Result> MostrasUsuarios()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrasUsuarios_Result>("MostrasUsuarios");
         }
     
         public virtual int RegistrarCuenta(string identificacion, string contrasenna, string nombre, string correo, string telefono)
