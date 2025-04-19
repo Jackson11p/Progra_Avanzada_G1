@@ -56,7 +56,7 @@ namespace PetLover.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarUsuario(Usuarios model)
+        public ActionResult ActualizarUsuario(Usuario model)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace PetLover.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarDatos(Usuarios model)
+        public ActionResult ActualizarDatos(Usuario model)
         {
             try
             {

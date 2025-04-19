@@ -10,7 +10,7 @@ namespace PetLover.Models
 {
     public class Utilitarios
     {
-        public bool EnviarCorreo(Usuarios info, string mensaje, string titulo)
+        public bool EnviarCorreo(Usuario info, string mensaje, string titulo)
         {
                 string cuenta = ConfigurationManager.AppSettings["CorreoNotificaciones"].ToString();
                 string contrasenna = ConfigurationManager.AppSettings["ContrasennaNotificaciones"].ToString();
@@ -36,7 +36,7 @@ namespace PetLover.Models
          
         }
 
-        public string MensajeRecuperacion(Usuarios info, string codigoTemporal)
+        public string MensajeRecuperacion(Usuario info, string codigoTemporal)
         {
             return $@"
             <html>
@@ -65,7 +65,7 @@ namespace PetLover.Models
             </html>";
         }
 
-        public string MensajeCambioAcceso(Usuarios info)
+        public string MensajeCambioAcceso(Usuario info)
         {
             return $@"
             <html>

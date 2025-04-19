@@ -116,7 +116,7 @@ namespace PetLover.Controllers
         }
 
         [HttpPost]
-        public ActionResult ActualizarTratamiento(Tratamientos model)
+        public ActionResult ActualizarTratamiento(Tratamiento model)
         {
             try
             {

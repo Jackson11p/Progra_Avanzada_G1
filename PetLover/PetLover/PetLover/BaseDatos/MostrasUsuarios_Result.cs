@@ -11,13 +11,9 @@ namespace PetLover.BaseDatos
 {
     using System;
     
-    public partial class ConsultarMascotasPorUsuario_Result
+    public partial class MostrasUsuarios_Result
     {
-        public int MascotaID { get; set; }
+        public int UsuarioID { get; set; }
         public string Nombre { get; set; }
-        public string Especie { get; set; }
-        public string Raza { get; set; }
-        public Nullable<System.DateTime> FechaNacimiento { get; set; }
-        public string Imagen { get; set; }
     }
 }
