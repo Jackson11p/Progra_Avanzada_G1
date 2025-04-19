@@ -6,6 +6,7 @@ GO
 USE PetLover;
 GO
 
+select * from perfil
 --Tabla para almacenar los estados
 CREATE TABLE Perfil(
 	PerfilID INT PRIMARY KEY NOT NULL,
@@ -17,7 +18,8 @@ INSERT Perfil (PerfilID, Nombre) VALUES (1, N'Administrador')
 GO
 INSERT Perfil (PerfilID, Nombre) VALUES (2, N'Cliente')
 GO
-
+INSERT Perfil (PerfilID, Nombre) VALUES (3, N'Veterinario')
+GO
 --UPDATE USUARIOS
 --SET IdPerfil = 1
 --WHERE UsuarioID = 3
@@ -51,7 +53,6 @@ ALTER TABLE Usuarios
 ADD CONSTRAINT UQ_Usuarios_Telefono UNIQUE (Telefono);
 GO
 
-SELECT * FROM Usuarios
 
 -- Tabla para almacenar información de las mascotas
 CREATE TABLE Mascotas (
@@ -66,30 +67,24 @@ CREATE TABLE Mascotas (
 );
 GO
 
-SELECT * FROM Mascotas
-
--- Tabla para almacenar información de los veterinarios
-CREATE TABLE Veterinarios (
-    VeterinarioID INT PRIMARY KEY IDENTITY(1,1),
-    Nombre NVARCHAR(100) NOT NULL,
-	Email NVARCHAR(100),
-	Contrasenna varchar(15) NOT NULL, 
-    Telefono NVARCHAR(15),
-	Salario DECIMAL,
-    Especialidad NVARCHAR(100),
-	FechaContradado DATETIME NOT NULL
-);
-GO
-
 -- Tabla para almacenar información de las citas
 CREATE TABLE Citas (
     CitaID INT PRIMARY KEY IDENTITY(1,1),
     FechaHora DATETIME NOT NULL,
     MascotaID INT FOREIGN KEY REFERENCES Mascotas(MascotaID),
-    VeterinarioID INT FOREIGN KEY REFERENCES Veterinarios(VeterinarioID),
-    Descripcion NVARCHAR(MAX)
+    VeterinarioID INT FOREIGN KEY REFERENCES Usuarios(UsuarioID),
+    Descripcion NVARCHAR(MAX),
+	Estado INT FOREIGN KEY REFERENCES EstadosCita(EstadoID),
 );
 GO
+CREATE TABLE EstadosCita (
+    EstadoID INT PRIMARY KEY,
+    Nombre NVARCHAR(50) NOT NULL
+);
+
+-- Insertar Estados cita
+INSERT INTO EstadosCita VALUES (1, 'Pendiente'), (2, 'Completada'), (3, 'Cancelada');
+
 
 -- Tabla para almacenar información de los tratamientos
 CREATE TABLE Tratamientos (
@@ -375,3 +370,74 @@ BEGIN
     WHERE TratamientoID = @TratamientoID;
 END;
 GO
+
+CREATE OR ALTER PROCEDURE ConsultarCitas
+AS
+BEGIN
+    SELECT 
+        c.CitaID,
+        c.FechaHora,
+        m.Nombre AS Mascota,
+        v.Nombre AS Veterinario,
+        c.Descripcion,
+        e.Nombre AS Estado
+    FROM Citas c
+    INNER JOIN Mascotas m ON m.MascotaID = c.MascotaID
+    INNER JOIN Usuarios v ON v.UsuarioID = c.VeterinarioID
+    INNER JOIN EstadosCita e ON e.EstadoID = c.Estado
+    ORDER BY c.FechaHora DESC
+END;
+GO
+
+CREATE OR ALTER PROCEDURE RegistrarCita
+    @FechaHora DATETIME,
+    @MascotaID INT,
+    @VeterinarioID INT,
+    @Descripcion NVARCHAR(MAX),
+    @Estado INT
+AS
+BEGIN
+    
+    IF EXISTS (
+        SELECT 1 FROM Citas
+        WHERE FechaHora = @FechaHora AND VeterinarioID = @VeterinarioID AND Estado = 1 
+    )
+    BEGIN
+        RETURN -1 
+    END
+
+    INSERT INTO Citas (FechaHora, MascotaID, VeterinarioID, Descripcion, Estado)
+    VALUES (@FechaHora, @MascotaID, @VeterinarioID, @Descripcion, @Estado)
+
+    RETURN SCOPE_IDENTITY()
+END
+
+CREATE OR ALTER PROCEDURE CargarVeterinarios
+AS
+BEGIN
+    SELECT UsuarioID, Nombre
+    FROM Usuarios
+	WHERE IdPerfil = 3;
+END;
+GO
+
+select * from Mascotas
+CREATE OR ALTER PROCEDURE CargarMascotas
+AS
+BEGIN
+    SELECT MascotaID, Nombre
+    FROM Mascotas;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE CargarEstadosCita
+AS
+BEGIN
+    SELECT EstadoID, Nombre
+    FROM EstadosCita;
+END;
+GO
+
+
+SELECT * FROM CITAS
+delete from Citas

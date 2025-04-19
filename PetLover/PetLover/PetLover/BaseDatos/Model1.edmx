@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PetLoverModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Citas">
+          <Key>
+            <PropertyRef Name="CitaID" />
+          </Key>
+          <Property Name="CitaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaHora" Type="datetime" Nullable="false" />
+          <Property Name="MascotaID" Type="int" />
+          <Property Name="VeterinarioID" Type="int" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
         <EntityType Name="Error">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,6 +25,13 @@
           <Property Name="Mensaje" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FechaHora" Type="datetime" Nullable="false" />
           <Property Name="Origen" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstadosCita">
+          <Key>
+            <PropertyRef Name="EstadoID" />
+          </Key>
+          <Property Name="EstadoID" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Mascotas">
           <Key>
@@ -58,6 +76,42 @@
           <Property Name="Estado" Type="bit" Nullable="false" />
           <Property Name="IdPerfil" Type="int" />
         </EntityType>
+        <Association Name="FK__Citas__Estado__40058253">
+          <End Role="EstadosCita" Type="Self.EstadosCita" Multiplicity="0..1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadosCita">
+              <PropertyRef Name="EstadoID" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Citas__MascotaID__3E1D39E1">
+          <End Role="Mascotas" Type="Self.Mascotas" Multiplicity="0..1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascotas">
+              <PropertyRef Name="MascotaID" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="MascotaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Citas__Veterinar__3F115E1A">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="VeterinarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Mascotas__IDUsua__160F4887">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
           <End Role="Mascotas" Type="Self.Mascotas" Multiplicity="*" />
@@ -116,8 +170,12 @@
           <Parameter Name="Estado" Type="bit" Mode="In" />
           <Parameter Name="IdPerfil" Type="int" Mode="In" />
         </Function>
+        <Function Name="CargarEstadosCita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CargarMascotas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CargarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CargarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CargarVeterinarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarCitas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarMascotas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarMascotasInactivas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -141,6 +199,13 @@
         </Function>
         <Function Name="MostrarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="MostrasUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="RegistrarCita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FechaHora" Type="datetime" Mode="In" />
+          <Parameter Name="MascotaID" Type="int" Mode="In" />
+          <Parameter Name="VeterinarioID" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
         <Function Name="RegistrarCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Identificacion" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -169,11 +234,25 @@
           <Parameter Name="Estado" Type="bit" Mode="In" />
         </Function>
         <EntityContainer Name="PetLoverModelStoreContainer">
+          <EntitySet Name="Citas" EntityType="Self.Citas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadosCita" EntityType="Self.EstadosCita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mascotas" EntityType="Self.Mascotas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tratamientos" EntityType="Self.Tratamientos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Citas__Estado__40058253" Association="Self.FK__Citas__Estado__40058253">
+            <End Role="EstadosCita" EntitySet="EstadosCita" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Citas__MascotaID__3E1D39E1" Association="Self.FK__Citas__MascotaID__3E1D39E1">
+            <End Role="Mascotas" EntitySet="Mascotas" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Citas__Veterinar__3F115E1A" Association="Self.FK__Citas__Veterinar__3F115E1A">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
           <AssociationSet Name="FK__Mascotas__IDUsua__160F4887" Association="Self.FK__Mascotas__IDUsua__160F4887">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Mascotas" EntitySet="Mascotas" />
@@ -188,6 +267,20 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PetLoverModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cita">
+          <Key>
+            <PropertyRef Name="CitaID" />
+          </Key>
+          <Property Name="CitaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MascotaID" Type="Int32" />
+          <Property Name="VeterinarioID" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="EstadosCita" Relationship="Self.FK__Citas__Estado__40058253" FromRole="Citas" ToRole="EstadosCita" />
+          <NavigationProperty Name="Mascota" Relationship="Self.FK__Citas__MascotaID__3E1D39E1" FromRole="Citas" ToRole="Mascotas" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Citas__Veterinar__3F115E1A" FromRole="Citas" ToRole="Usuarios" />
+        </EntityType>
         <EntityType Name="Error">
           <Key>
             <PropertyRef Name="Id" />
@@ -197,6 +290,14 @@
           <Property Name="Mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Origen" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstadosCita">
+          <Key>
+            <PropertyRef Name="EstadoID" />
+          </Key>
+          <Property Name="EstadoID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK__Citas__Estado__40058253" FromRole="EstadosCita" ToRole="Citas" />
         </EntityType>
         <EntityType Name="Mascota">
           <Key>
@@ -210,6 +311,7 @@
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="IDUsuario" Type="Int32" />
           <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK__Citas__MascotaID__3E1D39E1" FromRole="Mascotas" ToRole="Citas" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Mascotas__IDUsua__160F4887" FromRole="Mascotas" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Perfil">
@@ -242,9 +344,46 @@
           <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="IdPerfil" Type="Int32" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK__Citas__Veterinar__3F115E1A" FromRole="Usuarios" ToRole="Citas" />
           <NavigationProperty Name="Mascotas" Relationship="Self.FK__Mascotas__IDUsua__160F4887" FromRole="Usuarios" ToRole="Mascotas" />
           <NavigationProperty Name="Perfil" Relationship="Self.FK__Usuarios__IdPerf__47DBAE45" FromRole="Usuarios" ToRole="Perfil" />
         </EntityType>
+        <Association Name="FK__Citas__Estado__40058253">
+          <End Role="EstadosCita" Type="Self.EstadosCita" Multiplicity="0..1" />
+          <End Role="Citas" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadosCita">
+              <PropertyRef Name="EstadoID" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Citas__MascotaID__3E1D39E1">
+          <End Role="Mascotas" Type="Self.Mascota" Multiplicity="0..1" />
+          <End Role="Citas" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mascotas">
+              <PropertyRef Name="MascotaID" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="MascotaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Citas__Veterinar__3F115E1A">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Citas" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="VeterinarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Mascotas__IDUsua__160F4887">
           <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Mascotas" Type="Self.Mascota" Multiplicity="*" />
@@ -270,11 +409,25 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PetLoverEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Citas" EntityType="Self.Cita" />
           <EntitySet Name="Errors" EntityType="Self.Error" />
+          <EntitySet Name="EstadosCitas" EntityType="Self.EstadosCita" />
           <EntitySet Name="Mascotas" EntityType="Self.Mascota" />
           <EntitySet Name="Perfils" EntityType="Self.Perfil" />
           <EntitySet Name="Tratamientos" EntityType="Self.Tratamiento" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Citas__Estado__40058253" Association="Self.FK__Citas__Estado__40058253">
+            <End Role="EstadosCita" EntitySet="EstadosCitas" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Citas__MascotaID__3E1D39E1" Association="Self.FK__Citas__MascotaID__3E1D39E1">
+            <End Role="Mascotas" EntitySet="Mascotas" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Citas__Veterinar__3F115E1A" Association="Self.FK__Citas__Veterinar__3F115E1A">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
           <AssociationSet Name="FK__Mascotas__IDUsua__160F4887" Association="Self.FK__Mascotas__IDUsua__160F4887">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Mascotas" EntitySet="Mascotas" />
@@ -317,8 +470,12 @@
             <Parameter Name="Estado" Mode="In" Type="Boolean" />
             <Parameter Name="IdPerfil" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="CargarEstadosCita" ReturnType="Collection(PetLoverModel.CargarEstadosCita_Result)" />
+          <FunctionImport Name="CargarMascotas" ReturnType="Collection(PetLoverModel.CargarMascotas_Result)" />
           <FunctionImport Name="CargarPerfiles" ReturnType="Collection(PetLoverModel.CargarPerfiles_Result)" />
           <FunctionImport Name="CargarUsuarios" ReturnType="Collection(PetLoverModel.CargarUsuarios_Result)" />
+          <FunctionImport Name="CargarVeterinarios" ReturnType="Collection(PetLoverModel.CargarVeterinarios_Result)" />
+          <FunctionImport Name="ConsultarCitas" ReturnType="Collection(PetLoverModel.ConsultarCitas_Result)" />
           <FunctionImport Name="ConsultarClientes" ReturnType="Collection(PetLoverModel.ConsultarClientes_Result)" />
           <FunctionImport Name="ConsultarMascotas" ReturnType="Collection(PetLoverModel.ConsultarMascotas_Result)" />
           <FunctionImport Name="ConsultarMascotasInactivas" ReturnType="Collection(PetLoverModel.ConsultarMascotasInactivas_Result)" />
@@ -342,6 +499,13 @@
           </FunctionImport>
           <FunctionImport Name="MostrarPerfiles" ReturnType="Collection(PetLoverModel.MostrarPerfiles_Result)" />
           <FunctionImport Name="MostrasUsuarios" ReturnType="Collection(PetLoverModel.MostrasUsuarios_Result)" />
+          <FunctionImport Name="RegistrarCita">
+            <Parameter Name="FechaHora" Mode="In" Type="DateTime" />
+            <Parameter Name="MascotaID" Mode="In" Type="Int32" />
+            <Parameter Name="VeterinarioID" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="RegistrarCuenta">
             <Parameter Name="Identificacion" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
@@ -370,6 +534,14 @@
             <Parameter Name="Estado" Mode="In" Type="Boolean" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="CargarEstadosCita_Result">
+          <Property Type="Int32" Name="EstadoID" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="CargarMascotas_Result">
+          <Property Type="Int32" Name="MascotaID" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+        </ComplexType>
         <ComplexType Name="CargarPerfiles_Result">
           <Property Type="Int32" Name="PerfilID" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
@@ -377,6 +549,18 @@
         <ComplexType Name="CargarUsuarios_Result">
           <Property Type="Int32" Name="UsuarioID" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="CargarVeterinarios_Result">
+          <Property Type="Int32" Name="UsuarioID" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="ConsultarCitas_Result">
+          <Property Type="Int32" Name="CitaID" Nullable="false" />
+          <Property Type="DateTime" Name="FechaHora" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Mascota" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Veterinario" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="ConsultarClientes_Result">
           <Property Type="Int32" Name="UsuarioID" Nullable="false" />
@@ -460,6 +644,18 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PetLoverModelStoreContainer" CdmEntityContainer="PetLoverEntities">
+          <EntitySetMapping Name="Citas">
+            <EntityTypeMapping TypeName="PetLoverModel.Cita">
+              <MappingFragment StoreEntitySet="Citas">
+                <ScalarProperty Name="CitaID" ColumnName="CitaID" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+                <ScalarProperty Name="VeterinarioID" ColumnName="VeterinarioID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Errors">
             <EntityTypeMapping TypeName="PetLoverModel.Error">
               <MappingFragment StoreEntitySet="Error">
@@ -468,6 +664,14 @@
                 <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
                 <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
                 <ScalarProperty Name="Origen" ColumnName="Origen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadosCitas">
+            <EntityTypeMapping TypeName="PetLoverModel.EstadosCita">
+              <MappingFragment StoreEntitySet="EstadosCita">
+                <ScalarProperty Name="EstadoID" ColumnName="EstadoID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -523,6 +727,22 @@
           <FunctionImportMapping FunctionImportName="ActualizarMascota" FunctionName="PetLoverModel.Store.ActualizarMascota" />
           <FunctionImportMapping FunctionImportName="ActualizarTratamiento" FunctionName="PetLoverModel.Store.ActualizarTratamiento" />
           <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="PetLoverModel.Store.ActualizarUsuario" />
+          <FunctionImportMapping FunctionImportName="CargarEstadosCita" FunctionName="PetLoverModel.Store.CargarEstadosCita">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.CargarEstadosCita_Result">
+                <ScalarProperty Name="EstadoID" ColumnName="EstadoID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CargarMascotas" FunctionName="PetLoverModel.Store.CargarMascotas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.CargarMascotas_Result">
+                <ScalarProperty Name="MascotaID" ColumnName="MascotaID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CargarPerfiles" FunctionName="PetLoverModel.Store.CargarPerfiles">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PetLoverModel.CargarPerfiles_Result">
@@ -536,6 +756,26 @@
               <ComplexTypeMapping TypeName="PetLoverModel.CargarUsuarios_Result">
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CargarVeterinarios" FunctionName="PetLoverModel.Store.CargarVeterinarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.CargarVeterinarios_Result">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarCitas" FunctionName="PetLoverModel.Store.ConsultarCitas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.ConsultarCitas_Result">
+                <ScalarProperty Name="CitaID" ColumnName="CitaID" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="Mascota" ColumnName="Mascota" />
+                <ScalarProperty Name="Veterinario" ColumnName="Veterinario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -660,6 +900,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RegistrarCita" FunctionName="PetLoverModel.Store.RegistrarCita" />
           <FunctionImportMapping FunctionImportName="RegistrarCuenta" FunctionName="PetLoverModel.Store.RegistrarCuenta" />
           <FunctionImportMapping FunctionImportName="RegistrarError" FunctionName="PetLoverModel.Store.RegistrarError" />
           <FunctionImportMapping FunctionImportName="RegistrarMascota" FunctionName="PetLoverModel.Store.RegistrarMascota" />

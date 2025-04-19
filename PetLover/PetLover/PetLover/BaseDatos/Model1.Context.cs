@@ -27,7 +27,9 @@ namespace PetLover.BaseDatos
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Cita> Citas { get; set; }
         public virtual DbSet<Error> Errors { get; set; }
+        public virtual DbSet<EstadosCita> EstadosCitas { get; set; }
         public virtual DbSet<Mascota> Mascotas { get; set; }
         public virtual DbSet<Perfil> Perfils { get; set; }
         public virtual DbSet<Tratamiento> Tratamientos { get; set; }
@@ -154,6 +156,16 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarUsuario", usuarioIDParameter, identificacionParameter, nombreParameter, correoParameter, telefonoParameter, estadoParameter, idPerfilParameter);
         }
     
+        public virtual ObjectResult<CargarEstadosCita_Result> CargarEstadosCita()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarEstadosCita_Result>("CargarEstadosCita");
+        }
+    
+        public virtual ObjectResult<CargarMascotas_Result> CargarMascotas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarMascotas_Result>("CargarMascotas");
+        }
+    
         public virtual ObjectResult<CargarPerfiles_Result> CargarPerfiles()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarPerfiles_Result>("CargarPerfiles");
@@ -162,6 +174,16 @@ namespace PetLover.BaseDatos
         public virtual ObjectResult<CargarUsuarios_Result> CargarUsuarios()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarUsuarios_Result>("CargarUsuarios");
+        }
+    
+        public virtual ObjectResult<CargarVeterinarios_Result> CargarVeterinarios()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarVeterinarios_Result>("CargarVeterinarios");
+        }
+    
+        public virtual ObjectResult<ConsultarCitas_Result> ConsultarCitas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCitas_Result>("ConsultarCitas");
         }
     
         public virtual ObjectResult<ConsultarClientes_Result> ConsultarClientes()
@@ -254,6 +276,31 @@ namespace PetLover.BaseDatos
         public virtual ObjectResult<MostrasUsuarios_Result> MostrasUsuarios()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrasUsuarios_Result>("MostrasUsuarios");
+        }
+    
+        public virtual int RegistrarCita(Nullable<System.DateTime> fechaHora, Nullable<int> mascotaID, Nullable<int> veterinarioID, string descripcion, Nullable<int> estado)
+        {
+            var fechaHoraParameter = fechaHora.HasValue ?
+                new ObjectParameter("FechaHora", fechaHora) :
+                new ObjectParameter("FechaHora", typeof(System.DateTime));
+    
+            var mascotaIDParameter = mascotaID.HasValue ?
+                new ObjectParameter("MascotaID", mascotaID) :
+                new ObjectParameter("MascotaID", typeof(int));
+    
+            var veterinarioIDParameter = veterinarioID.HasValue ?
+                new ObjectParameter("VeterinarioID", veterinarioID) :
+                new ObjectParameter("VeterinarioID", typeof(int));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarCita", fechaHoraParameter, mascotaIDParameter, veterinarioIDParameter, descripcionParameter, estadoParameter);
         }
     
         public virtual int RegistrarCuenta(string identificacion, string contrasenna, string nombre, string correo, string telefono)

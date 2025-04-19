@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\controllers\\citascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\controllers\\citascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\views\\citas\\registrarcita.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\views\\citas\\registrarcita.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|d:\\patri\\source\\repos\\progra_avanzada_g1\\petlover\\petlover\\petlover\\models\\citamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\models\\citamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\petlover\\basedatos\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
+      "RelativeMoniker": "D:0:0:{9932DA54-0BA9-4FC2-9406-C208A5A995FE}|PetLover\\PetLover.csproj|solutionrelative:petlover\\basedatos\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,20 +30,70 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsuarioController.cs",
-              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\UsuarioController.cs",
-              "RelativeDocumentMoniker": "PetLover\\Controllers\\UsuarioController.cs",
-              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\UsuarioController.cs",
-              "RelativeToolTip": "PetLover\\Controllers\\UsuarioController.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAQwFYAAAAIAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "CitaModel.cs",
+              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\CitaModel.cs",
+              "RelativeDocumentMoniker": "PetLover\\Models\\CitaModel.cs",
+              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Models\\CitaModel.cs",
+              "RelativeToolTip": "PetLover\\Models\\CitaModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T18:18:43.382Z",
+              "WhenOpened": "2025-04-19T16:50:54.453Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Web.config",
+              "RelativeDocumentMoniker": "PetLover\\Web.config",
+              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Web.config",
+              "RelativeToolTip": "PetLover\\Web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-04-18T03:39:56.633Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RegistrarCita.cshtml",
+              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Citas\\RegistrarCita.cshtml",
+              "RelativeDocumentMoniker": "PetLover\\Views\\Citas\\RegistrarCita.cshtml",
+              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Views\\Citas\\RegistrarCita.cshtml",
+              "RelativeToolTip": "PetLover\\Views\\Citas\\RegistrarCita.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACcAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-18T03:27:16.636Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CitasController.cs",
+              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\CitasController.cs",
+              "RelativeDocumentMoniker": "PetLover\\Controllers\\CitasController.cs",
+              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\Controllers\\CitasController.cs",
+              "RelativeToolTip": "PetLover\\Controllers\\CitasController.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAcwLIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-18T01:18:38.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Model1.edmx [Diagram1]",
+              "DocumentMoniker": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\BaseDatos\\Model1.edmx",
+              "RelativeDocumentMoniker": "PetLover\\BaseDatos\\Model1.edmx",
+              "ToolTip": "D:\\patri\\source\\repos\\Progra_Avanzada_G1\\PetLover\\PetLover\\PetLover\\BaseDatos\\Model1.edmx [Diagram1]",
+              "RelativeToolTip": "PetLover\\BaseDatos\\Model1.edmx [Diagram1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001116|",
+              "WhenOpened": "2025-04-18T03:41:02.691Z"
             }
           ]
         }

@@ -1,0 +1,66 @@
+﻿@model List<PetLover.BaseDatos.ConsultarCitas_Result>
+
+@{
+    ViewBag.Title = "ConsultarCitas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="Margen"></div>
+    <h5 class="m-0 font-weight-bold text-primary">Mantenimiento de Citas</h5>
+    @if (TempData["MensajeExito"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["MensajeExito"]
+        </div>
+    }
+    <div class="Margen">
+        <a class="btn btn-primary" href="@Url.Action("RegistrarCita","Citas")"> + Agregar</a>
+    </div>
+
+    <table id="example" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nombre Mascota</th>
+                <th>Veterinario</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Mascota</td>
+                    <td>@item.Veterinario</td>
+                    <td>@item.FechaHora</td>
+                    <td>@item.Estado</td>
+                    <td><a href="@Url.Action("ActualizarCita","Citas", new { q = item.CitaID })"><i class="fa fa-edit"></i></a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>
+<script src="~/Templates/js/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        var table = new DataTable('#example', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json',
+            },
+            columnDefs: [
+                { "className": "dt-left", "targets": "_all" }
+            ]
+        });
+
+    });
+
+</script>
+
+

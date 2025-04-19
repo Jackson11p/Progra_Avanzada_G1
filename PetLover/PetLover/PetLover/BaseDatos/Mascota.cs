@@ -14,6 +14,12 @@ namespace PetLover.BaseDatos
     
     public partial class Mascota
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Mascota()
+        {
+            this.Citas = new HashSet<Cita>();
+        }
+    
         public int MascotaID { get; set; }
         public string Nombre { get; set; }
         public string Especie { get; set; }
@@ -23,6 +29,8 @@ namespace PetLover.BaseDatos
         public Nullable<int> IDUsuario { get; set; }
         public string Imagen { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cita> Citas { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
 }

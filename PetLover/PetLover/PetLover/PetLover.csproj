@@ -128,10 +128,25 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BaseDatos\CargarEstadosCita_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\CargarMascotas_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\CargarPerfiles_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\CargarUsuarios_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\CargarVeterinarios_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\Cita.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\ConsultarCitas_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\ConsultarClientes_Result.cs">
@@ -159,6 +174,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\Error.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\EstadosCita.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\IniciarSesion_Result.cs">
@@ -197,6 +215,7 @@
     <Compile Include="BaseDatos\Usuario.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\MascotaController.cs" />
     <Compile Include="Controllers\PrincipalController.cs" />
     <Compile Include="Controllers\TratamientoController.cs" />
@@ -204,6 +223,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CitaModel.cs" />
     <Compile Include="Models\MascotaModel.cs" />
     <Compile Include="Models\RegistrarErrores.cs" />
     <Compile Include="Models\TratamientoModel.cs" />
@@ -329,6 +349,8 @@
     <Content Include="Views\Mascota\ConsultarMascotasInactivas.cshtml" />
     <Content Include="Views\Tratamiento\ConsultarTratamientosInactivos.cshtml" />
     <Content Include="Views\Mascota\MisMascotas.cshtml" />
+    <Content Include="Views\Citas\ConsultarCitas.cshtml" />
+    <Content Include="Views\Citas\RegistrarCita.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
