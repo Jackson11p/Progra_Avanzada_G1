@@ -1,0 +1,19 @@
+ECHO is on.
+# Archivos de Visual Studio
+.vs/
+*.suo
+*.user
+*.db
+*.vsidx
+
+# Archivos de compilación
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.pdb
+
+# Archivos de Copilot/IntelliCode
+**/CopilotIndices/
+*.db-shm
+*.db-wal
