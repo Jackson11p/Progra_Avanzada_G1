@@ -1,0 +1,62 @@
+﻿@model PetLover.Models.CitaModel
+@{
+    ViewBag.Title = "RegistrarCita";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-3 col-md-2"></div>
+    <div class="col-lg-6 col-md-8">
+
+        <div class="Margen"></div>
+        <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">Registrar Citas</h1>
+        </div>
+
+        @if (ViewBag.Mensaje != null)
+        {
+            <div class="alert alert-warning msjCentrado">
+                @ViewBag.Mensaje
+            </div>
+        }
+
+        @using (Html.BeginForm("RegistrarCita", "Citas"))
+        {
+            <div class="form-group">
+                Mascota
+                @Html.DropDownListFor(x => x.MascotaID, (IEnumerable<SelectListItem>)ViewBag.MascotaCombo, new { @class = "form-control", @Required = "true" })
+            </div>
+            <div class="form-group">
+                Veterinario
+                @Html.DropDownListFor(x => x.VeterinarioID, (IEnumerable<SelectListItem>)ViewBag.VeterinarioCombo, new { @class = "form-control", @Required = "true" })
+            </div>
+            <div class="form-group">
+                Fecha
+                @Html.TextBoxFor(x => x.Fecha, new { @class = "form-control", type = "date", min = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd") })
+            </div>
+            <div class="form-group">
+                Hora
+                @Html.DropDownListFor(x => x.Hora, (IEnumerable<SelectListItem>)ViewBag.Horarios, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                Descripción
+                @Html.TextBoxFor(x => x.Descripcion, new { @class = "form-control form-control-user", @Required = "true" })
+            </div>
+            <div class="form-group">
+                Estado
+                @Html.DropDownListFor(x => x.Estado, (IEnumerable<SelectListItem>)ViewBag.EstadosCitaCombo, new { @class = "form-control", @Required = "true" })
+            </div>
+            <div style="text-align: right; width: 200px">
+                <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar">
+            </div>
+        }
+        <div style="margin-bottom: 50px;"></div>
+    </div>
+</div>
+<div class="Margen text-left">
+    <a href="@Url.Action("ConsultarCitas", "Citas")">
+        <i class="fa fa-backward fa-2x"></i>
+    </a>
+</div>
+
