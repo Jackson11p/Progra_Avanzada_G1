@@ -112,7 +112,7 @@ CREATE TABLE HistorialMedico (
     Fecha DATE NOT NULL,
     Diagnostico NVARCHAR(MAX),
     Tratamiento NVARCHAR(MAX),
-    VeterinarioID INT FOREIGN KEY REFERENCES Veterinarios(VeterinarioID)
+    VeterinarioID INT FOREIGN KEY REFERENCES Usuarios(UsuarioID)
 );
 GO
 
