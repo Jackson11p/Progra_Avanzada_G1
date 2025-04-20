@@ -35,6 +35,35 @@ namespace PetLover.BaseDatos
         public virtual DbSet<Tratamiento> Tratamientos { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
     
+        public virtual int ActualizarCita(Nullable<int> citaID, Nullable<System.DateTime> fechaHora, Nullable<int> mascotaID, Nullable<int> veterinarioID, string descripcion, Nullable<int> estado)
+        {
+            var citaIDParameter = citaID.HasValue ?
+                new ObjectParameter("CitaID", citaID) :
+                new ObjectParameter("CitaID", typeof(int));
+    
+            var fechaHoraParameter = fechaHora.HasValue ?
+                new ObjectParameter("FechaHora", fechaHora) :
+                new ObjectParameter("FechaHora", typeof(System.DateTime));
+    
+            var mascotaIDParameter = mascotaID.HasValue ?
+                new ObjectParameter("MascotaID", mascotaID) :
+                new ObjectParameter("MascotaID", typeof(int));
+    
+            var veterinarioIDParameter = veterinarioID.HasValue ?
+                new ObjectParameter("VeterinarioID", veterinarioID) :
+                new ObjectParameter("VeterinarioID", typeof(int));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarCita", citaIDParameter, fechaHoraParameter, mascotaIDParameter, veterinarioIDParameter, descripcionParameter, estadoParameter);
+        }
+    
         public virtual int ActualizarContrasenna(string correo, string nuevaContrasenna)
         {
             var correoParameter = correo != null ?
@@ -181,9 +210,14 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarVeterinarios_Result>("CargarVeterinarios");
         }
     
-        public virtual ObjectResult<ConsultarCitas_Result> ConsultarCitas()
+        public virtual ObjectResult<ConsultarCitasFuturas_Result> ConsultarCitasFuturas()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCitas_Result>("ConsultarCitas");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCitasFuturas_Result>("ConsultarCitasFuturas");
+        }
+    
+        public virtual ObjectResult<ConsultarCitasPasadasOCanceladas_Result> ConsultarCitasPasadasOCanceladas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCitasPasadasOCanceladas_Result>("ConsultarCitasPasadasOCanceladas");
         }
     
         public virtual ObjectResult<ConsultarClientes_Result> ConsultarClientes()

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using PetLover.BaseDatos;
+using System.Globalization;
+
 
 namespace PetLover.Models
 {
@@ -93,6 +95,59 @@ namespace PetLover.Models
             </html>";
         }
 
+        public string MensajeCitaCreada(Usuario info, DateTime fechaHora, string nombreMascota, string nombreVeterinario)
+        {
+            return $@"
+            <html>
+            <head>
+                <style type='text/css'>
+                body {{ font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }}
+                .container {{ max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }}
+                .header {{ font-size: 24px; color: #000000; margin-bottom: 20px; font-weight: bold; }}
+                .message {{ font-size: 16px; color: #000000; margin: 10px 0; }}
+                .detail {{ font-size: 18px; font-weight: bold; color: #ffffff; background-color: #4CAF50; padding: 10px; border-radius: 4px; text-align: center; }}
+                .footer {{ margin-top: 20px; font-size: 14px; color: #000000; text-align: center; }}
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <div class='header'>Hola {info.Nombre},</div>
+                    <p class='message'>Su cita ha sido registrada exitosamente. Aquí están los detalles:</p>
+                    <p class='message'><strong>Mascota:</strong> {nombreMascota}<br/><strong>Veterinario:</strong> {nombreVeterinario}</p>
+                    <div class='detail'>📅 {fechaHora:dddd, dd MMMM yyyy hh:mm tt}</div>
+                    <div class='footer'>Este es un correo automático, por favor no responda a este mensaje.</div>
+                </div>
+            </body>
+            </html>";
+        }
+
+
+
+        public string MensajeCitaActualizada(Usuario info, DateTime fechaHora, string nombreMascota, string nombreVeterinario)
+        {
+            return $@"
+            <html>
+            <head>
+                <style type='text/css'>
+                body {{ font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }}
+                .container {{ max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }}
+                .header {{ font-size: 24px; color: #000000; margin-bottom: 20px; font-weight: bold; }}
+                .message {{ font-size: 16px; color: #000000; margin: 10px 0; }}
+                .detail {{ font-size: 18px; font-weight: bold; color: #ffffff; background-color: #2196F3; padding: 10px; border-radius: 4px; text-align: center; }}
+                .footer {{ margin-top: 20px; font-size: 14px; color: #000000; text-align: center; }}
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <div class='header'>Hola {info.Nombre},</div>
+                    <p class='message'>La información de su cita ha sido actualizada correctamente.</p>
+                    <p class='message'><strong>Mascota:</strong> {nombreMascota}<br/><strong>Veterinario:</strong> {nombreVeterinario}</p>
+                    <div class='detail'>📅 Nueva fecha y hora: {fechaHora:dddd, dd MMMM yyyy hh:mm tt}</div>
+                    <div class='footer'>Este es un correo automático, por favor no responda a este mensaje.</div>
+                </div>
+            </body>
+            </html>";
+        }
     }
 
 }

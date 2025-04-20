@@ -39,7 +39,6 @@ CREATE TABLE Usuarios (
 	IdPerfil INT FOREIGN KEY REFERENCES Perfil(PerfilID)
 );
 GO
-
 --Agregamos indices a datos unicos en la tabla Usarios
 ALTER TABLE Usuarios
 ADD CONSTRAINT UQ_Usuarios_Identificacion UNIQUE (Identificacion);
@@ -66,7 +65,7 @@ CREATE TABLE Mascotas (
     Imagen NVARCHAR(MAX) NULL
 );
 GO
-
+SELECT * FROM Mascotas
 -- Tabla para almacenar información de las citas
 CREATE TABLE Citas (
     CitaID INT PRIMARY KEY IDENTITY(1,1),
@@ -371,7 +370,27 @@ BEGIN
 END;
 GO
 
-CREATE OR ALTER PROCEDURE ConsultarCitas
+CREATE OR ALTER PROCEDURE ConsultarCitasFuturas
+AS
+BEGIN
+   SELECT 
+        c.CitaID,
+        c.FechaHora,
+        m.Nombre AS Mascota,
+        v.Nombre AS Veterinario,
+        c.Descripcion,
+        e.Nombre AS Estado
+    FROM Citas c
+    INNER JOIN Mascotas m ON m.MascotaID = c.MascotaID
+    INNER JOIN Usuarios v ON v.UsuarioID = c.VeterinarioID
+    INNER JOIN EstadosCita e ON e.EstadoID = c.Estado
+    WHERE c.FechaHora >= CAST(GETDATE() AS DATE) 
+      AND c.Estado = 1 
+    ORDER BY c.FechaHora ASC
+END;
+GO
+
+CREATE OR ALTER PROCEDURE ConsultarCitasPasadasOCanceladas
 AS
 BEGIN
     SELECT 
@@ -385,9 +404,12 @@ BEGIN
     INNER JOIN Mascotas m ON m.MascotaID = c.MascotaID
     INNER JOIN Usuarios v ON v.UsuarioID = c.VeterinarioID
     INNER JOIN EstadosCita e ON e.EstadoID = c.Estado
+    WHERE c.FechaHora < CAST(GETDATE() AS DATE) 
+       OR c.Estado != 1 
     ORDER BY c.FechaHora DESC
 END;
 GO
+
 
 CREATE OR ALTER PROCEDURE RegistrarCita
     @FechaHora DATETIME,
@@ -397,14 +419,26 @@ CREATE OR ALTER PROCEDURE RegistrarCita
     @Estado INT
 AS
 BEGIN
-    
     IF EXISTS (
         SELECT 1 FROM Citas
-        WHERE FechaHora = @FechaHora AND VeterinarioID = @VeterinarioID AND Estado = 1 
+        WHERE FechaHora = @FechaHora 
+          AND VeterinarioID = @VeterinarioID 
+          AND Estado = 1
     )
     BEGIN
         RETURN -1 
     END
+
+    IF EXISTS (
+        SELECT 1 FROM Citas
+        WHERE FechaHora = @FechaHora 
+          AND MascotaID = @MascotaID 
+          AND Estado = 1
+    )
+    BEGIN
+        RETURN -2 
+    END
+
 
     INSERT INTO Citas (FechaHora, MascotaID, VeterinarioID, Descripcion, Estado)
     VALUES (@FechaHora, @MascotaID, @VeterinarioID, @Descripcion, @Estado)
@@ -412,6 +446,50 @@ BEGIN
     RETURN SCOPE_IDENTITY()
 END
 
+CREATE OR ALTER PROCEDURE ActualizarCita
+    @CitaID INT,
+    @FechaHora DATETIME,
+    @MascotaID INT,
+    @VeterinarioID INT,
+    @Descripcion NVARCHAR(MAX),
+    @Estado INT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM Citas
+        WHERE FechaHora = @FechaHora 
+          AND VeterinarioID = @VeterinarioID
+          AND Estado = 1
+          AND CitaID != @CitaID
+    )
+    BEGIN
+        RETURN -1 
+    END
+
+    IF EXISTS (
+        SELECT 1 FROM Citas
+        WHERE FechaHora = @FechaHora 
+          AND MascotaID = @MascotaID
+          AND Estado = 1
+          AND CitaID != @CitaID
+    )
+    BEGIN
+        RETURN -2 
+    END
+
+    UPDATE Citas
+    SET FechaHora = @FechaHora,
+        MascotaID = @MascotaID,
+        VeterinarioID = @VeterinarioID,
+        Descripcion = @Descripcion,
+        Estado = @Estado
+    WHERE CitaID = @CitaID
+
+    RETURN 1 
+END;
+GO
+
+delete from citas
 CREATE OR ALTER PROCEDURE CargarVeterinarios
 AS
 BEGIN
