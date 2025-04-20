@@ -22,13 +22,33 @@ namespace PetLover.Controllers
             {
                 using (var context = new PetLoverEntities())
                 {
-                    var info = context.ConsultarCitas().ToList();
+                    var info = context.ConsultarCitasFuturas().ToList();
                     return View(info);
                 }
             }
             catch (Exception ex)
             {
                 error.RegistrarError(ex.Message, "Get ConsultarCitas");
+                return View("Error");
+            }
+        }
+        #endregion
+
+        #region Consultar Citas Pasadas O Canceladas
+        [HttpGet]
+        public ActionResult ConsultarCitasPasadasOCanceladas()
+        {
+            try
+            {
+                using (var context = new PetLoverEntities())
+                {
+                    var info = context.ConsultarCitasPasadasOCanceladas().ToList();
+                    return View(info);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get ConsultarCitasPasadasOCanceladas");
                 return View("Error");
             }
         }
@@ -65,12 +85,19 @@ namespace PetLover.Controllers
 
                     if (result > 0)
                     {
+                        var mascota = context.Mascotas.Find(model.MascotaID);
+                        var veterinario = context.Usuarios.Find(model.VeterinarioID);
+                        var duenno = context.Usuarios.Find(mascota.IDUsuario);
+
+                        string mensaje = util.MensajeCitaCreada(duenno, fechaHoraCompleta, mascota.Nombre, veterinario.Nombre);
+                        util.EnviarCorreo(duenno, mensaje, "Nueva Cita Registrada - PetLover");
+
                         TempData["MensajeExito"] = "La cita fue registrada exitosamente.";
                         return RedirectToAction("ConsultarCitas", "Citas");
                     }
                     else if (result == -1)
                     {
-                        ViewBag.Mensaje = "El veterinario ya tiene una cita asignada en esa fecha y hora.";
+                        ViewBag.Mensaje = "Ya existe una cita en esa fecha y hora para el veterinario o la mascota.";
                     }
                     else
                     {
@@ -87,6 +114,89 @@ namespace PetLover.Controllers
             catch (Exception ex)
             {
                 error.RegistrarError(ex.Message, "Post RegistrarCita");
+                return View("Error");
+            }
+        }
+        #endregion
+
+        #region Actualizar Citas
+        [HttpGet]
+        public ActionResult ActualizarCita(long q)
+        {
+            try
+            {
+                CargarVeterinarios();
+                CargarMascotas();
+                CargarEstadosCita();
+                CargarHorarios();
+                using (var context = new PetLoverEntities())
+                {
+                    var info = context.Citas.FirstOrDefault(x => x.CitaID == q);
+
+                    if (info == null)
+                        return HttpNotFound();
+
+                    var model = new CitaViewModel
+                    {
+                        CitaID = info.CitaID,
+                        Fecha = info.FechaHora.Date,
+                        Hora = info.FechaHora.ToString("HH:mm"),
+                        MascotaID = info.MascotaID ?? 0,
+                        VeterinarioID = info.VeterinarioID ?? 0,
+                        Descripcion = info.Descripcion,
+                        Estado = info.Estado ?? 1
+                    };
+
+                    return View(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get ActualizarCitas");
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ActualizarCita(CitaViewModel model)
+        {
+            try
+            {
+                using (var context = new PetLoverEntities())
+                {
+                    DateTime fechaHoraCompleta = model.Fecha.Date + TimeSpan.Parse(model.Hora);
+                    var result = context.ActualizarCita(model.CitaID,fechaHoraCompleta, model.MascotaID, model.VeterinarioID, model.Descripcion, model.Estado);
+
+                    if (result > 0)
+                    {
+                        var mascota = context.Mascotas.Find(model.MascotaID);
+                        var veterinario = context.Usuarios.Find(model.VeterinarioID);
+                        var duenno = context.Usuarios.Find(mascota.IDUsuario);
+
+                        string mensaje = util.MensajeCitaActualizada(duenno, fechaHoraCompleta, mascota.Nombre, veterinario.Nombre);
+                        util.EnviarCorreo(duenno, mensaje, "Cita Actualizada - PetLover");
+                        TempData["MensajeExito"] = "La cita fue actualizada exitosamente.";
+                        return RedirectToAction("ConsultarCitas", "Citas");
+                    }
+                    else if (result == -1)
+                    {
+                        ViewBag.Mensaje = "Ya existe una cita en esa fecha y hora para el veterinario o la mascota.";
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "No se pudo actualizar la cita.";
+                    }
+
+                    CargarVeterinarios();
+                    CargarMascotas();
+                    CargarEstadosCita();
+                    CargarHorarios();
+                    return View(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Post ActualizarCita");
                 return View("Error");
             }
         }

@@ -136,6 +136,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ActualizarCita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CitaID" Type="int" Mode="In" />
+          <Parameter Name="FechaHora" Type="datetime" Mode="In" />
+          <Parameter Name="MascotaID" Type="int" Mode="In" />
+          <Parameter Name="VeterinarioID" Type="int" Mode="In" />
+          <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
         <Function Name="ActualizarContrasenna" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="nvarchar" Mode="In" />
           <Parameter Name="NuevaContrasenna" Type="nvarchar" Mode="In" />
@@ -175,7 +183,8 @@
         <Function Name="CargarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CargarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CargarVeterinarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="ConsultarCitas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarCitasFuturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarCitasPasadasOCanceladas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarMascotas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarMascotasInactivas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -436,6 +445,14 @@
             <End Role="Perfil" EntitySet="Perfils" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
+          <FunctionImport Name="ActualizarCita">
+            <Parameter Name="CitaID" Mode="In" Type="Int32" />
+            <Parameter Name="FechaHora" Mode="In" Type="DateTime" />
+            <Parameter Name="MascotaID" Mode="In" Type="Int32" />
+            <Parameter Name="VeterinarioID" Mode="In" Type="Int32" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="ActualizarContrasenna">
             <Parameter Name="Correo" Mode="In" Type="String" />
             <Parameter Name="NuevaContrasenna" Mode="In" Type="String" />
@@ -475,7 +492,8 @@
           <FunctionImport Name="CargarPerfiles" ReturnType="Collection(PetLoverModel.CargarPerfiles_Result)" />
           <FunctionImport Name="CargarUsuarios" ReturnType="Collection(PetLoverModel.CargarUsuarios_Result)" />
           <FunctionImport Name="CargarVeterinarios" ReturnType="Collection(PetLoverModel.CargarVeterinarios_Result)" />
-          <FunctionImport Name="ConsultarCitas" ReturnType="Collection(PetLoverModel.ConsultarCitas_Result)" />
+          <FunctionImport Name="ConsultarCitasFuturas" ReturnType="Collection(PetLoverModel.ConsultarCitasFuturas_Result)" />
+          <FunctionImport Name="ConsultarCitasPasadasOCanceladas" ReturnType="Collection(PetLoverModel.ConsultarCitasPasadasOCanceladas_Result)" />
           <FunctionImport Name="ConsultarClientes" ReturnType="Collection(PetLoverModel.ConsultarClientes_Result)" />
           <FunctionImport Name="ConsultarMascotas" ReturnType="Collection(PetLoverModel.ConsultarMascotas_Result)" />
           <FunctionImport Name="ConsultarMascotasInactivas" ReturnType="Collection(PetLoverModel.ConsultarMascotasInactivas_Result)" />
@@ -554,7 +572,15 @@
           <Property Type="Int32" Name="UsuarioID" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
         </ComplexType>
-        <ComplexType Name="ConsultarCitas_Result">
+        <ComplexType Name="ConsultarCitasFuturas_Result">
+          <Property Type="Int32" Name="CitaID" Nullable="false" />
+          <Property Type="DateTime" Name="FechaHora" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Mascota" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Veterinario" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Descripcion" Nullable="true" />
+          <Property Type="String" Name="Estado" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ConsultarCitasPasadasOCanceladas_Result">
           <Property Type="Int32" Name="CitaID" Nullable="false" />
           <Property Type="DateTime" Name="FechaHora" Nullable="false" Precision="23" />
           <Property Type="String" Name="Mascota" Nullable="false" MaxLength="100" />
@@ -722,6 +748,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ActualizarCita" FunctionName="PetLoverModel.Store.ActualizarCita" />
           <FunctionImportMapping FunctionImportName="ActualizarContrasenna" FunctionName="PetLoverModel.Store.ActualizarContrasenna" />
           <FunctionImportMapping FunctionImportName="ActualizarImagenMascota" FunctionName="PetLoverModel.Store.ActualizarImagenMascota" />
           <FunctionImportMapping FunctionImportName="ActualizarMascota" FunctionName="PetLoverModel.Store.ActualizarMascota" />
@@ -767,9 +794,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ConsultarCitas" FunctionName="PetLoverModel.Store.ConsultarCitas">
+          <FunctionImportMapping FunctionImportName="ConsultarCitasFuturas" FunctionName="PetLoverModel.Store.ConsultarCitasFuturas">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="PetLoverModel.ConsultarCitas_Result">
+              <ComplexTypeMapping TypeName="PetLoverModel.ConsultarCitasFuturas_Result">
+                <ScalarProperty Name="CitaID" ColumnName="CitaID" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="Mascota" ColumnName="Mascota" />
+                <ScalarProperty Name="Veterinario" ColumnName="Veterinario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarCitasPasadasOCanceladas" FunctionName="PetLoverModel.Store.ConsultarCitasPasadasOCanceladas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.ConsultarCitasPasadasOCanceladas_Result">
                 <ScalarProperty Name="CitaID" ColumnName="CitaID" />
                 <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
                 <ScalarProperty Name="Mascota" ColumnName="Mascota" />

@@ -11,7 +11,7 @@ namespace PetLover.BaseDatos
 {
     using System;
     
-    public partial class ConsultarCitas_Result
+    public partial class ConsultarCitasPasadasOCanceladas_Result
     {
         public int CitaID { get; set; }
         public System.DateTime FechaHora { get; set; }

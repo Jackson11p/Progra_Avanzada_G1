@@ -1,4 +1,4 @@
-﻿@model PetLover.BaseDatos.Mascotas
+﻿@model PetLover.BaseDatos.Mascota
 @{
     ViewBag.Title = "ActualizarMascota";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -39,7 +39,8 @@
             </div>
             <div class="form-group">
                 Fecha de Nacimiento
-                @Html.TextBoxFor(x => x.FechaNacimiento, "{0:mm/dd/yyyy}", new { @class = "form-control form-control-user", @type = "date", @Required = "true", @max = DateTime.Now.ToString("yyyy-MM-dd") })
+                @Html.TextBoxFor(x => x.FechaNacimiento, "{0:yyyy-MM-dd}", new { @class = "form-control form-control-user", @type = "date", @Required = "true", @max = DateTime.Now.ToString("yyyy-MM-dd") })
+
             </div>
             <div class="form-group">
                 Propietario
