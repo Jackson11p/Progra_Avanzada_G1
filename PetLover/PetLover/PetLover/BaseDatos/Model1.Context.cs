@@ -28,6 +28,7 @@ namespace PetLover.BaseDatos
         }
     
         public virtual DbSet<Cita> Citas { get; set; }
+        public virtual DbSet<CitaTratamiento> CitaTratamientos { get; set; }
         public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<EstadosCita> EstadosCitas { get; set; }
         public virtual DbSet<Mascota> Mascotas { get; set; }
@@ -62,6 +63,23 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("Estado", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarCita", citaIDParameter, fechaHoraParameter, mascotaIDParameter, veterinarioIDParameter, descripcionParameter, estadoParameter);
+        }
+    
+        public virtual int ActualizarCitaTratamiento(Nullable<int> citaID, Nullable<int> tratamientoID_Anterior, Nullable<int> tratamientoID_Nuevo)
+        {
+            var citaIDParameter = citaID.HasValue ?
+                new ObjectParameter("CitaID", citaID) :
+                new ObjectParameter("CitaID", typeof(int));
+    
+            var tratamientoID_AnteriorParameter = tratamientoID_Anterior.HasValue ?
+                new ObjectParameter("TratamientoID_Anterior", tratamientoID_Anterior) :
+                new ObjectParameter("TratamientoID_Anterior", typeof(int));
+    
+            var tratamientoID_NuevoParameter = tratamientoID_Nuevo.HasValue ?
+                new ObjectParameter("TratamientoID_Nuevo", tratamientoID_Nuevo) :
+                new ObjectParameter("TratamientoID_Nuevo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarCitaTratamiento", citaIDParameter, tratamientoID_AnteriorParameter, tratamientoID_NuevoParameter);
         }
     
         public virtual int ActualizarContrasenna(string correo, string nuevaContrasenna)
@@ -185,6 +203,11 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarUsuario", usuarioIDParameter, identificacionParameter, nombreParameter, correoParameter, telefonoParameter, estadoParameter, idPerfilParameter);
         }
     
+        public virtual ObjectResult<CargarCitas_Result> CargarCitas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarCitas_Result>("CargarCitas");
+        }
+    
         public virtual ObjectResult<CargarEstadosCita_Result> CargarEstadosCita()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarEstadosCita_Result>("CargarEstadosCita");
@@ -198,6 +221,11 @@ namespace PetLover.BaseDatos
         public virtual ObjectResult<CargarPerfiles_Result> CargarPerfiles()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarPerfiles_Result>("CargarPerfiles");
+        }
+    
+        public virtual ObjectResult<CargarTratamientos_Result> CargarTratamientos()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarTratamientos_Result>("CargarTratamientos");
         }
     
         public virtual ObjectResult<CargarUsuarios_Result> CargarUsuarios()
@@ -218,6 +246,11 @@ namespace PetLover.BaseDatos
         public virtual ObjectResult<ConsultarCitasPasadasOCanceladas_Result> ConsultarCitasPasadasOCanceladas()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCitasPasadasOCanceladas_Result>("ConsultarCitasPasadasOCanceladas");
+        }
+    
+        public virtual ObjectResult<ConsultarCitasTratamientos_Result> ConsultarCitasTratamientos()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCitasTratamientos_Result>("ConsultarCitasTratamientos");
         }
     
         public virtual ObjectResult<ConsultarClientes_Result> ConsultarClientes()
@@ -262,6 +295,19 @@ namespace PetLover.BaseDatos
         public virtual ObjectResult<ConsultarUsuarios_Result> ConsultarUsuarios()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarUsuarios_Result>("ConsultarUsuarios");
+        }
+    
+        public virtual int EliminarCitaTratamiento(Nullable<int> citaID, Nullable<int> tratamientoID)
+        {
+            var citaIDParameter = citaID.HasValue ?
+                new ObjectParameter("CitaID", citaID) :
+                new ObjectParameter("CitaID", typeof(int));
+    
+            var tratamientoIDParameter = tratamientoID.HasValue ?
+                new ObjectParameter("TratamientoID", tratamientoID) :
+                new ObjectParameter("TratamientoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarCitaTratamiento", citaIDParameter, tratamientoIDParameter);
         }
     
         public virtual ObjectResult<IniciarSesion_Result> IniciarSesion(string correo, string contrasenna)
@@ -335,6 +381,19 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("Estado", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarCita", fechaHoraParameter, mascotaIDParameter, veterinarioIDParameter, descripcionParameter, estadoParameter);
+        }
+    
+        public virtual int RegistrarCitaTratamiento(Nullable<int> citaID, Nullable<int> tratamientoID)
+        {
+            var citaIDParameter = citaID.HasValue ?
+                new ObjectParameter("CitaID", citaID) :
+                new ObjectParameter("CitaID", typeof(int));
+    
+            var tratamientoIDParameter = tratamientoID.HasValue ?
+                new ObjectParameter("TratamientoID", tratamientoID) :
+                new ObjectParameter("TratamientoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarCitaTratamiento", citaIDParameter, tratamientoIDParameter);
         }
     
         public virtual int RegistrarCuenta(string identificacion, string contrasenna, string nombre, string correo, string telefono)
