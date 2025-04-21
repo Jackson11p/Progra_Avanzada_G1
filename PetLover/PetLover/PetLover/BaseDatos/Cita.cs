@@ -14,6 +14,12 @@ namespace PetLover.BaseDatos
     
     public partial class Cita
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Cita()
+        {
+            this.CitaTratamientos = new HashSet<CitaTratamiento>();
+        }
+    
         public int CitaID { get; set; }
         public System.DateTime FechaHora { get; set; }
         public Nullable<int> MascotaID { get; set; }
@@ -24,5 +30,7 @@ namespace PetLover.BaseDatos
         public virtual EstadosCita EstadosCita { get; set; }
         public virtual Mascota Mascota { get; set; }
         public virtual Usuario Usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CitaTratamiento> CitaTratamientos { get; set; }
     }
 }

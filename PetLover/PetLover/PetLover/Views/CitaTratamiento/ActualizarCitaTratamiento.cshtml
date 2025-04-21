@@ -1,0 +1,62 @@
+﻿@model PetLover.Models.CitaTratamientoModel
+
+@{
+    ViewBag.Title = "ActualizarCitaTratamiento";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+
+        <div class="Margen"></div>
+
+        <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">Actualizar Tratamientos de la Cita</h1>
+        </div>
+
+        @if (ViewBag.Mensaje != null)
+        {
+            <div class="alert alert-warning msjCentrado">
+                @ViewBag.Mensaje
+            </div>
+        }
+
+        @using (Html.BeginForm("ActualizarCitaTratamiento", "CitaTratamiento", FormMethod.Post))
+        {
+            @Html.HiddenFor(x => x.CitaID)
+
+            <div class="form-group text-center">
+                <label>Seleccione los tratamientos:</label>
+                @foreach (var tratamiento in Model.Tratamientos)
+                {
+                    var isChecked = Model.TratamientosSeleccionados != null && Model.TratamientosSeleccionados.Contains(tratamiento.TratamientoID);
+
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox"
+                                   name="TratamientosSeleccionados"
+                                   value="@tratamiento.TratamientoID"
+                                   @(isChecked ? "checked" : "")
+                                   class="form-check-input" />
+                            @tratamiento.Nombre
+                        </label>
+                    </div>
+                }
+            </div>
+
+            <div class="text-right" style="width: 200px; margin: 0 auto;">
+                <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar">
+            </div>
+        }
+
+        <div style="margin-bottom: 50px;"></div>
+    </div>
+</div>
+
+<div class="Margen text-left">
+    <a href="@Url.Action("ConsultarCitasTratamientos", "CitaTratamiento")">
+        <i class="fa fa-backward fa-2x"></i>
+    </a>
+</div>
+
+
+

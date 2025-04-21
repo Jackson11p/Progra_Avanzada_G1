@@ -16,6 +16,15 @@
           <Property Name="Descripcion" Type="nvarchar(max)" />
           <Property Name="Estado" Type="int" />
         </EntityType>
+        <EntityType Name="CitaTratamientos">
+          <Key>
+            <PropertyRef Name="CitaID" />
+            <PropertyRef Name="TratamientoID" />
+          </Key>
+          <Property Name="CitaID" Type="int" Nullable="false" />
+          <Property Name="TratamientoID" Type="int" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
         <EntityType Name="Error">
           <Key>
             <PropertyRef Name="Id" />
@@ -112,6 +121,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__CitaTrata__CitaI__55009F39">
+          <End Role="Citas" Type="Self.Citas" Multiplicity="1" />
+          <End Role="CitaTratamientos" Type="Self.CitaTratamientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Citas">
+              <PropertyRef Name="CitaID" />
+            </Principal>
+            <Dependent Role="CitaTratamientos">
+              <PropertyRef Name="CitaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CitaTrata__Trata__55F4C372">
+          <End Role="Tratamientos" Type="Self.Tratamientos" Multiplicity="1" />
+          <End Role="CitaTratamientos" Type="Self.CitaTratamientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tratamientos">
+              <PropertyRef Name="TratamientoID" />
+            </Principal>
+            <Dependent Role="CitaTratamientos">
+              <PropertyRef Name="TratamientoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Mascotas__IDUsua__160F4887">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
           <End Role="Mascotas" Type="Self.Mascotas" Multiplicity="*" />
@@ -143,6 +176,11 @@
           <Parameter Name="VeterinarioID" Type="int" Mode="In" />
           <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ActualizarCitaTratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CitaID" Type="int" Mode="In" />
+          <Parameter Name="TratamientoID_Anterior" Type="int" Mode="In" />
+          <Parameter Name="TratamientoID_Nuevo" Type="int" Mode="In" />
         </Function>
         <Function Name="ActualizarContrasenna" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="nvarchar" Mode="In" />
@@ -178,13 +216,16 @@
           <Parameter Name="Estado" Type="bit" Mode="In" />
           <Parameter Name="IdPerfil" Type="int" Mode="In" />
         </Function>
+        <Function Name="CargarCitas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CargarEstadosCita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CargarMascotas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CargarPerfiles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CargarTratamientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CargarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CargarVeterinarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarCitasFuturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarCitasPasadasOCanceladas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarCitasTratamientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarMascotas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarMascotasInactivas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -195,6 +236,10 @@
         <Function Name="ConsultarTratamientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarTratamientosInactivos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="EliminarCitaTratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CitaID" Type="int" Mode="In" />
+          <Parameter Name="TratamientoID" Type="int" Mode="In" />
+        </Function>
         <Function Name="IniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -214,6 +259,10 @@
           <Parameter Name="VeterinarioID" Type="int" Mode="In" />
           <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="RegistrarCitaTratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CitaID" Type="int" Mode="In" />
+          <Parameter Name="TratamientoID" Type="int" Mode="In" />
         </Function>
         <Function Name="RegistrarCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Identificacion" Type="varchar" Mode="In" />
@@ -244,6 +293,7 @@
         </Function>
         <EntityContainer Name="PetLoverModelStoreContainer">
           <EntitySet Name="Citas" EntityType="Self.Citas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CitaTratamientos" EntityType="Self.CitaTratamientos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstadosCita" EntityType="Self.EstadosCita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mascotas" EntityType="Self.Mascotas" Schema="dbo" store:Type="Tables" />
@@ -261,6 +311,14 @@
           <AssociationSet Name="FK__Citas__Veterinar__3F115E1A" Association="Self.FK__Citas__Veterinar__3F115E1A">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CitaTrata__CitaI__55009F39" Association="Self.FK__CitaTrata__CitaI__55009F39">
+            <End Role="Citas" EntitySet="Citas" />
+            <End Role="CitaTratamientos" EntitySet="CitaTratamientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CitaTrata__Trata__55F4C372" Association="Self.FK__CitaTrata__Trata__55F4C372">
+            <End Role="Tratamientos" EntitySet="Tratamientos" />
+            <End Role="CitaTratamientos" EntitySet="CitaTratamientos" />
           </AssociationSet>
           <AssociationSet Name="FK__Mascotas__IDUsua__160F4887" Association="Self.FK__Mascotas__IDUsua__160F4887">
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -289,6 +347,18 @@
           <NavigationProperty Name="EstadosCita" Relationship="Self.FK__Citas__Estado__40058253" FromRole="Citas" ToRole="EstadosCita" />
           <NavigationProperty Name="Mascota" Relationship="Self.FK__Citas__MascotaID__3E1D39E1" FromRole="Citas" ToRole="Mascotas" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Citas__Veterinar__3F115E1A" FromRole="Citas" ToRole="Usuarios" />
+          <NavigationProperty Name="CitaTratamientos" Relationship="Self.FK__CitaTrata__CitaI__55009F39" FromRole="Citas" ToRole="CitaTratamientos" />
+        </EntityType>
+        <EntityType Name="CitaTratamiento">
+          <Key>
+            <PropertyRef Name="CitaID" />
+            <PropertyRef Name="TratamientoID" />
+          </Key>
+          <Property Name="CitaID" Type="Int32" Nullable="false" />
+          <Property Name="TratamientoID" Type="Int32" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Cita" Relationship="Self.FK__CitaTrata__CitaI__55009F39" FromRole="CitaTratamientos" ToRole="Citas" />
+          <NavigationProperty Name="Tratamiento" Relationship="Self.FK__CitaTrata__Trata__55F4C372" FromRole="CitaTratamientos" ToRole="Tratamientos" />
         </EntityType>
         <EntityType Name="Error">
           <Key>
@@ -340,6 +410,7 @@
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Costo" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CitaTratamientos" Relationship="Self.FK__CitaTrata__Trata__55F4C372" FromRole="Tratamientos" ToRole="CitaTratamientos" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -393,6 +464,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__CitaTrata__CitaI__55009F39">
+          <End Role="Citas" Type="Self.Cita" Multiplicity="1" />
+          <End Role="CitaTratamientos" Type="Self.CitaTratamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Citas">
+              <PropertyRef Name="CitaID" />
+            </Principal>
+            <Dependent Role="CitaTratamientos">
+              <PropertyRef Name="CitaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CitaTrata__Trata__55F4C372">
+          <End Role="Tratamientos" Type="Self.Tratamiento" Multiplicity="1" />
+          <End Role="CitaTratamientos" Type="Self.CitaTratamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tratamientos">
+              <PropertyRef Name="TratamientoID" />
+            </Principal>
+            <Dependent Role="CitaTratamientos">
+              <PropertyRef Name="TratamientoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Mascotas__IDUsua__160F4887">
           <End Role="Usuarios" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Mascotas" Type="Self.Mascota" Multiplicity="*" />
@@ -419,6 +514,7 @@
         </Association>
         <EntityContainer Name="PetLoverEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Citas" EntityType="Self.Cita" />
+          <EntitySet Name="CitaTratamientos" EntityType="Self.CitaTratamiento" />
           <EntitySet Name="Errors" EntityType="Self.Error" />
           <EntitySet Name="EstadosCitas" EntityType="Self.EstadosCita" />
           <EntitySet Name="Mascotas" EntityType="Self.Mascota" />
@@ -437,6 +533,14 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Citas" EntitySet="Citas" />
           </AssociationSet>
+          <AssociationSet Name="FK__CitaTrata__CitaI__55009F39" Association="Self.FK__CitaTrata__CitaI__55009F39">
+            <End Role="Citas" EntitySet="Citas" />
+            <End Role="CitaTratamientos" EntitySet="CitaTratamientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CitaTrata__Trata__55F4C372" Association="Self.FK__CitaTrata__Trata__55F4C372">
+            <End Role="Tratamientos" EntitySet="Tratamientos" />
+            <End Role="CitaTratamientos" EntitySet="CitaTratamientos" />
+          </AssociationSet>
           <AssociationSet Name="FK__Mascotas__IDUsua__160F4887" Association="Self.FK__Mascotas__IDUsua__160F4887">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Mascotas" EntitySet="Mascotas" />
@@ -452,6 +556,11 @@
             <Parameter Name="VeterinarioID" Mode="In" Type="Int32" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ActualizarCitaTratamiento">
+            <Parameter Name="CitaID" Mode="In" Type="Int32" />
+            <Parameter Name="TratamientoID_Anterior" Mode="In" Type="Int32" />
+            <Parameter Name="TratamientoID_Nuevo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ActualizarContrasenna">
             <Parameter Name="Correo" Mode="In" Type="String" />
@@ -487,13 +596,16 @@
             <Parameter Name="Estado" Mode="In" Type="Boolean" />
             <Parameter Name="IdPerfil" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="CargarCitas" ReturnType="Collection(PetLoverModel.CargarCitas_Result)" />
           <FunctionImport Name="CargarEstadosCita" ReturnType="Collection(PetLoverModel.CargarEstadosCita_Result)" />
           <FunctionImport Name="CargarMascotas" ReturnType="Collection(PetLoverModel.CargarMascotas_Result)" />
           <FunctionImport Name="CargarPerfiles" ReturnType="Collection(PetLoverModel.CargarPerfiles_Result)" />
+          <FunctionImport Name="CargarTratamientos" ReturnType="Collection(PetLoverModel.CargarTratamientos_Result)" />
           <FunctionImport Name="CargarUsuarios" ReturnType="Collection(PetLoverModel.CargarUsuarios_Result)" />
           <FunctionImport Name="CargarVeterinarios" ReturnType="Collection(PetLoverModel.CargarVeterinarios_Result)" />
           <FunctionImport Name="ConsultarCitasFuturas" ReturnType="Collection(PetLoverModel.ConsultarCitasFuturas_Result)" />
           <FunctionImport Name="ConsultarCitasPasadasOCanceladas" ReturnType="Collection(PetLoverModel.ConsultarCitasPasadasOCanceladas_Result)" />
+          <FunctionImport Name="ConsultarCitasTratamientos" ReturnType="Collection(PetLoverModel.ConsultarCitasTratamientos_Result)" />
           <FunctionImport Name="ConsultarClientes" ReturnType="Collection(PetLoverModel.ConsultarClientes_Result)" />
           <FunctionImport Name="ConsultarMascotas" ReturnType="Collection(PetLoverModel.ConsultarMascotas_Result)" />
           <FunctionImport Name="ConsultarMascotasInactivas" ReturnType="Collection(PetLoverModel.ConsultarMascotasInactivas_Result)" />
@@ -504,6 +616,10 @@
           <FunctionImport Name="ConsultarTratamientos" ReturnType="Collection(PetLoverModel.ConsultarTratamientos_Result)" />
           <FunctionImport Name="ConsultarTratamientosInactivos" ReturnType="Collection(PetLoverModel.ConsultarTratamientosInactivos_Result)" />
           <FunctionImport Name="ConsultarUsuarios" ReturnType="Collection(PetLoverModel.ConsultarUsuarios_Result)" />
+          <FunctionImport Name="EliminarCitaTratamiento">
+            <Parameter Name="CitaID" Mode="In" Type="Int32" />
+            <Parameter Name="TratamientoID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="IniciarSesion" ReturnType="Collection(PetLoverModel.IniciarSesion_Result)">
             <Parameter Name="Correo" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
@@ -523,6 +639,10 @@
             <Parameter Name="VeterinarioID" Mode="In" Type="Int32" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RegistrarCitaTratamiento">
+            <Parameter Name="CitaID" Mode="In" Type="Int32" />
+            <Parameter Name="TratamientoID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RegistrarCuenta">
             <Parameter Name="Identificacion" Mode="In" Type="String" />
@@ -552,6 +672,10 @@
             <Parameter Name="Estado" Mode="In" Type="Boolean" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="CargarCitas_Result">
+          <Property Type="Int32" Name="CitaID" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="4000" />
+        </ComplexType>
         <ComplexType Name="CargarEstadosCita_Result">
           <Property Type="Int32" Name="EstadoID" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
@@ -563,6 +687,10 @@
         <ComplexType Name="CargarPerfiles_Result">
           <Property Type="Int32" Name="PerfilID" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="CargarTratamientos_Result">
+          <Property Type="Int32" Name="TratamientoID" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="CargarUsuarios_Result">
           <Property Type="Int32" Name="UsuarioID" Nullable="false" />
@@ -587,6 +715,14 @@
           <Property Type="String" Name="Veterinario" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Descripcion" Nullable="true" />
           <Property Type="String" Name="Estado" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ConsultarCitasTratamientos_Result">
+          <Property Type="Int32" Name="CitaID" Nullable="false" />
+          <Property Type="String" Name="Mascota" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Veterinario" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaHora" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Tratamiento" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="Costo" Nullable="false" Precision="10" Scale="2" />
         </ComplexType>
         <ComplexType Name="ConsultarClientes_Result">
           <Property Type="Int32" Name="UsuarioID" Nullable="false" />
@@ -682,6 +818,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CitaTratamientos">
+            <EntityTypeMapping TypeName="PetLoverModel.CitaTratamiento">
+              <MappingFragment StoreEntitySet="CitaTratamientos">
+                <ScalarProperty Name="CitaID" ColumnName="CitaID" />
+                <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Errors">
             <EntityTypeMapping TypeName="PetLoverModel.Error">
               <MappingFragment StoreEntitySet="Error">
@@ -749,11 +894,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ActualizarCita" FunctionName="PetLoverModel.Store.ActualizarCita" />
+          <FunctionImportMapping FunctionImportName="ActualizarCitaTratamiento" FunctionName="PetLoverModel.Store.ActualizarCitaTratamiento" />
           <FunctionImportMapping FunctionImportName="ActualizarContrasenna" FunctionName="PetLoverModel.Store.ActualizarContrasenna" />
           <FunctionImportMapping FunctionImportName="ActualizarImagenMascota" FunctionName="PetLoverModel.Store.ActualizarImagenMascota" />
           <FunctionImportMapping FunctionImportName="ActualizarMascota" FunctionName="PetLoverModel.Store.ActualizarMascota" />
           <FunctionImportMapping FunctionImportName="ActualizarTratamiento" FunctionName="PetLoverModel.Store.ActualizarTratamiento" />
           <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="PetLoverModel.Store.ActualizarUsuario" />
+          <FunctionImportMapping FunctionImportName="CargarCitas" FunctionName="PetLoverModel.Store.CargarCitas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.CargarCitas_Result">
+                <ScalarProperty Name="CitaID" ColumnName="CitaID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CargarEstadosCita" FunctionName="PetLoverModel.Store.CargarEstadosCita">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PetLoverModel.CargarEstadosCita_Result">
@@ -774,6 +928,14 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="PetLoverModel.CargarPerfiles_Result">
                 <ScalarProperty Name="PerfilID" ColumnName="PerfilID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CargarTratamientos" FunctionName="PetLoverModel.Store.CargarTratamientos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.CargarTratamientos_Result">
+                <ScalarProperty Name="TratamientoID" ColumnName="TratamientoID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -815,6 +977,18 @@
                 <ScalarProperty Name="Veterinario" ColumnName="Veterinario" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarCitasTratamientos" FunctionName="PetLoverModel.Store.ConsultarCitasTratamientos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PetLoverModel.ConsultarCitasTratamientos_Result">
+                <ScalarProperty Name="CitaID" ColumnName="CitaID" />
+                <ScalarProperty Name="Mascota" ColumnName="Mascota" />
+                <ScalarProperty Name="Veterinario" ColumnName="Veterinario" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="Tratamiento" ColumnName="Tratamiento" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -907,6 +1081,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EliminarCitaTratamiento" FunctionName="PetLoverModel.Store.EliminarCitaTratamiento" />
           <FunctionImportMapping FunctionImportName="IniciarSesion" FunctionName="PetLoverModel.Store.IniciarSesion">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PetLoverModel.IniciarSesion_Result">
@@ -940,6 +1115,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarCita" FunctionName="PetLoverModel.Store.RegistrarCita" />
+          <FunctionImportMapping FunctionImportName="RegistrarCitaTratamiento" FunctionName="PetLoverModel.Store.RegistrarCitaTratamiento" />
           <FunctionImportMapping FunctionImportName="RegistrarCuenta" FunctionName="PetLoverModel.Store.RegistrarCuenta" />
           <FunctionImportMapping FunctionImportName="RegistrarError" FunctionName="PetLoverModel.Store.RegistrarError" />
           <FunctionImportMapping FunctionImportName="RegistrarMascota" FunctionName="PetLoverModel.Store.RegistrarMascota" />

@@ -14,10 +14,19 @@ namespace PetLover.BaseDatos
     
     public partial class Tratamiento
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tratamiento()
+        {
+            this.CitaTratamientos = new HashSet<CitaTratamiento>();
+        }
+    
         public int TratamientoID { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public decimal Costo { get; set; }
         public bool Estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CitaTratamiento> CitaTratamientos { get; set; }
     }
 }

@@ -94,6 +94,17 @@ CREATE TABLE Tratamientos (
 	Estado BIT NOT NULL,
 );
 GO
+INSERT INTO Tratamientos (Nombre, Descripcion, Costo, Estado) VALUES
+('Vacunación antirrábica', 'Aplicación de la vacuna contra la rabia.', 15.00, 1),
+('Desparasitación interna', 'Tratamiento para eliminar parásitos intestinales.', 20.00, 1),
+('Desparasitación externa', 'Aplicación tópica para eliminar pulgas y garrapatas.', 18.50, 1),
+('Limpieza dental', 'Limpieza profesional de dientes para prevenir enfermedades bucales.', 45.00, 1),
+('Consulta general', 'Evaluación general del estado de salud de la mascota.', 25.00, 1),
+('Corte de uñas', 'Recorte profesional de uñas para mascotas.', 10.00, 1),
+('Baño medicado', 'Baño especial con shampoo dermatológico para tratar afecciones de piel.', 30.00, 1),
+('Esterilización', 'Cirugía para la esterilización del animal.', 100.00, 1),
+('Vacuna quíntuple', 'Vacuna que previene cinco enfermedades comunes en perros.', 35.00, 1),
+('Ecografía abdominal', 'Ultrasonido para evaluación interna del abdomen.', 60.00, 1);
 
 SELECT * FROM Tratamientos
 
@@ -104,6 +115,8 @@ CREATE TABLE CitaTratamientos (
     PRIMARY KEY (CitaID, TratamientoID)
 );
 GO
+ALTER TABLE CitaTratamientos
+ADD FechaRegistro DATETIME DEFAULT GETDATE();
 
 -- Tabla para almacenar historial médico de las mascotas
 CREATE TABLE HistorialMedico (
@@ -499,7 +512,8 @@ BEGIN
 END;
 GO
 
-select * from Mascotas
+select * from CitaTratamientos
+delete from CitaTratamientos
 CREATE OR ALTER PROCEDURE CargarMascotas
 AS
 BEGIN
@@ -516,6 +530,108 @@ BEGIN
 END;
 GO
 
+CREATE OR ALTER PROCEDURE ConsultarCitasTratamientos
+AS
+BEGIN
+    SELECT 
+        c.CitaID,
+        m.Nombre AS Mascota,
+        v.Nombre AS Veterinario,
+        c.FechaHora,
+        t.Nombre AS Tratamiento,
+        t.Costo
+    FROM CitaTratamientos ct
+    INNER JOIN Citas c ON ct.CitaID = c.CitaID
+    INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
+    INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID AND v.IDPerfil = 3
+    INNER JOIN Tratamientos t ON ct.TratamientoID = t.TratamientoID
+    WHERE 
+        t.Estado = 1
+        AND CAST(c.FechaHora AS DATE) >= CAST(GETDATE() AS DATE)
+    ORDER BY c.CitaID, t.Nombre;
+END;
+GO
 
-SELECT * FROM CITAS
-delete from Citas
+
+
+CREATE OR ALTER PROCEDURE RegistrarCitaTratamiento
+    @CitaID INT,
+    @TratamientoID INT
+AS
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM CitaTratamientos
+        WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID
+    )
+    BEGIN
+        INSERT INTO CitaTratamientos (CitaID, TratamientoID)
+        VALUES (@CitaID, @TratamientoID);
+    END
+END;
+GO
+
+CREATE OR ALTER PROCEDURE ActualizarCitaTratamiento
+    @CitaID INT,
+    @TratamientoID_Anterior INT,
+    @TratamientoID_Nuevo INT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM CitaTratamientos
+        WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Anterior
+    )
+    BEGIN
+        IF NOT EXISTS (
+            SELECT 1 FROM CitaTratamientos
+            WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Nuevo
+        )
+        BEGIN
+            DELETE FROM CitaTratamientos
+            WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Anterior;
+
+            INSERT INTO CitaTratamientos (CitaID, TratamientoID, FechaRegistro)
+            VALUES (@CitaID, @TratamientoID_Nuevo, GETDATE());
+        END
+    END
+END;
+GO
+
+CREATE OR ALTER PROCEDURE EliminarCitaTratamiento
+    @CitaID INT,
+    @TratamientoID INT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM CitaTratamientos
+        WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID
+    )
+    BEGIN
+        DELETE FROM CitaTratamientos
+        WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID;
+    END
+END;
+GO
+
+
+CREATE OR ALTER PROCEDURE CargarTratamientos
+AS
+BEGIN
+    SELECT TratamientoID, Nombre
+    FROM Tratamientos;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE CargarCitas
+AS
+BEGIN
+    SELECT 
+        c.CitaID,
+        m.Nombre + ' - ' + v.Nombre + ' - ' + 
+        FORMAT(c.FechaHora, 'dd/MM/yyyy hh:mm tt') AS Descripcion
+    FROM Citas c
+    INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
+    INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID
+    WHERE c.FechaHora >= CAST(GETDATE() AS DATE)
+    ORDER BY c.FechaHora;
+END;
+GO
