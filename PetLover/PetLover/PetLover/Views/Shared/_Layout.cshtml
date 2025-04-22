@@ -35,7 +35,7 @@
                 <div class="d-inline-flex align-items-center">
                     <div class="d-inline-flex flex-column text-center pr-3 border-right">
                         <h6>Nuestro Horario</h6>
-                        <p class="m-0">8.00AM - 6.00PM</p>
+                        <p class="m-0">Abierto 24 horas</p>
                     </div>
                     <div class="d-inline-flex flex-column text-center px-3 border-right">
                         <h6>Contáctenos</h6>
@@ -80,6 +80,7 @@
                     {
                         <a href="@Url.Action("Index","Principal")" class="nav-item nav-link">Inicio</a>
                         <a href="@Url.Action("Nosotros","Principal")" class="nav-item nav-link">Nosotros</a>
+                        <a href="@Url.Action("Servicios","Principal")" class="nav-item nav-link">Servicios</a>
                         <a href="@Url.Action("MisMascotas","Mascota")" class="nav-item nav-link">Mis Mascotas</a>
                     }
                     else if (Session["IdPerfilUsuario"] != null && Session["IdPerfilUsuario"].ToString() == "3")
@@ -103,7 +104,7 @@
                     {
                         <a href="@Url.Action("Index","Principal")" class="nav-item nav-link">Inicio</a>
                         <a href="@Url.Action("Nosotros","Principal")" class="nav-item nav-link">Nosotros</a>
-                        <a href="@Url.Action("Productos","Principal")" class="nav-item nav-link">Productos</a>
+                        <a href="@Url.Action("Servicios","Principal")" class="nav-item nav-link">Servicios</a>
                     }
                 </div>
                 <div class="navbar-nav ml-auto">
@@ -158,15 +159,15 @@
         <div class="row pt-5">
             <div class="col-lg-4 col-md-12 mb-5">
                 <h1 class="mb-3 display-5 text-capitalize text-white"><span class="text-primary">Pet</span>Lover</h1>
-                <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+                <p class="m-0">En Perlovers, creemos que las mascotas son más que simples compañeros, son parte de nuestra familia.</p>
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="row">
                     <div class="col-md-4 mb-5">
-                        <h5 class="text-primary mb-4">Get In Touch</h5>
-                        <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
-                        <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
-                        <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                        <h5 class="text-primary mb-4">Contactenos</h5>
+                        <p><i class="fa fa-map-marker-alt mr-2"></i>Calle 2 frente a la Escuela del Carmen, Cartago, CR</p>
+                        <p><i class="fa fa-phone-alt mr-2"></i>+506 345 6789</p>
+                        <p><i class="fa fa-envelope mr-2"></i>petlovercr15@gmail.com</p>
                         <div class="d-flex justify-content-start mt-4">
                             <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="#"><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="#"><i class="fab fa-facebook-f"></i></a>
@@ -177,14 +178,12 @@
                     <div class="col-md-4 mb-5">
                         <h5 class="text-primary mb-4">Popular Links</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About Us</a>
-                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Services</a>
-                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Team</a>
-                            <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                            <a class="text-white mb-2" href="@Url.Action("Index","Principal")"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
+                            <a class="text-white mb-2" href="@Url.Action("Nosotros","Principal")"><i class="fa fa-angle-right mr-2"></i>Nosotros</a>
+                            <a class="text-white mb-2" href="@Url.Action("Servicios","Principal")"><i class="fa fa-angle-right mr-2"></i>Nuestros Servicios</a>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-5">
+                    @*<div class="col-md-4 mb-5">
                         <h5 class="text-primary mb-4">Newsletter</h5>
                         <form action="">
                             <div class="form-group">
@@ -197,7 +196,7 @@
                                 <button class="btn btn-lg btn-primary btn-block border-0" type="submit">Submit Now</button>
                             </div>
                         </form>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
