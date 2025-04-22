@@ -31,6 +31,7 @@ namespace PetLover.BaseDatos
         public virtual DbSet<CitaTratamiento> CitaTratamientos { get; set; }
         public virtual DbSet<Error> Errors { get; set; }
         public virtual DbSet<EstadosCita> EstadosCitas { get; set; }
+        public virtual DbSet<HistorialMedico> HistorialMedicoes { get; set; }
         public virtual DbSet<Mascota> Mascotas { get; set; }
         public virtual DbSet<Perfil> Perfils { get; set; }
         public virtual DbSet<Tratamiento> Tratamientos { get; set; }
@@ -208,6 +209,11 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarCitas_Result>("CargarCitas");
         }
     
+        public virtual ObjectResult<CargarCitasParaHistorial_Result> CargarCitasParaHistorial()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarCitasParaHistorial_Result>("CargarCitasParaHistorial");
+        }
+    
         public virtual ObjectResult<CargarEstadosCita_Result> CargarEstadosCita()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CargarEstadosCita_Result>("CargarEstadosCita");
@@ -256,6 +262,11 @@ namespace PetLover.BaseDatos
         public virtual ObjectResult<ConsultarClientes_Result> ConsultarClientes()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarClientes_Result>("ConsultarClientes");
+        }
+    
+        public virtual ObjectResult<ConsultarHistorialMedico_Result> ConsultarHistorialMedico()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarHistorialMedico_Result>("ConsultarHistorialMedico");
         }
     
         public virtual ObjectResult<ConsultarMascotas_Result> ConsultarMascotas()
@@ -358,6 +369,15 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrasUsuarios_Result>("MostrasUsuarios");
         }
     
+        public virtual ObjectResult<Nullable<decimal>> ObtenerMontoTotalCita(Nullable<int> citaID)
+        {
+            var citaIDParameter = citaID.HasValue ?
+                new ObjectParameter("CitaID", citaID) :
+                new ObjectParameter("CitaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("ObtenerMontoTotalCita", citaIDParameter);
+        }
+    
         public virtual int RegistrarCita(Nullable<System.DateTime> fechaHora, Nullable<int> mascotaID, Nullable<int> veterinarioID, string descripcion, Nullable<int> estado)
         {
             var fechaHoraParameter = fechaHora.HasValue ?
@@ -436,6 +456,19 @@ namespace PetLover.BaseDatos
                 new ObjectParameter("Origen", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarError", idUsuarioParameter, mensajeParameter, origenParameter);
+        }
+    
+        public virtual int RegistrarHistorialMedico(Nullable<int> citaID, string diagnostico)
+        {
+            var citaIDParameter = citaID.HasValue ?
+                new ObjectParameter("CitaID", citaID) :
+                new ObjectParameter("CitaID", typeof(int));
+    
+            var diagnosticoParameter = diagnostico != null ?
+                new ObjectParameter("Diagnostico", diagnostico) :
+                new ObjectParameter("Diagnostico", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarHistorialMedico", citaIDParameter, diagnosticoParameter);
         }
     
         public virtual int RegistrarMascota(string nombre, string especie, string raza, Nullable<System.DateTime> fechaNacimiento, Nullable<bool> estado, Nullable<int> iDUsuario, string imagen)

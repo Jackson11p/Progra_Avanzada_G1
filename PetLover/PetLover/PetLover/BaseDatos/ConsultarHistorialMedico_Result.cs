@@ -10,15 +10,15 @@
 namespace PetLover.BaseDatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class HistorialMedico
+    public partial class ConsultarHistorialMedico_Result
     {
         public int HistorialID { get; set; }
         public Nullable<int> CitaID { get; set; }
+        public string NombreMascota { get; set; }
+        public string NombreVeterinario { get; set; }
+        public System.DateTime FechaCita { get; set; }
         public string Diagnostico { get; set; }
         public decimal MontoTotal { get; set; }
-    
-        public virtual Cita Cita { get; set; }
     }
 }

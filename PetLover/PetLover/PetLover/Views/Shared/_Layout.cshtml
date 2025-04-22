@@ -71,6 +71,7 @@
                                 <a href="@Url.Action("ConsultarTratamientos","Tratamiento")" class="dropdown-item">Tratamientos</a>
                                 <a href="@Url.Action("ConsultarCitas","Citas")" class="dropdown-item">Citas</a>
                                 <a href="@Url.Action("ConsultarCitasTratamientos","CitaTratamiento")" class="dropdown-item">Citas Tratamientos</a>
+                                <a href="@Url.Action("ConsultarHistorialMedico","HistorialMedico")" class="dropdown-item">Historial Medico</a>
                             </div>
                         </div>
                         <a href="@Url.Action("MisMascotas","Mascota")" class="nav-item nav-link">Mis Mascotas</a>
@@ -217,7 +218,7 @@
             </div>
         </div>
     </div>
-
+    @RenderSection("Scripts", required: false)
     <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

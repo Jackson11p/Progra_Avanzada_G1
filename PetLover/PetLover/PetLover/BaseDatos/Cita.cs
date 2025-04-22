@@ -18,6 +18,7 @@ namespace PetLover.BaseDatos
         public Cita()
         {
             this.CitaTratamientos = new HashSet<CitaTratamiento>();
+            this.HistorialMedicoes = new HashSet<HistorialMedico>();
         }
     
         public int CitaID { get; set; }
@@ -32,5 +33,7 @@ namespace PetLover.BaseDatos
         public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CitaTratamiento> CitaTratamientos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HistorialMedico> HistorialMedicoes { get; set; }
     }
 }

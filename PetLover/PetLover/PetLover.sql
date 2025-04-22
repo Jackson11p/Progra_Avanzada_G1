@@ -117,18 +117,18 @@ CREATE TABLE CitaTratamientos (
 GO
 ALTER TABLE CitaTratamientos
 ADD FechaRegistro DATETIME DEFAULT GETDATE();
-delete from CitaTratamientos
 SELECT * FROM CitaTratamientos
+
 -- Tabla para almacenar historial médico de las mascotas
 CREATE TABLE HistorialMedico (
     HistorialID INT PRIMARY KEY IDENTITY(1,1),
-    MascotaID INT FOREIGN KEY REFERENCES Mascotas(MascotaID),
-    Fecha DATE NOT NULL,
+    CitaID INT FOREIGN KEY REFERENCES Citas(CitaID),
     Diagnostico NVARCHAR(MAX),
-    Tratamiento NVARCHAR(MAX),
-    VeterinarioID INT FOREIGN KEY REFERENCES Usuarios(UsuarioID)
+    MontoTotal DECIMAL(10,2) NOT NULL
 );
 GO
+
+
 
 --Tabla para almacenar los errores
 CREATE TABLE Error(
@@ -423,7 +423,7 @@ BEGIN
     ORDER BY c.FechaHora DESC
 END;
 GO
-
+select * from EstadosCita
 
 CREATE OR ALTER PROCEDURE RegistrarCita
     @FechaHora DATETIME,
@@ -549,6 +549,9 @@ BEGIN
     WHERE 
         t.Estado = 1
         AND CAST(c.FechaHora AS DATE) >= CAST(GETDATE() AS DATE)
+        AND c.CitaID NOT IN (
+            SELECT CitaID FROM HistorialMedico
+        )
     ORDER BY c.CitaID, t.Nombre;
 END;
 GO
@@ -579,7 +582,6 @@ AS
 BEGIN
     IF @TratamientoID_Anterior = 0
     BEGIN
-        -- Solo agregar si no existe
         IF NOT EXISTS (
             SELECT 1 FROM CitaTratamientos
             WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Nuevo
@@ -591,7 +593,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        -- Reemplazo tradicional
+
         IF EXISTS (
             SELECT 1 FROM CitaTratamientos
             WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Anterior
@@ -650,6 +652,7 @@ BEGIN
     INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
     INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID
     WHERE c.FechaHora >= CAST(GETDATE() AS DATE)
+      AND c.Estado = 2 
       AND NOT EXISTS (
           SELECT 1
           FROM CitaTratamientos ct
@@ -659,3 +662,103 @@ BEGIN
 END;
 GO
 
+--CREATE OR ALTER PROCEDURE CargarCitas
+--AS
+--BEGIN
+--    SELECT 
+--        c.CitaID,
+--        m.Nombre + ' - ' + v.Nombre + ' - ' + 
+--        FORMAT(c.FechaHora, 'dd/MM/yyyy hh:mm tt') AS Descripcion
+--    FROM Citas c
+--    INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
+--    INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID
+--    WHERE c.FechaHora >= CAST(GETDATE() AS DATE)
+--      AND NOT EXISTS (
+--          SELECT 1
+--          FROM CitaTratamientos ct
+--          WHERE ct.CitaID = c.CitaID
+--      )
+--    ORDER BY c.FechaHora;
+--END;
+--GO
+
+CREATE OR ALTER PROCEDURE ConsultarHistorialMedico
+AS
+BEGIN
+    SELECT 
+        h.HistorialID,
+        h.CitaID,
+        m.Nombre AS NombreMascota,
+        v.Nombre AS NombreVeterinario,
+        c.FechaHora AS FechaCita,
+        h.Diagnostico,
+        h.MontoTotal
+    FROM HistorialMedico h
+    INNER JOIN Citas c ON h.CitaID = c.CitaID
+    INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
+    INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID
+    ORDER BY c.FechaHora DESC, h.HistorialID DESC;
+END;
+GO
+
+
+CREATE OR ALTER PROCEDURE RegistrarHistorialMedico
+    @CitaID INT,
+    @Diagnostico NVARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @MontoTotal DECIMAL(10, 2);
+
+    SELECT @MontoTotal = SUM(t.Costo)
+    FROM CitaTratamientos ct
+    INNER JOIN Tratamientos t ON ct.TratamientoID = t.TratamientoID
+    WHERE ct.CitaID = @CitaID AND t.Estado = 1;
+
+    IF @MontoTotal IS NULL
+    BEGIN
+        RAISERROR('La cita no tiene tratamientos activos asociados.', 16, 1);
+        RETURN;
+    END
+
+    INSERT INTO HistorialMedico (CitaID, Diagnostico, MontoTotal)
+    VALUES (@CitaID, @Diagnostico, @MontoTotal);
+END;
+GO
+
+
+CREATE OR ALTER PROCEDURE CargarCitasParaHistorial
+AS
+BEGIN
+    SELECT 
+        c.CitaID,
+        m.Nombre + ' - ' + v.Nombre + ' - ' + 
+        FORMAT(c.FechaHora, 'dd/MM/yyyy hh:mm tt') AS Descripcion
+    FROM Citas c
+    INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
+    INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID AND v.IDPerfil = 3
+    WHERE 
+        EXISTS (
+            SELECT 1
+            FROM CitaTratamientos ct
+            INNER JOIN Tratamientos t ON ct.TratamientoID = t.TratamientoID
+            WHERE ct.CitaID = c.CitaID AND t.Estado = 1
+        )
+        AND NOT EXISTS (
+            SELECT 1 FROM HistorialMedico h WHERE h.CitaID = c.CitaID
+        )
+        --AND CAST(c.FechaHora AS DATE) <= CAST(GETDATE() AS DATE)
+    ORDER BY c.FechaHora;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE ObtenerMontoTotalCita
+    @CitaID INT
+AS
+BEGIN
+    SELECT 
+        SUM(t.Costo) AS MontoTotal
+    FROM CitaTratamientos ct
+    INNER JOIN Tratamientos t ON ct.TratamientoID = t.TratamientoID
+    WHERE ct.CitaID = @CitaID;
+END;
+GO

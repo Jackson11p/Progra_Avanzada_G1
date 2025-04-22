@@ -1,0 +1,83 @@
+﻿@model PetLover.Models.HistorialMedicoViewModel
+@{
+    ViewBag.Title = "RegistrarHistorialMedico";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-3 col-md-2"></div>
+    <div class="col-lg-6 col-md-8">
+
+        <div class="Margen"></div>
+        <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">Registrar Historial Médico</h1>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-warning msjCentrado">
+                @ViewBag.Error
+            </div>
+        }
+
+        @using (Html.BeginForm("RegistrarHistorialMedico", "HistorialMedico", FormMethod.Post))
+        {
+            <div class="form-group">
+                Cita
+                @Html.DropDownListFor(x => x.CitaID, (IEnumerable<SelectListItem>)ViewBag.Citahistorialcombo, new { @class = "form-control", id = "citaDropdown", @required = "required" })
+            </div>
+
+            <div class="form-group">
+                Diagnóstico
+                @Html.TextAreaFor(x => x.Diagnostico, new { @class = "form-control", rows = 3, @required = "required" })
+            </div>
+
+            <div class="form-group">
+                Monto Total
+                @Html.TextBoxFor(x => x.MontoTotal, new { @class = "form-control", id = "montoTotal", @readonly = "readonly" })
+            </div>
+
+            <div style="text-align: right; width: 200px">
+                <input type="submit" class="btn btn-danger btn-user btn-block" value="Procesar" />
+            </div>
+        }
+    </div>
+</div>
+<div class="Margen text-left mt-3">
+    <a href="@Url.Action("ConsultarHistorialMedico", "HistorialMedico")">
+        <i class="fa fa-backward fa-2x"></i>
+    </a>
+</div>
+<script src="~/Templates/js/jquery.min.js"></script>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#citaDropdown').change(function () {
+                var citaID = $(this).val();
+
+                if (citaID !== "") {
+                    $.ajax({
+                        url: '@Url.Action("ObtenerMontoPorCita", "HistorialMedico")',
+                        type: 'GET',
+                        data: { citaID: citaID },
+                        success: function (response) {
+                            if (response.monto !== undefined) {
+                                $('#montoTotal').val(response.monto.toFixed(2));
+                            } else {
+                                $('#montoTotal').val("0.00");
+                            }
+                        },
+                        error: function () {
+                            $('#montoTotal').val("0.00");
+                            alert("Ocurrió un error al obtener el monto.");
+                        }
+                    });
+                } else {
+                    $('#montoTotal').val("");
+                }
+            });
+        });
+    </script>
+}
+
+
+

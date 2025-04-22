@@ -10,15 +10,10 @@
 namespace PetLover.BaseDatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class HistorialMedico
+    public partial class CargarCitasParaHistorial_Result
     {
-        public int HistorialID { get; set; }
-        public Nullable<int> CitaID { get; set; }
-        public string Diagnostico { get; set; }
-        public decimal MontoTotal { get; set; }
-    
-        public virtual Cita Cita { get; set; }
+        public int CitaID { get; set; }
+        public string Descripcion { get; set; }
     }
 }

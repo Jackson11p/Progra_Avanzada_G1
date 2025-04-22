@@ -20,8 +20,10 @@ namespace PetLover.Controllers
             {
                 using (var context = new PetLoverEntities())
                 {
-                    var info = context.ConsultarCitasTratamientos().ToList();
-                    return View(info);
+                    var citas = context.Database.SqlQuery<CitaTratamientoViewModel>(
+                        "EXEC ConsultarCitasTratamientos").ToList();
+
+                    return View(citas);
                 }
             }
             catch (Exception ex)
@@ -30,6 +32,7 @@ namespace PetLover.Controllers
                 return View("Error");
             }
         }
+
         #endregion
 
         #region Registrar Cita Tratamiento
