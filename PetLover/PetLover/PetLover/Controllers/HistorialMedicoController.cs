@@ -11,6 +11,7 @@ namespace PetLover.Controllers
 {
     public class HistorialMedicoController : Controller
     {
+        Utilitarios util = new Utilitarios();
         RegistroErrores error = new RegistroErrores();
 
         #region Ver Historial Medico
@@ -61,6 +62,23 @@ namespace PetLover.Controllers
                     var result = context.RegistrarHistorialMedico(model.CitaID, model.Diagnostico);
                     if (result > 0)
                     {
+                        var cita = context.Citas.Find(model.CitaID);
+                        var mascota = context.Mascotas.Find(cita.MascotaID);
+                        var veterinario = context.Usuarios.Find(cita.VeterinarioID);
+                        var duenno = context.Usuarios.Find(mascota.IDUsuario);
+
+
+                        string mensaje = util.MensajeHistorialMedicoRegistrado(
+                            duenno,
+                            cita.FechaHora,
+                            mascota.Nombre,
+                            veterinario.Nombre,
+                            model.Diagnostico,
+                            model.MontoTotal
+                        );
+
+                        util.EnviarCorreo(duenno, mensaje, "Historial Médico Registrado - PetLover");
+                        
                         TempData["MensajeExito"] = "Historial médico registrado correctamente.";
                         return RedirectToAction("ConsultarHistorialMedico", "HistorialMedico");
                     }
