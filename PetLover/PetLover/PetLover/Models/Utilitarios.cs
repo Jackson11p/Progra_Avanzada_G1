@@ -148,11 +148,9 @@ namespace PetLover.Models
                         <strong>Tratamientos aplicados:</strong><br/>
                         {tratamientosHtml}
                     </div>
-
                     <div class='code' style='margin-top: 15px;'>
-                        Total: {montoTotal.ToString("C", new System.Globalization.CultureInfo("es-CR"))}
+                         Total: {montoTotal.ToString("C", new System.Globalization.CultureInfo("en-US"))}
                     </div>
-
                     <p class='message'>
                         Puede consultar este historial en cualquier momento en nuestra clínica.
                     </p>

@@ -51,7 +51,8 @@ GO
 ALTER TABLE Usuarios
 ADD CONSTRAINT UQ_Usuarios_Telefono UNIQUE (Telefono);
 GO
-
+delete from CitaTratamientos
+delete from HistorialMedico
 -- Tabla para almacenar información de las mascotas
 CREATE TABLE Mascotas (
     MascotaID INT PRIMARY KEY IDENTITY(1,1),
