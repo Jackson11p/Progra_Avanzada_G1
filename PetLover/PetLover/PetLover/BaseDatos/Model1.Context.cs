@@ -254,6 +254,15 @@ namespace PetLover.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCitasPasadasOCanceladas_Result>("ConsultarCitasPasadasOCanceladas");
         }
     
+        public virtual ObjectResult<ConsultarCitasPorVeterinario_Result> ConsultarCitasPorVeterinario(Nullable<int> usuarioID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCitasPorVeterinario_Result>("ConsultarCitasPorVeterinario", usuarioIDParameter);
+        }
+    
         public virtual ObjectResult<ConsultarCitasTratamientos_Result> ConsultarCitasTratamientos()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCitasTratamientos_Result>("ConsultarCitasTratamientos");

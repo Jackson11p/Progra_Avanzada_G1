@@ -86,6 +86,18 @@
                     {
                         <a href="@Url.Action("Index","Principal")" class="nav-item nav-link">Inicio</a>
                         <a href="@Url.Action("Nosotros","Principal")" class="nav-item nav-link">Nosotros</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Acciones</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="@Url.Action("ConsultarMascotas","Mascota")" class="dropdown-item">Mascotas</a>
+                                <a href="@Url.Action("ConsultarTratamientos","Tratamiento")" class="dropdown-item">Tratamientos</a>
+                                <a href="@Url.Action("ConsultarCitas","Citas")" class="dropdown-item">Citas</a>
+                                <a href="@Url.Action("ConsultarCitasTratamientos","CitaTratamiento")" class="dropdown-item">Citas Tratamientos</a>
+                                <a href="@Url.Action("ConsultarHistorialMedico","HistorialMedico")" class="dropdown-item">Historial Medico</a>
+                            </div>
+                        </div>
+                        <a href="@Url.Action("ConsultarCitasPorVeterinario","Citas")" class="nav-item nav-link">Citas Pendientes</a>
+
                     }
                     else
                     {

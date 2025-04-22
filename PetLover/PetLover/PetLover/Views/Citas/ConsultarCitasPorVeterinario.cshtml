@@ -1,0 +1,90 @@
+﻿@model List<PetLover.BaseDatos.ConsultarCitasPorVeterinario_Result>
+
+@{
+    ViewBag.Title = "Mis Citas Pendientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="Margen"></div>
+    <h5 class="m-0 font-weight-bold text-primary">Mis Citas Pendientes</h5>
+
+    @if (TempData["MensajeExito"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["MensajeExito"]
+        </div>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row mt-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm border-0 rounded-lg">
+                        <div class="card-header bg-light">
+                            <h5 class="card-title mb-0 text-center text-primary">
+                                <i class="fas fa-paw mr-2"></i>@item.Mascota
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-user mr-2 text-muted"></i>
+                                <span class="text-dark">@item.Dueño</span>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-dog mr-2 text-muted"></i>
+                                <span class="text-dark">@item.Especie / @item.Raza</span>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="far fa-calendar-alt mr-2 text-muted"></i>
+                                <span class="text-dark">@item.FechaHora.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("es-ES"))</span>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-4">
+                                <i class="far fa-clock mr-2 text-muted"></i>
+                                <span class="text-dark">@item.FechaHora.ToString("hh:mm tt")</span>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(item.Descripcion))
+                            {
+                                <div class="alert alert-light mb-4">
+                                    <p class="card-text mb-0">
+                                        <i class="fas fa-info-circle mr-2"></i>@item.Descripcion
+                                    </p>
+                                </div>
+                            }
+
+                            <!-- Botones de acción -->
+                            <div class="d-flex justify-content-between mt-auto">
+                                <a href="@Url.Action("ActualizarCita","Citas", new { q = item.CitaID })"
+                                   class="btn btn-outline-primary btn-sm flex-grow-1 mr-2">
+                                    <i class="fas fa-edit mr-1"></i> Actualizar Estado
+                                </a>
+                                <a href="@Url.Action("ActualizarCitaTratamiento","CitaTratamiento", new { q = item.CitaID })"
+                                   class="btn btn-outline-success btn-sm flex-grow-1">
+                                    <i class="fas fa-prescription-bottle-alt mr-1"></i> Registrar Tratamientos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-5" role="alert">
+            <h4 class="alert-heading">¡No tienes citas pendientes!</h4>
+            <p>No hay citas programadas para mostrar.</p>
+            <hr>
+            <div class="text-center">
+                <i class="far fa-calendar-check fa-3x text-muted mb-3"></i>
+            </div>
+        </div>
+    }
+</div>
+

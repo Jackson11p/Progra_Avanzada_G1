@@ -34,6 +34,27 @@ namespace PetLover.Controllers
         }
         #endregion
 
+        #region Ver Citas por Veterinario
+        [HttpGet]
+        public ActionResult ConsultarCitasPorVeterinario()
+        {
+            try
+            {
+                using (var context = new PetLoverEntities())
+                {
+                    int idSesion = int.Parse(Session["IdUsuario"].ToString());
+                    var info = context.ConsultarCitasPorVeterinario(idSesion).ToList();
+                    return View(info);
+                }
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get ConsultarCitasPorVeterinario");
+                return View("Error");
+            }
+        }
+        #endregion
+
         #region Consultar Citas Pasadas O Canceladas
         [HttpGet]
         public ActionResult ConsultarCitasPasadasOCanceladas()

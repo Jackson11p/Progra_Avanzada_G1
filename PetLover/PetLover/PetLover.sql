@@ -52,7 +52,6 @@ ALTER TABLE Usuarios
 ADD CONSTRAINT UQ_Usuarios_Telefono UNIQUE (Telefono);
 GO
 
-
 -- Tabla para almacenar información de las mascotas
 CREATE TABLE Mascotas (
     MascotaID INT PRIMARY KEY IDENTITY(1,1),
@@ -65,7 +64,10 @@ CREATE TABLE Mascotas (
     Imagen NVARCHAR(MAX) NULL
 );
 GO
-SELECT * FROM Mascotas
+SELECT * FROM Citas
+UPDATE Citas
+SET Estado = 1
+WHERE CitaID = 11
 -- Tabla para almacenar información de las citas
 CREATE TABLE Citas (
     CitaID INT PRIMARY KEY IDENTITY(1,1),
@@ -530,7 +532,6 @@ BEGIN
     FROM EstadosCita;
 END;
 GO
-
 CREATE OR ALTER PROCEDURE ConsultarCitasTratamientos
 AS
 BEGIN
@@ -546,15 +547,39 @@ BEGIN
     INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
     INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID AND v.IDPerfil = 3
     INNER JOIN Tratamientos t ON ct.TratamientoID = t.TratamientoID
+    LEFT JOIN HistorialMedico hm ON c.CitaID = hm.CitaID
     WHERE 
         t.Estado = 1
         AND CAST(c.FechaHora AS DATE) >= CAST(GETDATE() AS DATE)
-        AND c.CitaID NOT IN (
-            SELECT CitaID FROM HistorialMedico
-        )
+        AND hm.CitaID IS NULL 
     ORDER BY c.CitaID, t.Nombre;
 END;
 GO
+select * from citas
+--CREATE OR ALTER PROCEDURE ConsultarCitasTratamientos
+--AS
+--BEGIN
+--    SELECT 
+--        c.CitaID,
+--        m.Nombre AS Mascota,
+--        v.Nombre AS Veterinario,
+--        c.FechaHora,
+--        t.Nombre AS Tratamiento,
+--        t.Costo
+--    FROM CitaTratamientos ct
+--    INNER JOIN Citas c ON ct.CitaID = c.CitaID
+--    INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
+--    INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID AND v.IDPerfil = 3
+--    INNER JOIN Tratamientos t ON ct.TratamientoID = t.TratamientoID
+--    WHERE 
+--        t.Estado = 1
+--        AND CAST(c.FechaHora AS DATE) >= CAST(GETDATE() AS DATE)
+--        AND c.CitaID NOT IN (
+--            SELECT CitaID FROM HistorialMedico
+--        )
+--    ORDER BY c.CitaID, t.Nombre;
+--END;
+--GO
 
 
 
@@ -762,3 +787,62 @@ BEGIN
     WHERE ct.CitaID = @CitaID;
 END;
 GO
+
+CREATE OR ALTER PROCEDURE ConsultarCitasPorVeterinario
+    @UsuarioID INT
+AS
+BEGIN
+    SELECT 
+        c.CitaID,
+        m.Nombre AS Mascota,
+        cl.Nombre AS Dueño,
+        m.Especie,
+        m.Raza,
+        c.FechaHora,
+        c.Descripcion,
+        c.Estado,
+        CASE 
+            WHEN c.Estado = 1 THEN 'Pendiente'
+            WHEN c.Estado = 2 THEN 'Completada'
+            WHEN c.Estado = 3 THEN 'Cancelada'
+        END AS EstadoDescripcion
+    FROM Citas c
+    INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
+    INNER JOIN Usuarios cl ON m.IDUsuario = cl.UsuarioID
+    INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID
+    LEFT JOIN CitaTratamientos ct ON c.CitaID = ct.CitaID
+    WHERE 
+        c.VeterinarioID = @UsuarioID
+        AND v.IdPerfil = 3  
+        AND c.Estado IN (1, 2)  
+        AND CAST(c.FechaHora AS DATE) >= CAST(GETDATE() AS DATE)  
+        AND ct.CitaID IS NULL  
+    ORDER BY 
+        c.Estado, 
+        c.FechaHora ASC;  
+END;
+GO
+--CREATE OR ALTER PROCEDURE ConsultarCitasPorVeterinario
+--    @UsuarioID INT
+--AS
+--BEGIN
+--    SELECT 
+--        c.CitaID,
+--        m.Nombre AS Mascota,
+--        cl.Nombre AS Dueño,
+--        m.Especie,
+--        m.Raza,
+--        c.FechaHora,
+--        c.Descripcion
+--    FROM Citas c
+--    INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
+--    INNER JOIN Usuarios cl ON m.IDUsuario = cl.UsuarioID
+--    INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID
+--    WHERE 
+--        c.VeterinarioID = @UsuarioID
+--        AND v.IdPerfil = 3  
+--        AND c.Estado = 1   
+--        AND CAST(c.FechaHora AS DATE) >= CAST(GETDATE() AS DATE)  
+--    ORDER BY c.FechaHora ASC;
+--END;
+--GO

@@ -164,6 +164,9 @@
     <Compile Include="BaseDatos\ConsultarCitasPasadasOCanceladas_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\ConsultarCitasPorVeterinario_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\ConsultarCitasTratamientos_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -390,6 +393,7 @@
     <Content Include="Views\Principal\Productos.cshtml" />
     <Content Include="Views\HistorialMedico\ConsultarHistorialMedico.cshtml" />
     <Content Include="Views\HistorialMedico\RegistrarHistorialMedico.cshtml" />
+    <Content Include="Views\Citas\ConsultarCitasPorVeterinario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

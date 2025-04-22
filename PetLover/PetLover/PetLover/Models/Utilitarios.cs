@@ -93,10 +93,6 @@ namespace PetLover.Models
             </html>";
         }
 
-
-
-
-
         public string MensajeCitaActualizada(Usuario info, DateTime fechaHora, string nombreMascota, string nombreVeterinario)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-CR");
