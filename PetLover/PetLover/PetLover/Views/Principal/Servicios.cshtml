@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<style>
+    .ho:hover {
+        text-shadow: none;
+        box-sizing: border-box;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        transform: scale(1.1);
+        z-index: 2;
+    }
+
+</style>*@
+
+<div class="container-fluid">
+    <div class="Margen"></div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-4 mb-4 ho p-4">
+                <div class="card p-4">
+                    <img class="card-img-top" src="~/Templates/img/consulta-veterinaria-1.jpg" style="height: 300px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fa fa-stethoscope mb-3 rounded fa-2x text-o-color-3 bg-o-color-2"></i>
+                        <h4 class="card-title">Consulta Veterinaria</h4>
+                        <p class="card-text">Durante la consulta estaremos revisando por completo a tu mascota enfocándonos en el motivo principal de la visita pero sin descuidar los demás aspectos de la salud de ese miembro tan especial de la familia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 ho p-4">
+                <div class="card p-4">
+                    <img class="card-img-top" src="~/Templates/img/veterinarios_urgencias_24_horas_65_orig.jpg" style="height: 300px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fa fa-hospital mb-3 rounded fa-2x text-o-color-3 bg-o-color-2"></i>
+                        <h4 class="card-title">Emergencias 24 Horas</h4>
+                        <p class="card-text">Para esos momentos de desesperación, contamos con personal para poder atenderlos sin dudar en la emergencia que se les presente, pueden llamar las veces que sean necesarias. Tel. Emergencias (506) 345 6789</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 ho p-4">
+                <div class="card p-4">
+                    <img class="card-img-top" src="~/Templates/img/terapia_veterinaria.jpg" style="height: 300px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fa fa-user-md mb-3 rounded fa-2x text-o-color-3 bg-o-color-2"></i>
+                        <h4 class="card-title">Consulta Especializada</h4>
+                        <p class="card-text">Contamos con especialistas en Ortopedia, Fisioterapia, Terapia de Células Madre, Oftalmología, Cardiología, Terapia Física y más. Que brindan consulta externa en nuestras instalaciones con cita previa.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 ho p-4">
+                <div class="card p-4">
+                    <img class="card-img-top" src="~/Templates/img/consulta_especializada.jpg" style="height: 300px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fa fa-heartbeat mb-3 rounded fa-2x text-o-color-3 bg-o-color-2"></i>
+                        <h4 class="card-title">Ultrasonido, Rayos X Digital y Laboratorio</h4>
+                        <p class="card-text">Contamos con equipo necesario para obtener un diagnóstico presuntivo o definitivo en menos de 30 minutos a cualquier hora.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 ho p-4">
+                <div class="card p-4">
+                    <img class="card-img-top" src="~/Templates/img/farmacia_veterinaria.jpg" style="height: 300px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fa fa-medkit mb-3 rounded fa-2x text-o-color-3 bg-o-color-2"></i>
+                        <h4 class="card-title">Farmacia Veterinaria</h4>
+                        <p class="card-text">Ofrecemos los medicamentos básicos para que puedas obtener lo más importante del tratamiento en un mismo lugar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 ho p-4">
+                <div class="card p-4">
+                    <img class="card-img-top" src="~/Templates/img/veterinaria_domicilio.jpg" style="height: 300px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fa fa-ambulance mb-3 rounded fa-2x text-o-color-3 bg-o-color-2"></i>
+                        <h4 class="card-title">Servicio Veterinario a Domicilio</h4>
+                        <p class="card-text">Contamos con servicio a domicilio. Contáctanos para coordinar tu visita.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 ho p-4">
+                <div class="card p-4">
+                    <img class="card-img-top" src="~/Templates/img/seguros.jpg" style="height: 300px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fa fa-briefcase mb-3 rounded fa-2x text-o-color-3 bg-o-color-2"></i>
+                        <h4 class="card-title">Seguro para Mascotas</h4>
+                        <p class="card-text">Que la salud de tu mascota no te tome desprevenido! Contamos con seguro para cuidar y mantener la salud de tu mascota.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 ho p-4">
+                <div class="card p-4">
+                    <img class="card-img-top" src="~/Templates/img/adopcion.jpg" style="height: 300px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fa fa-paw mb-3 rounded fa-2x text-o-color-3 bg-o-color-2"></i>
+                        <h4 class="card-title">Adopciones</h4>
+                        <p class="card-text">Ven a nuestras instalaciones y mira las mascotas que tenemos disponibles para adopción.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4 ho p-4">
+                <div class="card p-4">
+                    <img class="card-img-top" src="~/Templates/img/grooming.jpg" style="height: 300px; object-fit: cover;" alt="Card image cap">
+                    <div class="card-body" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="fa fa-cut mb-3 rounded fa-2x text-o-color-3 bg-o-color-2"></i>
+                        <h4 class="card-title">Grooming</h4>
+                        <p class="card-text">Todo lo necesario para que nuestros queridos peluditos se vean más hermosos de lo que ya son. Además realizamos tratamientos especiales para problemas de piel cuando es requerido.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

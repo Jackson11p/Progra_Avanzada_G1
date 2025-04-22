@@ -44,7 +44,7 @@ namespace PetLover.Controllers
         }
 
         [HttpGet]
-        public ActionResult Productos()
+        public ActionResult Servicios()
         {
             try
             {
