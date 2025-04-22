@@ -68,17 +68,24 @@ namespace PetLover.Controllers
                         var duenno = context.Usuarios.Find(mascota.IDUsuario);
 
 
+                        var tratamientos = (from ct in context.CitaTratamientos
+                                            join t in context.Tratamientos on ct.TratamientoID equals t.TratamientoID
+                                            where ct.CitaID == model.CitaID
+                                            select t.Nombre).ToList();
+
+
                         string mensaje = util.MensajeHistorialMedicoRegistrado(
-                            duenno,
-                            cita.FechaHora,
-                            mascota.Nombre,
-                            veterinario.Nombre,
-                            model.Diagnostico,
-                            model.MontoTotal
-                        );
+                                duenno,
+                                cita.FechaHora,
+                                mascota.Nombre,
+                                veterinario.Nombre,
+                                model.Diagnostico,
+                                model.MontoTotal,
+                                tratamientos
+                            );
 
                         util.EnviarCorreo(duenno, mensaje, "Historial Médico Registrado - PetLover");
-                        
+
                         TempData["MensajeExito"] = "Historial médico registrado correctamente.";
                         return RedirectToAction("ConsultarHistorialMedico", "HistorialMedico");
                     }
@@ -97,6 +104,7 @@ namespace PetLover.Controllers
                 return View(model);
             }
         }
+
         #endregion
 
         #region Obtener monto por cita

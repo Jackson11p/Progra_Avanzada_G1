@@ -186,16 +186,22 @@ namespace PetLover.Controllers
                 using (var context = new PetLoverEntities())
                 {
                     DateTime fechaHoraCompleta = model.Fecha.Date + TimeSpan.Parse(model.Hora);
-                    var result = context.ActualizarCita(model.CitaID,fechaHoraCompleta, model.MascotaID, model.VeterinarioID, model.Descripcion, model.Estado);
+                    var result = context.ActualizarCita(model.CitaID, fechaHoraCompleta, model.MascotaID, model.VeterinarioID, model.Descripcion, model.Estado);
 
                     if (result > 0)
                     {
+                        // Obtener el nombre del estado de la cita
+                        var estadoNombre = context.EstadosCitas
+                            .Where(e => e.EstadoID == model.Estado)
+                            .Select(e => e.Nombre)
+                            .FirstOrDefault();
+
                         var mascota = context.Mascotas.Find(model.MascotaID);
                         var veterinario = context.Usuarios.Find(model.VeterinarioID);
                         var duenno = context.Usuarios.Find(mascota.IDUsuario);
-
-                        string mensaje = util.MensajeCitaActualizada(duenno, fechaHoraCompleta, mascota.Nombre, veterinario.Nombre);
+                        string mensaje = util.MensajeCitaActualizada(duenno, fechaHoraCompleta, mascota.Nombre, veterinario.Nombre, estadoNombre);
                         util.EnviarCorreo(duenno, mensaje, "Cita Actualizada - PetLover");
+
                         TempData["MensajeExito"] = "La cita fue actualizada exitosamente.";
                         return RedirectToAction("ConsultarCitas", "Citas");
                     }
@@ -221,6 +227,7 @@ namespace PetLover.Controllers
                 return View("Error");
             }
         }
+
         #endregion
 
         #region Cargar Veterinarios

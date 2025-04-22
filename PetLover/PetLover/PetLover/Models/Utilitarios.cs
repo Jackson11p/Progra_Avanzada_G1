@@ -93,9 +93,10 @@ namespace PetLover.Models
             </html>";
         }
 
-        public string MensajeCitaActualizada(Usuario info, DateTime fechaHora, string nombreMascota, string nombreVeterinario)
+        public string MensajeCitaActualizada(Usuario info, DateTime fechaHora, string nombreMascota, string nombreVeterinario, string estadoCita)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-CR");
+
             return $@"
             <html>
             <head>{EstilosCorreo}</head>
@@ -103,7 +104,11 @@ namespace PetLover.Models
                 <div class='container'>
                     <div class='header'>Hola {info.Nombre},</div>
                     <p class='message'>La información de su cita ha sido actualizada correctamente.</p>
-                    <p class='message'><strong>Mascota:</strong> {nombreMascota}<br/><strong>Veterinario:</strong> {nombreVeterinario}</p>
+                    <p class='message'>
+                        <strong>Mascota:</strong> {nombreMascota}<br/>
+                        <strong>Veterinario:</strong> {nombreVeterinario}<br/>
+                        <strong>Estado:</strong> {estadoCita}
+                    </p>
                     <div class='detail'>📅 Nueva fecha y hora: {fechaHora:dddd, dd MMMM yyyy hh:mm tt}</div>
                     <div class='footer'>Este es un correo automático, por favor no responda a este mensaje.</div>
                 </div>
@@ -111,48 +116,47 @@ namespace PetLover.Models
             </html>";
         }
 
+
         public string MensajeHistorialMedicoRegistrado(Usuario info, DateTime fechaHora,
-                                             string nombreMascota, string nombreVeterinario,
-                                             string diagnostico, decimal montoTotal)
+                                     string nombreMascota, string nombreVeterinario,
+                                     string diagnostico, decimal montoTotal, List<string> tratamientos)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-CR");
+
+            string tratamientosHtml = string.Join("<br/>", tratamientos.Select(t => $"- {t}"));
+
             return $@"
             <html>
-            <head>
-                <style>
-                    body {{ font-family: Arial, sans-serif; background-color: #f4f4f4; color: #000000; margin: 0; padding: 0; }}
-                    .container {{ max-width: 600px; margin: 20px auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }}
-                    .header {{ font-size: 24px; color: #000000; margin-bottom: 20px; font-weight: bold; }}
-                    .message {{ font-size: 16px; color: #000000; margin: 10px 0; }}
-                    .detail {{ font-size: 16px; color: #ffffff; background-color: #ED6436; padding: 10px; border-radius: 4px; text-align: left; margin: 15px 0; }}
-                    .amount {{ font-size: 18px; font-weight: bold; color: #ffffff; background-color: #ED6436; padding: 10px; border-radius: 4px; text-align: center; margin-top: 15px; }}
-                    .footer {{ margin-top: 20px; font-size: 14px; color: #000000; text-align: center; }}
-                </style>
-            </head>
+            <head>{EstilosCorreo}</head>
             <body>
                 <div class='container'>
                     <div class='header'>Hola {info.Nombre},</div>
                     <p class='message'>El historial médico de su mascota ha sido registrado exitosamente.</p>
-            
+
                     <p class='message'>
                         <strong>Mascota:</strong> {nombreMascota}<br/>
                         <strong>Veterinario:</strong> {nombreVeterinario}<br/>
                         <strong>Fecha de la consulta:</strong> {fechaHora:dddd, dd MMMM yyyy}
                     </p>
-            
+
                     <div class='detail'>
                         <strong>Diagnóstico:</strong><br/>
                         {diagnostico}
                     </div>
-            
-                    <div class='amount'>
+
+                    <div class='detail' style='margin-top: 10px;'>
+                        <strong>Tratamientos aplicados:</strong><br/>
+                        {tratamientosHtml}
+                    </div>
+
+                    <div class='code' style='margin-top: 15px;'>
                         Total: {montoTotal.ToString("C", new System.Globalization.CultureInfo("es-CR"))}
                     </div>
-            
+
                     <p class='message'>
                         Puede consultar este historial en cualquier momento en nuestra clínica.
                     </p>
-            
+
                     <div class='footer'>
                         Este es un correo automático, por favor no responda a este mensaje.<br/>
                         PetLover - Centro Veterinario
@@ -161,6 +165,7 @@ namespace PetLover.Models
             </body>
             </html>";
         }
+
 
         private const string EstilosCorreo = @"
             <style>
