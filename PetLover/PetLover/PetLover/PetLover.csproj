@@ -375,6 +375,7 @@
     <Content Include="Views\CitaTratamiento\ConsultarCitasTratamientos.cshtml" />
     <Content Include="Views\CitaTratamiento\RegistrarCitaTratamiento.cshtml" />
     <Content Include="Views\CitaTratamiento\ActualizarCitaTratamiento.cshtml" />
+    <Content Include="Views\Principal\Productos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

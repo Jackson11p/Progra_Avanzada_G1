@@ -16,7 +16,6 @@ namespace PetLover.Controllers
     {
         RegistroErrores error = new RegistroErrores();
         Utilitarios util = new Utilitarios();
-        // GET: Principal
         public ActionResult Index()
         {
             try
@@ -44,6 +43,20 @@ namespace PetLover.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Productos()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                error.RegistrarError(ex.Message, "Get Nosotros");
+                return View("Error");
+            }
+        }
+      
         #region RegistrarCuenta
         [HttpGet]
         public ActionResult Register()
