@@ -117,7 +117,8 @@ CREATE TABLE CitaTratamientos (
 GO
 ALTER TABLE CitaTratamientos
 ADD FechaRegistro DATETIME DEFAULT GETDATE();
-
+delete from CitaTratamientos
+SELECT * FROM CitaTratamientos
 -- Tabla para almacenar historial médico de las mascotas
 CREATE TABLE HistorialMedico (
     HistorialID INT PRIMARY KEY IDENTITY(1,1),
@@ -576,25 +577,42 @@ CREATE OR ALTER PROCEDURE ActualizarCitaTratamiento
     @TratamientoID_Nuevo INT
 AS
 BEGIN
-    IF EXISTS (
-        SELECT 1 FROM CitaTratamientos
-        WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Anterior
-    )
+    IF @TratamientoID_Anterior = 0
     BEGIN
+        -- Solo agregar si no existe
         IF NOT EXISTS (
             SELECT 1 FROM CitaTratamientos
             WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Nuevo
         )
         BEGIN
-            DELETE FROM CitaTratamientos
-            WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Anterior;
-
             INSERT INTO CitaTratamientos (CitaID, TratamientoID, FechaRegistro)
             VALUES (@CitaID, @TratamientoID_Nuevo, GETDATE());
         END
     END
+    ELSE
+    BEGIN
+        -- Reemplazo tradicional
+        IF EXISTS (
+            SELECT 1 FROM CitaTratamientos
+            WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Anterior
+        )
+        BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM CitaTratamientos
+                WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Nuevo
+            )
+            BEGIN
+                DELETE FROM CitaTratamientos
+                WHERE CitaID = @CitaID AND TratamientoID = @TratamientoID_Anterior;
+
+                INSERT INTO CitaTratamientos (CitaID, TratamientoID, FechaRegistro)
+                VALUES (@CitaID, @TratamientoID_Nuevo, GETDATE());
+            END
+        END
+    END
 END;
 GO
+
 
 CREATE OR ALTER PROCEDURE EliminarCitaTratamiento
     @CitaID INT,
@@ -632,6 +650,12 @@ BEGIN
     INNER JOIN Mascotas m ON c.MascotaID = m.MascotaID
     INNER JOIN Usuarios v ON c.VeterinarioID = v.UsuarioID
     WHERE c.FechaHora >= CAST(GETDATE() AS DATE)
+      AND NOT EXISTS (
+          SELECT 1
+          FROM CitaTratamientos ct
+          WHERE ct.CitaID = c.CitaID
+      )
     ORDER BY c.FechaHora;
 END;
 GO
+
